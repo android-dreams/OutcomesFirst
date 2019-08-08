@@ -1,0 +1,35 @@
+﻿@model IEnumerable<OutcomesFirst.Models.RegionalManager>
+
+@{
+    ViewData["Title"] = "Regionasl Managers";
+}
+
+<h1>Regional Managers</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegionalManagerName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RegionalManagerId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RegionalManagerId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RegionalManagerId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

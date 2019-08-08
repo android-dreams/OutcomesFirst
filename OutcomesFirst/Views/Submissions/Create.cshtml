@@ -1,0 +1,67 @@
+﻿@model OutcomesFirst.ViewModels.SubmissionIndexData
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Services</h4>
+<hr />
+
+<body>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="inline">
+                 ID                         Gender                                 Age            Local Authority
+                 Date Received
+                </div>
+                <div class="inline">
+                    <input asp-for="MVReferralId" class="form-control-static" asp-items="ViewBag.MVReferralId" readonly></>
+                    <input asp-for="MVReferralName" class="form-control-static" asp-items="ViewBag.MVReferralName" readonly></>
+                </div>
+
+                <div class="form-group">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                               <th>
+                                    Services
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Services)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ServiceName)
+
+                                    </td>
+                                    <td>
+                                        <input asp-for="MVIsChecked" name="Submission.IsChecked" type="checkbox" value="@item.ServiceId" /> <br />
+                                        @* <input asp-for="Referral.ReferralName" name="submissionIndexData.Submission.IsChecked" type="checkbox" value="@item.ServiceId" /> <br />*@
+                                        @*<input asp-for="Submission.IsChecked" class="checkbox"  asp-items="@item.ServiceId">*@
+
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                 </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</body>

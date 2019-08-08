@@ -1,0 +1,51 @@
+﻿@model IEnumerable<OutcomesFirst.Models.ArchiveReason>
+
+@{
+    ViewData["Title"] = "Archive Reaasons";
+}
+
+<h1>Archive Reasons</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ArchiveReasonName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArchiveDecisionBy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArchiveReasonName)
+            </td>
+            <td>
+               
+               
+            </td>
+            @*<td>
+                @Html.TextBox("ArchiveDecisionBy", new List<SelectListItem>
+                {
+                    new SelectListItem{ Text="Our Decision", Value = "1" },
+                    new SelectListItem{ Text="Local Authority Decision", Value = "2" },
+                    new SelectListItem{ Text="Parent Decision/Other", Value = "3" },
+                    new SelectListItem{ Text="Withdrawn", Value = "4" }
+                 })*@
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ArchiveReasonId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ArchiveReasonId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ArchiveReasonId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

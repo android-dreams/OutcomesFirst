@@ -1,0 +1,80 @@
+﻿@model OutcomesFirst.Models.ArchiveReferral
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ArchiveReferral</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ArchiveReferralName" class="control-label"></label>
+                <input asp-for="ArchiveReferralName" class="form-control" />
+                <span asp-validation-for="ArchiveReferralName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArchiveReferralGenderId" class="control-label"></label>
+                <input asp-for="ArchiveReferralGenderId" class="form-control" />
+                <span asp-validation-for="ArchiveReferralGenderId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArchiveReferralLocalAuthorityId" class="control-label"></label>
+                <input asp-for="ArchiveReferralLocalAuthorityId" class="form-control" />
+                <span asp-validation-for="ArchiveReferralLocalAuthorityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArchiveReferralReceivedDate" class="control-label"></label>
+                <input asp-for="ArchiveReferralReceivedDate" class="form-control" />
+                <span asp-validation-for="ArchiveReferralReceivedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArchiveReferralAge" class="control-label"></label>
+                <input asp-for="ArchiveReferralAge" class="form-control" />
+                <span asp-validation-for="ArchiveReferralAge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArchiveReferralComments" class="control-label"></label>
+                <input asp-for="ArchiveReferralComments" class="form-control" />
+                <span asp-validation-for="ArchiveReferralComments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArchiveReferralStatusId" class="control-label"></label>
+                <input asp-for="ArchiveReferralStatusId" class="form-control" />
+                <span asp-validation-for="ArchiveReferralStatusId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArchiveReferralSuitable" class="control-label"></label>
+                <input asp-for="ArchiveReferralSuitable" class="form-control" />
+                <span asp-validation-for="ArchiveReferralSuitable" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArchiveReferralArchiveReasonId" class="control-label"></label>
+                <input asp-for="ArchiveReferralArchiveReasonId" class="form-control" />
+                <span asp-validation-for="ArchiveReferralArchiveReasonId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArchiveReferralSuitableComments" class="control-label"></label>
+                <input asp-for="ArchiveReferralSuitableComments" class="form-control" />
+                <span asp-validation-for="ArchiveReferralSuitableComments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArchiveReferralNotSuitableComments" class="control-label"></label>
+                <input asp-for="ArchiveReferralNotSuitableComments" class="form-control" />
+                <span asp-validation-for="ArchiveReferralNotSuitableComments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

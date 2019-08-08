@@ -1,0 +1,122 @@
+﻿@model OutcomesFirst.Models.Occupancy
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Occupancy</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="OccupancyRefId" class="control-label"></label>
+                <input asp-for="OccupancyRefId" class="form-control" />
+                <span asp-validation-for="OccupancyRefId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyFirstName" class="control-label"></label>
+                <input asp-for="OccupancyFirstName" class="form-control" />
+                <span asp-validation-for="OccupancyFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyLastName" class="control-label"></label>
+                <input asp-for="OccupancyLastName" class="form-control" />
+                <span asp-validation-for="OccupancyLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyGenderId" class="control-label"></label>
+                <select asp-for="OccupancyGenderId" class ="form-control" asp-items="ViewBag.OccupancyGenderId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyType" class="control-label"></label>
+                <input asp-for="OccupancyType" class="form-control" />
+                <span asp-validation-for="OccupancyType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyServiceTransition" class="control-label"></label>
+                <input asp-for="OccupancyServiceTransition" class="form-control" />
+                <span asp-validation-for="OccupancyServiceTransition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyServiceId" class="control-label"></label>
+                <select asp-for="OccupancyServiceId" class ="form-control" asp-items="ViewBag.OccupancyServiceId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyDateStartedWithGroup" class="control-label"></label>
+                <input asp-for="OccupancyDateStartedWithGroup" class="form-control" />
+                <span asp-validation-for="OccupancyDateStartedWithGroup" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyPlacementStartDate" class="control-label"></label>
+                <input asp-for="OccupancyPlacementStartDate" class="form-control" />
+                <span asp-validation-for="OccupancyPlacementStartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyDOB" class="control-label"></label>
+                <input asp-for="OccupancyDOB" class="form-control" />
+                <span asp-validation-for="OccupancyDOB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyAgeAtLeaving" class="control-label"></label>
+                <input asp-for="OccupancyAgeAtLeaving" class="form-control" />
+                <span asp-validation-for="OccupancyAgeAtLeaving" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyLocalAuthorityId" class="control-label"></label>
+                <select asp-for="OccupancyLocalAuthorityId" class ="form-control" asp-items="ViewBag.OccupancyLocalAuthorityId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyFramework" class="control-label"></label>
+                <input asp-for="OccupancyFramework" class="form-control" />
+                <span asp-validation-for="OccupancyFramework" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyWeeklyFee" class="control-label"></label>
+                <input asp-for="OccupancyWeeklyFee" class="form-control" />
+                <span asp-validation-for="OccupancyWeeklyFee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyLengthOfStayWithGroup" class="control-label"></label>
+                <input asp-for="OccupancyLengthOfStayWithGroup" class="form-control" />
+                <span asp-validation-for="OccupancyLengthOfStayWithGroup" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyLengthOfStayWithPlacement" class="control-label"></label>
+                <input asp-for="OccupancyLengthOfStayWithPlacement" class="form-control" />
+                <span asp-validation-for="OccupancyLengthOfStayWithPlacement" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyNotes" class="control-label"></label>
+                <input asp-for="OccupancyNotes" class="form-control" />
+                <span asp-validation-for="OccupancyNotes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyLeaveDate" class="control-label"></label>
+                <input asp-for="OccupancyLeaveDate" class="form-control" />
+                <span asp-validation-for="OccupancyLeaveDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyLeaverType" class="control-label"></label>
+                <input asp-for="OccupancyLeaverType" class="form-control" />
+                <span asp-validation-for="OccupancyLeaverType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupancyReasonForLeavingID" class="control-label"></label>
+                <input asp-for="OccupancyReasonForLeavingID" class="form-control" />
+                <span asp-validation-for="OccupancyReasonForLeavingID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

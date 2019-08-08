@@ -1,0 +1,81 @@
+﻿@model OutcomesFirst.Models.Referral
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Referral</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReferralName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReferralName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReferralGender)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReferralGender.GenderName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReferralLocalAuthority)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReferralLocalAuthority.LocalAuthorityName)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReferralType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReferralType)
+        </dd>
+
+
+
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReferralDOB)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReferralDOB)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReferralReceivedDate)
+        </dt>
+
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReferralReceivedDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReferralAge)
+        </dt>
+
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReferralAge)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReferralComments)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReferralComments)
+        </dd>
+
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReferralStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ReferralStatus.StatusName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ReferralId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
