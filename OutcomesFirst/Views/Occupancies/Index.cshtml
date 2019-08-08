@@ -1,0 +1,77 @@
+﻿@model IEnumerable<OutcomesFirst.Models.Occupancy>
+
+@{
+    ViewData["Title"] = "Occupancy";
+}
+
+<h1>Occupancy</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+               First Name
+            </th>
+            <th>
+               Last Name
+            </th>
+            <th>
+            Gender
+            </th>
+            <th>
+               Type
+            </th>
+
+            <th>
+               Date Started With Group
+            </th>
+            <th>
+             Service
+            </th>
+            <th>
+               Local Authority
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.OccupancyFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OccupancyLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OccupancyGender.GenderName)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.OccupancyType)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.OccupancyDateStartedWithGroup)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.OccupancyService.ServiceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OccupancyLocalAuthority.LocalAuthorityName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OccupancyId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OccupancyId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OccupancyId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

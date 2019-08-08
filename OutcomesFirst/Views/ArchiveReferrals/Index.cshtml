@@ -1,0 +1,65 @@
+﻿@model IEnumerable<OutcomesFirst.Models.ArchiveReferral>
+
+@{
+    ViewData["Title"] = "Archive";
+}
+
+<h1>Archive</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+          
+            <th>
+                Gender
+            </th>
+            <th>
+               Local Authority
+            </th>
+         
+            <th>
+              
+                Age
+            </th>
+           
+            <th>
+               
+                Archive Reason
+            </th>
+            <th>
+                Comments
+            </th>
+     
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.ArchiveReferralGender.GenderName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArchiveReferralLocalAuthority.LocalAuthorityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArchiveReferralAge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArchiveReferralArchiveReason.ArchiveReasonName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArchiveReferralNotSuitableComments)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ArchiveReferralId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ArchiveReferralId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ArchiveReferralId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

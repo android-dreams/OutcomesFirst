@@ -1,0 +1,273 @@
+﻿
+@model OutcomesFirst.Models.Referral
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <link href="~/css/site.min.css" rel="stylesheet" />
+    <script src="~/js/site.js"></script>
+    <style type="text/css">
+        .box {
+            color: #fff;
+            padding: 20px;
+            display: none;
+            margin-top: 20px;
+        }
+
+        .red {
+            background: #ff0000;
+        }
+
+        .green {
+            background: #228B22;
+        }
+
+
+
+        label {
+            margin-right: 15px;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[type="radio"]').click(function () {
+                var inputValue = $(this).attr("value");
+                var targetBox = $("." + inputValue);
+                $(".box").not(targetBox).hide();
+                $(targetBox).show();
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <form asp-action="Edit">
+            <div class="form-group">
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ReferralId" id="referralId" />
+                    <div class="col-md-2">
+                        <label asp-for="ReferralName" class="control-label"></label>
+                    </div>
+                    <div class="col-md-2">
+                        <input asp-for="ReferralName" class="form-control form-horizontal" />
+                        <span asp-validation-for="ReferralName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label asp-for="ReferralGenderId" class="control-label"></label>
+                    </div>
+                    <div class="col-md-3">
+                        <select asp-for="ReferralGenderId" class="form-control" asp-items="ViewBag.ReferralGenderId"></select>
+                        <span asp-validation-for="ReferralGenderId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-7"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label asp-for="ReferralLocalAuthorityId" class="control-label"></label>
+                    </div>
+                    <div class="col-md-3">
+                        <select asp-for="ReferralLocalAuthorityId" class="form-control" asp-items="ViewBag.ReferralLocalAuthorityId"></select>
+                        <span asp-validation-for="ReferralLocalAuthorityId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-7"></div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label asp-for="ReferralType" class="control-label"></label>
+                    </div>
+                    <div class="col-md-3">
+                        @Html.DropDownList("ReferralType", new List<SelectListItem>
+                            {
+                                new SelectListItem{ Text="Educational & Residential ", Value = "1" },
+                                new SelectListItem{ Text="Educational Only ", Value = "2" },
+                                new SelectListItem{ Text="Residential Only ", Value = "3" },
+
+                             })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label asp-for="ReferralDOB"></label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="ReferralDOB" />
+                        <span asp-validation-for="ReferralDOB" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label asp-for="ReferralAge"></label>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="ReferralAge" />
+                        <span asp-validation-for="ReferralAge" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label asp-for="ReferralReceivedDate" class="control-label"></label>
+                    </div>
+                    <div class="col-md-2">
+                        <input asp-for="ReferralReceivedDate" class="form-control" form-horizontal" />
+                        <span asp-validation-for="ReferralReceivedDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-8"></div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label asp-for="ReferralComments" class="control-label"></label>
+                    </div>
+                    <div class="col-md-9">
+                        <textarea asp-for="ReferralComments" class="form-control rows=10"></textarea>
+                        <span asp-validation-for="ReferralComments" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label asp-for="ReferralStatusId" class="control-label"></label>
+                    </div>
+                    <div class="col-md-3">
+                        <select asp-for="ReferralStatusId" id="PlacementStatus" class="form-control" asp-items="ViewBag.ReferralStatusId"></select>
+                        <span asp-validation-for="ReferralStatusId" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-1">
+                        <label asp-for="ReferralPlacementStartDate" id="PlacementStartTitle" class="control-label"></label>
+                    </div>
+                    <div class="col-md-2">
+                        <input asp-for="ReferralPlacementStartDate" id="PlacementStartControl" class="form-control form-horizontal" />
+                        <span asp-validation-for="ReferralPlacementStartDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <input asp-for="ReferralSuitableColor" class="form-control form-horizontal" hidden />
+
+
+            <div class="red box">
+                Enter reason for  <strong>Not Suitable</strong>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label asp-for="ReferralArchiveReasonId" class="control-label"></label>
+                        <div>
+                            <select asp-for="ReferralArchiveReasonId" class="form-control" asp-items="ViewBag.ReferralArchiveReasonId"></select>
+                            <span asp-validation-for="ReferralArchiveReasonId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <label asp-for="ReferralNotSuitableComments" class="control-label"></label>
+                        <div>
+                            <textarea asp-for="ReferralNotSuitableComments" rows="10"></textarea>
+                            <span asp-validation-for="ReferralNotSuitableComments" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="green box">
+                Enter <strong>Suitable</strong> Comments
+                <div class="col-md-2">
+                    <label asp-for="ReferralSuitableComments" class="control-label"></label>
+                </div>
+                <div class="col-md-9">
+                    <textarea asp-for="ReferralSuitableComments" class="form-control rows=10"></textarea>
+                    <span asp-validation-for="ReferralSuitableComments" class="text-danger"></span>
+                </div>
+            </div>
+
+            <br />
+            <br />
+            <div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+
+                    </div>
+                    <div>
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+<script>
+
+    window.onload = function () {
+
+        if (('#PlacementStatus').value == '2' || ('#PlacementStatus').value == '7') {
+            $("#PlacementStartTitle").show();
+            $("#PlacementStartControl").show();
+        }
+        else {
+            $("#PlacementStartTitle").hide();
+            $("#PlacementStartControl").hide();
+        }
+    }
+
+
+    $(document).ready(function () {
+        $('#PlacementStatus').on('change', function () {
+            if (this.value == '2' || this.value == '7') {
+                $("#PlacementStartTitle").show();
+                $("#PlacementStartControl").show();
+
+
+            }
+            else {
+                $("#PlacementStartTitle").hide();
+                $("#PlacementStartControl").hide();
+            }
+        })
+    });
+
+
+
+</script>
+
+

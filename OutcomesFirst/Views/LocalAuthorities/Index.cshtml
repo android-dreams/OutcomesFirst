@@ -1,0 +1,43 @@
+﻿@model IEnumerable<OutcomesFirst.Models.LocalAuthority>
+
+@{
+    ViewData["Title"] = "Local Authorities";
+}
+
+<h1>Local Authorities</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LocalAuthorityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocalAuthorityRegionId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocalAuthorityName)
+            </td>
+            <td>
+               
+                @Html.DisplayFor(modelItem => item.LocalAuthorityRegion.RegionName)
+        
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.LocalAuthorityId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.LocalAuthorityId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LocalAuthorityId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
