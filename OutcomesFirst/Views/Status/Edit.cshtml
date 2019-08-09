@@ -36,8 +36,8 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <label asp-for="Priority" class="control-label"></label>
-                @Html.DropDownListFor(m => m.Priority, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
+                <label asp-for="StatusPriority" class="control-label"></label>
+                @Html.DropDownListFor(m => m.StatusPriority, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-primary" />
                 </div>

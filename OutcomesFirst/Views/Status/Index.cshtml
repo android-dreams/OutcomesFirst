@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.StatusName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Priority)
+                @Html.DisplayNameFor(model => model.StatusPriority)
             </th>
             <th></th>
         </tr>
@@ -28,7 +28,7 @@
                 @Html.DisplayFor(modelItem => item.StatusName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Priority)
+                @Html.DisplayFor(modelItem => item.StatusPriority)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.StatusId">Edit</a> |
