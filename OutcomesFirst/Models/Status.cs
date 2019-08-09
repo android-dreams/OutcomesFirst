@@ -14,8 +14,10 @@ namespace OutcomesFirst.Models
         
         [Display(Name = "Status")]
         public string StatusName { get; set; }
-        
-        public int Priority { get; set; }
+
+        [Display(Name="Priority")]
+        public int StatusPriority { get; set; }
+        public int StatusOffersActivityReportOrder { get; set; }
         
     }
 }
