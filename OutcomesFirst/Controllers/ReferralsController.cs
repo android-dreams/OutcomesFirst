@@ -39,7 +39,7 @@ namespace OutcomesFirst.Controllers
               .Include(r => r.ReferralStatus)
               .Include(r => r.ReferralArchiveReason)
               .Where(r => r.ReferralStatusId != 7 & r.ReferralStatusId != 8)
-              .OrderBy(o => o.ReferralStatus.Priority);
+              .OrderBy(o => o.ReferralStatus.StatusPriority);
 
             return View(await PaginatedList<Referral>.CreateAsync(outcomesFirstContext.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
