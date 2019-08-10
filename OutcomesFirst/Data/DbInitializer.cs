@@ -115,14 +115,14 @@ namespace OutcomesFirst.Data
 
             var refstatus = new Status[]
            {
-                new Status{StatusName="Confirmed pending start date",Priority=1},
-                new Status{StatusName="Offered",Priority=2},
-                new Status{StatusName="In Correspondence with LA",Priority=3},
-                new Status{StatusName="Assessment/Visit Stage",Priority=4},
-                new Status{StatusName="In correspondence with family",Priority=5},
-                new Status{StatusName="Under Consideration by Service", Priority=6},
-                new Status{StatusName="Placed",Priority=7},
-                new Status{StatusName="Archive",Priority=8}
+                new Status{StatusName="Confirmed pending start date",StatusPriority=1},
+                new Status{StatusName="Offered",StatusPriority=2},
+                new Status{StatusName="In Correspondence with LA",StatusPriority=3},
+                new Status{StatusName="Assessment/Visit Stage",StatusPriority=4},
+                new Status{StatusName="In correspondence with family",StatusPriority=5},
+                new Status{StatusName="Under Consideration by Service", StatusPriority=6},
+                new Status{StatusName="Placed",StatusPriority=7},
+                new Status{StatusName="Archive",StatusPriority=8}
                 
               
            };
