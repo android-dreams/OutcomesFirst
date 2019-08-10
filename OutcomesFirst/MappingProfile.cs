@@ -14,6 +14,9 @@ namespace OutcomesFirst
         {
             CreateMap<Referral, ReferralViewModel>();
             CreateMap<ReferralViewModel, Referral>();
+
+            CreateMap<Submission, SubmissionViewModel>();
+            CreateMap<SubmissionViewModel, Submission>();
         }
 
     }
