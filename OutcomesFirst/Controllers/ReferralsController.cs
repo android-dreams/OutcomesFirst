@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OutcomesFirst.Data;
 using OutcomesFirst.Models;
@@ -7,9 +6,7 @@ using OutcomesFirst.ViewModels;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using AutoMapper;
-using OutcomesFirst.Repository;
 
 //using OutcomesFirst.ViewModels;
 
@@ -188,7 +185,7 @@ namespace OutcomesFirst.Controllers
 
             foreach(var item in submissions)
             {
-                SubmissionIndexViewModel viewModel = new SubmissionIndexViewModel();
+                SubmissionViewModel viewModel = new SubmissionViewModel();
                 _mapper.Map(item, viewModel);
 
             }
