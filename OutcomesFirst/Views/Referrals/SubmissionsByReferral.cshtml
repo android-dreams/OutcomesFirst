@@ -21,7 +21,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            @*<td>
 
                 @Html.DisplayFor(modelItem => item.SubmissionId)
             </td>
@@ -41,7 +41,7 @@
                 <a asp-action="Edit" asp-route-id="@item.SubmissionId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.SubmissionId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item..SubmissionId">Delete</a>
-            </td>
+            </td>*@
         </tr>
 }
     </tbody>

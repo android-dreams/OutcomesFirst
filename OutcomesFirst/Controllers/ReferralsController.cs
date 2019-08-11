@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OutcomesFirst.Data;
 using OutcomesFirst.Models;
@@ -7,9 +6,7 @@ using OutcomesFirst.ViewModels;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using AutoMapper;
-using OutcomesFirst.Repository;
 
 //using OutcomesFirst.ViewModels;
 
@@ -19,13 +16,11 @@ namespace OutcomesFirst.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-        private IReferralRepository ReferralRepository { get; set; }
 
-        public ReferralsController(ApplicationDbContext context, IMapper mapper, IReferralRepository referralRepository)
+        public ReferralsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            ReferralRepository = referralRepository;
         }
 
 
@@ -174,26 +169,29 @@ namespace OutcomesFirst.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> SubmissionsByReferralId(int? id)
+        public async Task<IActionResult> SubmissionsByReferral(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Referral model = await _context.Referral.FindAsync(id);
-            if (model == null)
+            int? pageNumber = 1;
+            int pageSize = 10;
+            var submissions = _context.Submission
+
+              .Where(s => s.SubmissionReferralId == id)
+              .OrderBy(s => s.SubmissionStatus);
+
+            foreach(var item in submissions)
             {
-                return NotFound();
+                SubmissionViewModel viewModel = new SubmissionViewModel();
+                _mapper.Map(item, viewModel);
+
             }
 
-            ReferralViewModel viewModel = new ReferralViewModel();
+            return View(await PaginatedList<Submission>.CreateAsync(submissions.AsNoTracking(), pageNumber ?? 1, pageSize));
 
-            _mapper.Map(model, viewModel);
-
-            PopulateDropDowns(viewModel);
-
-            return View(viewModel);
         }
 
 

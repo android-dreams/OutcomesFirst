@@ -71,7 +71,13 @@
                 @Html.DisplayFor(modelItem => item.ReferralStatus.StatusName)
             </td>
            <td>
-                @{ var count = item.Submissions.Count();}
+                @{
+                    var count = 0;
+                    if (item.Submissions != null)
+                    {
+                        item.Submissions.Count();
+                    }
+                }
                 @Html.DisplayFor(modelItem => count)
             </td>
 
@@ -79,7 +85,7 @@
            <td>
                <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a> |
                <a asp-action="Details" asp-route-id="@item.ReferralId">Details</a> |
-               <a asp-action="SubmissionsByReferralId" asp-route-id="@item.ReferralId">Submissions</a> |
+               <a asp-action="" asp-route-id="@item.ReferralId">Submissions</a> |
                <a asp-action="Delete" asp-route-id="@item.ReferralId">Delete</a>
            </td>
         </tr>
