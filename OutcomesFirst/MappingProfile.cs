@@ -17,6 +17,9 @@ namespace OutcomesFirst
 
             CreateMap<Submission, SubmissionViewModel>();
             CreateMap<SubmissionViewModel, Submission>();
+
+            CreateMap<ArchiveReferral, ArchiveReferralViewModel>();
+            CreateMap<ArchiveReferralViewModel, ArchiveReferral>();
         }
 
     }

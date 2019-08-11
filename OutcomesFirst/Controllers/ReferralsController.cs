@@ -94,10 +94,14 @@ namespace OutcomesFirst.Controllers
                 if (model.ReferralSuitableColor == "green")
                 {
                     model.ReferralSuitable = true;
+                    model.ReferralComments = model.ReferralSuitableComments;
+
                 }
                 else
                 {
                     model.ReferralSuitable = false;
+                    model.ReferralComments = model.ReferralNotSuitableComments;
+
                 }
 
                 _context.Add(model);
