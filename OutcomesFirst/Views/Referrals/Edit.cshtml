@@ -146,7 +146,7 @@
 
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label asp-for="ReferralLocalAuthorityId" class="control-label"></label>
                                     </div>
                                     <div class="col-md-6">
@@ -158,7 +158,7 @@
 
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label asp-for="ReferralType" class="control-label"></label>
                                     </div>
                                     <div class="col-md-6">
@@ -168,10 +168,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label asp-for="ReferralReceivedDate" class="control-label"></label>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-8">
                                         <input asp-for="ReferralReceivedDate" class="form-control form-horizontal" asp-item="ViewBag.Date" />
                                         <span asp-validation-for="ReferralReceivedDate" class="text-danger"></span>
                                     </div>
@@ -180,7 +180,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                @*<div class="row">
                     <div class="col-md-12 card">
 
                         <div class="card-block">
@@ -247,7 +247,8 @@
 
                     </div>
                     </div>
-                </div>
+                </div>*@
+                <br />
             <div class="form-group">
                 <input type="submit" value="Update" class="btn btn-primary" />
             </div>
