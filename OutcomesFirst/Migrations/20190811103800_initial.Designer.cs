@@ -10,7 +10,7 @@ using OutcomesFirst.Data;
 namespace OutcomesFirst.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190811101854_initial")]
+    [Migration("20190811103800_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
