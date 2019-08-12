@@ -6,13 +6,11 @@
 
 <p>
     <h1>Archived Referrals</h1>
-
 </p>
 
 <table class="table">
     <thead>
-        <tr>
-          
+        <tr>         
             <th>
                 Gender
             </th>
@@ -36,28 +34,28 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+        @foreach (var item in Model) {
+            <tr>
            
-            <td>
-                @Html.DisplayFor(modelItem => item.ArchiveReferralGender.GenderName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArchiveReferralLocalAuthority.LocalAuthorityName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArchiveReferralAge)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArchiveReferralArchiveReason.ArchiveReasonName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArchiveReferralNotSuitableComments)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.ArchiveReferralId">Details</a>
-            </td>
-        </tr>
-}
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArchiveReferralGender.GenderName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArchiveReferralLocalAuthority.LocalAuthorityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArchiveReferralAge)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArchiveReferralArchiveReason.ArchiveReasonName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArchiveReferralNotSuitableComments)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ArchiveReferralId">Details</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

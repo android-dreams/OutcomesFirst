@@ -178,31 +178,7 @@ namespace OutcomesFirst.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> SubmissionsByReferral(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            int? pageNumber = 1;
-            int pageSize = 10;
-            var submissions = _context.Submission
-
-              .Where(s => s.SubmissionReferralId == id)
-              .OrderBy(s => s.SubmissionStatus);
-
-            foreach(var item in submissions)
-            {
-                SubmissionViewModel viewModel = new SubmissionViewModel();
-                _mapper.Map(item, viewModel);
-
-            }
-
-            return View(await PaginatedList<Submission>.CreateAsync(submissions.AsNoTracking(), pageNumber ?? 1, pageSize));
-
-        }
-
+      
 
 
 

@@ -1,7 +1,7 @@
 ﻿@model OutcomesFirst.ViewModels.ReferralViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     IEnumerable<SelectListItem> localAuthorities = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
              .Concat(Model.localAuthorities
              .OrderBy(x => x.LocalAuthorityName)
@@ -159,7 +159,7 @@
                <div><p></p></div>
                 <div class="row">
                     <div class="col-md-12 card">
-                        <div class="card-block">
+                        <p class="card-block">
                             <h4 class="card-title">
                                 <span style="font-size: 1em; color:coral;">
                                     <i class="fas fa-question"></i>
@@ -167,7 +167,7 @@
                                 Decision
                             </h4>
                             
-                            <div class="form-group">
+                            @*<div class="form-group">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <input asp-for="ReferralSuitableColor" type="radio" value="red" class="form-control form-horizontal" required/>Not Suitable
@@ -179,8 +179,10 @@
                                         <span asp-validation-for="ReferralSuitableColor" class="text-danger small"></span>
                                     </div>
                                 </div>
+                            </div>*@
+                            <div class="form-group">
+                                <h5>Suitable</h5>
                             </div>
-
                             @*<div class="form-group">
                                 <div class="row">
                                     <div class="col-md-3">
@@ -195,52 +197,25 @@
                                 </div>
                             </div>*@
 
-                            @if (Model.ReferralSuitableColor == "red")
-                            {
-                                <div class="red box">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <strong>Enter Not Suitable Reason</strong>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <select asp-for="ReferralArchiveReasonId" class="form-control" asp-items="archivereasons"></select>
-                                            <span asp-validation-for="ReferralArchiveReasonId" class="text-danger small"></span>
-                                        </div>
-                                    </div>
+                            
+                            <p>
+                                Enter <strong>Suitable</strong> comments
 
-
-                                    <div class="row">
-                                        Comments
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <textarea asp-for="ReferralNotSuitableComments" class="form-control rows=10"></textarea>
-                                            <span asp-validation-for="ReferralNotSuitableComments" class="text-danger small"></span>
-                                        </div>
-                                    </div>
+                                <div class="col-md-2">
+                                    <label asp-for="ReferralSuitableComments" class="control-label"></label>
                                 </div>
-                            }
-                            else
-                            {
-                                <div class="green box">
-                                    Enter <strong>Suitable</strong> comments
-
-                                    <div class="col-md-2">
-                                        <label asp-for="ReferralSuitableComments" class="control-label"></label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <textarea asp-for="ReferralSuitableComments" class="form-control rows=10"></textarea>
-                                        <span asp-validation-for="ReferralSuitableComments" class="text-danger small"></span>
-                                    </div>
+                                <div class="col-md-9">
+                                    <textarea asp-for="ReferralSuitableComments" class="form-control rows=10"></textarea>
+                                    <span asp-validation-for="ReferralSuitableComments" class="text-danger small"></span>
                                 </div>
-                            }
+                            </p>
+                            
                         </div>
 
                     </div>
-                    </div>
                 </div>
             <div class="form-group">
-                <input type="submit" value="Update" class="btn btn-primary" />
+                <input type="submit" value="Edit" class="btn btn-primary" />
             </div>
               
         </form>
@@ -256,13 +231,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
- <script type="text/javascript">
-        $(document).ready(function () {
-            $('input[type="radio"]').click(function () {
-                var inputValue = $(this).attr("value");
-                var targetBox = $("." + inputValue);
-                $(".box").not(targetBox).hide();
-                $(targetBox).show();
-            });
-        });
-    </script>
+ 
