@@ -80,7 +80,7 @@ namespace OutcomesFirst.Migrations
                 {
                     LeavingReasonId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    LeavingReasonDesc = table.Column<string>(nullable: true)
+                    LeavingReasonName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -465,7 +465,7 @@ namespace OutcomesFirst.Migrations
                     PlacementNotes = table.Column<string>(nullable: true),
                     PlacementLeaveDate = table.Column<DateTime>(nullable: true),
                     PlacementLeaverType = table.Column<string>(nullable: true),
-                    PlacementReasonForLeavingID = table.Column<int>(nullable: true)
+                    PlacementLeavingReasonId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -476,6 +476,12 @@ namespace OutcomesFirst.Migrations
                         principalTable: "Gender",
                         principalColumn: "GenderId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Placement_LeavingReason_PlacementLeavingReasonId",
+                        column: x => x.PlacementLeavingReasonId,
+                        principalTable: "LeavingReason",
+                        principalColumn: "LeavingReasonId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Placement_LocalAuthority_PlacementLocalAuthorityId",
                         column: x => x.PlacementLocalAuthorityId,
@@ -608,6 +614,11 @@ namespace OutcomesFirst.Migrations
                 column: "PlacementGenderId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Placement_PlacementLeavingReasonId",
+                table: "Placement",
+                column: "PlacementLeavingReasonId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Placement_PlacementLocalAuthorityId",
                 table: "Placement",
                 column: "PlacementLocalAuthorityId");
@@ -684,9 +695,6 @@ namespace OutcomesFirst.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "LeavingReason");
-
-            migrationBuilder.DropTable(
                 name: "Occupancy");
 
             migrationBuilder.DropTable(
@@ -700,6 +708,9 @@ namespace OutcomesFirst.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "LeavingReason");
 
             migrationBuilder.DropTable(
                 name: "Referral");

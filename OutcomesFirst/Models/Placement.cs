@@ -79,7 +79,7 @@ namespace OutcomesFirst.Models
         public string PlacementLeaverType { get; set; }
 
         [Display(Name = "Reason for Leaving")]
-        public int? PlacementReasonForLeavingID { get; set; }
+        public int? PlacementLeavingReasonId { get; set; }
 
         [ForeignKey("PlacementGenderId")]
         public Gender PlacementGender { get; set; }
@@ -90,6 +90,10 @@ namespace OutcomesFirst.Models
 
         [ForeignKey("PlacementLocalAuthorityId")]
         public LocalAuthority PlacementLocalAuthority { get; set; }
-      
+
+     
+        [ForeignKey("PlacementLeavingReasonId")]
+        public LeavingReason PlacementLeavingReason { get; set; }
+
     }
 }
