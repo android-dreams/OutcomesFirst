@@ -26,11 +26,6 @@ namespace OutcomesFirst.ViewModels
         [Display(Name = "Local Authority")]
         public int ReferralLocalAuthorityId { get; set; }
 
-        [DataType(DataType.Date)]
-        [Display(Name = "Date of Birth")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
-        public DateTime ReferralDOB { get; set; }
-
         public int DOBDay { get; set; }
         public int DOBMonth { get; set; }
         public int DOBYear { get; set; }
@@ -40,7 +35,7 @@ namespace OutcomesFirst.ViewModels
         [DataType(DataType.DateTime)]
         public DateTime ReferralReceivedDate { get; set; }
 
-        [Range(1, 20, ErrorMessage = "Age must be between 1 and 20")]
+        [Range(0, 19, ErrorMessage = "Age must be between 0 and 19")]
         [Display(Name = "Age")]
         public int ReferralAge { get; set; }
 
@@ -55,6 +50,7 @@ namespace OutcomesFirst.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime? ReferralPlacementStartDate { get; set; }
 
+        [Required(ErrorMessage ="You've got to put something in here!")]
         public string ReferralSuitableColor { get; set; }
 
         public bool? ReferralSuitable { get; set; }

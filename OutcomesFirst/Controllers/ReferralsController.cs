@@ -66,10 +66,7 @@ namespace OutcomesFirst.Controllers
         {
             ReferralViewModel viewModel = new ReferralViewModel();
             viewModel.ReferralReceivedDate = DateTime.Now;
-            //set initial status to 'Under Consideration By Service'
-            viewModel.ReferralStatusId = 6;
 
-            //newref.ReferralSuitableColor = "red";
             PopulateDropDowns(viewModel);
 
             return View(viewModel);
@@ -91,16 +88,28 @@ namespace OutcomesFirst.Controllers
                 {
                     model.ReferralArchiveReasonId = null;
                 }
-                
+
+                ////set initial status to 'Under Consideration By Service'
+                model.ReferralStatusId = 6;
+                if (model.ReferralSuitableColor == "green")
+                {
+                    model.ReferralSuitable = true;
+                    model.ReferralComments = model.ReferralSuitableComments;
+
+                }
+                else
+                {
+                    model.ReferralSuitable = false;
+                    model.ReferralComments = model.ReferralNotSuitableComments;
+
+                }
+
                 _context.Add(model);
                 await _context.SaveChangesAsync();
 
                 // referral.ReferralSuitable = true;
-                if (model.ReferralSuitableColor == "green")
+                if (model.ReferralSuitable.Value)
                 {
-                    model.ReferralArchiveReasonId = null;
-                    model.ReferralSuitable = true;
-
                     return RedirectToAction("Create", "Submissions", new { id = model.ReferralId });
                 }
                 else
@@ -169,31 +178,7 @@ namespace OutcomesFirst.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> SubmissionsByReferral(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            int? pageNumber = 1;
-            int pageSize = 10;
-            var submissions = _context.Submission
-
-              .Where(s => s.SubmissionReferralId == id)
-              .OrderBy(s => s.SubmissionStatus);
-
-            foreach(var item in submissions)
-            {
-                SubmissionViewModel viewModel = new SubmissionViewModel();
-                _mapper.Map(item, viewModel);
-
-            }
-
-            return View(await PaginatedList<Submission>.CreateAsync(submissions.AsNoTracking(), pageNumber ?? 1, pageSize));
-
-        }
-
+      
 
 
 
@@ -213,14 +198,6 @@ namespace OutcomesFirst.Controllers
             {
                 try
                 {
-                    if (viewModel.ReferralSuitableColor == "green")
-                    {
-                        viewModel.ReferralSuitable = true;
-                    }
-                    else
-                    {
-                        viewModel.ReferralSuitable = false;
-                    }
                     Referral model = await _context.Referral.FindAsync(id);
 
                     _mapper.Map(viewModel, model);
@@ -267,7 +244,6 @@ namespace OutcomesFirst.Controllers
 
                                 new Occupancy{OccupancyRefId = viewModel.ReferralName,
                                 OccupancyPlacementStartDate = viewModel.ReferralPlacementStartDate,
-                                OccupancyDOB = viewModel.ReferralDOB,
                                 OccupancyGenderId = viewModel.ReferralGenderId,
                                 OccupancyLocalAuthorityId = viewModel.ReferralLocalAuthorityId }
                 };

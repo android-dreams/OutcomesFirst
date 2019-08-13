@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OutcomesFirst.Data;
 using OutcomesFirst.Models;
+using OutcomesFirst.ViewModels;
 
 namespace OutcomesFirst.Controllers
 {
     public class ArchiveReferralsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ArchiveReferralsController(ApplicationDbContext context)
+        public ArchiveReferralsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: ArchiveReferrals
@@ -37,14 +41,17 @@ namespace OutcomesFirst.Controllers
                 return NotFound();
             }
 
-            var archiveReferral = await _context.ArchiveReferral
+            var model = await _context.ArchiveReferral
                 .FirstOrDefaultAsync(m => m.ArchiveReferralId == id);
-            if (archiveReferral == null)
+            if (model == null)
             {
                 return NotFound();
             }
 
-            return View(archiveReferral);
+            ArchiveReferralViewModel viewModel = new ArchiveReferralViewModel();
+            _mapper.Map(model, viewModel);
+
+            return View(viewModel);
         }
 
         // GET: ArchiveReferrals/Create

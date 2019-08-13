@@ -250,7 +250,7 @@ body {
 }
 
 .active {
-    background-color: #f7390e;
+    /*background-color: #f7390e;*/
     color: white;
 }
 .container {
@@ -407,10 +407,10 @@ caret-color {
 .container {
     display: block;
     position: relative;
-    padding-left: 35px;
+    padding-left: 15px;
     margin-bottom: 12px;
     cursor: pointer;
-    font-size: 22px;
+    /*font-size: 22px;*/
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -514,18 +514,20 @@ caret-color {
 }
 
 .box {
-    color: #fff;
+    /*color: #fff;*/
     padding: 20px;
     display: none;
     margin-top: 20px;
 }
 
 .green {
-    background: #ff0000;
+    /*background: #228B22;*/
+    background: white
 }
 
 .red {
-    background: #228B22;
+    /*background: #ff0000;*/
+    background: white;
 }
 
 
