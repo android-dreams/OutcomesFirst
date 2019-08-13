@@ -552,3 +552,7 @@ label {
 .form-heading{
     font-weight:bold;
 }
+
+.form-title{
+    font-size:larger;
+}

@@ -64,7 +64,7 @@ namespace OutcomesFirst.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OccupancyId,OccupancyRefId,OccupancyFirstName,OccupancyLastName,OccupancyGenderId,OccupancyType,OccupancyServiceTransition,OccupancyServiceId,OccupancyDateStartedWithGroup,OccupancyPlacementStartDate,OccupancyDOB,OccupancyAgeAtLeaving,OccupancyLocalAuthorityId,OccupancyFramework,OccupancyWeeklyFee,OccupancyLengthOfStayWithGroup,OccupancyLengthOfStayWithPlacement,OccupancyNotes,OccupancyLeaveDate,OccupancyLeaverType,OccupancyReasonForLeavingID")] Occupancy occupancy)
+        public async Task<IActionResult> Create([Bind("OccupancyId,OccupancyRefId,OccupancyFirstName,OccupancyLastName,OccupancyGenderId,OccupancyType,OccupancyServiceTransition,OccupancyServiceId,OccupancyDateStartedWithGroup,OccupancyPlacementStartDate,OccupancyDOB,OccupancyAgeAtLeaving,OccupancyLocalAuthorityId,OccupancyFramework,OccupancyWeeklyFee,OccupancyLengthOfStayWithGroup,OccupancyLengthOfStayWithPlacement,OccupancyNotes,OccupancyLeaveDate,OccupancyLeaverType,OccupancyLeavingReasonId")] Occupancy occupancy)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +102,7 @@ namespace OutcomesFirst.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OccupancyId,OccupancyRefId,OccupancyFirstName,OccupancyLastName,OccupancyGenderId,OccupancyType,OccupancyServiceTransition,OccupancyServiceId,OccupancyDateStartedWithGroup,OccupancyPlacementStartDate,OccupancyDOB,OccupancyAgeAtLeaving,OccupancyLocalAuthorityId,OccupancyFramework,OccupancyWeeklyFee,OccupancyLengthOfStayWithGroup,OccupancyLengthOfStayWithPlacement,OccupancyNotes,OccupancyLeaveDate,OccupancyLeaverType,OccupancyReasonForLeavingID")] Occupancy occupancy)
+        public async Task<IActionResult> Edit(int id, [Bind("OccupancyId,OccupancyRefId,OccupancyFirstName,OccupancyLastName,OccupancyGenderId,OccupancyType,OccupancyServiceTransition,OccupancyServiceId,OccupancyDateStartedWithGroup,OccupancyPlacementStartDate,OccupancyDOB,OccupancyAgeAtLeaving,OccupancyLocalAuthorityId,OccupancyFramework,OccupancyWeeklyFee,OccupancyLengthOfStayWithGroup,OccupancyLengthOfStayWithPlacement,OccupancyNotes,OccupancyLeaveDate,OccupancyLeaverType,OccupancyLeavingReasonId")] Occupancy occupancy)
         {
             if (id != occupancy.OccupancyId)
             {

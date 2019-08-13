@@ -81,7 +81,7 @@ namespace OutcomesFirst.Models
         public string OccupancyLeaverType { get; set; }
 
         [Display(Name = "Reason for Leaving")]
-        public int? OccupancyReasonForLeavingID { get; set; }
+        public int? OccupancyLeavingReasonId { get; set; }
 
         public Gender OccupancyGender { get; set; }
         public Service  OccupancyService { get; set; }

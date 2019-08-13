@@ -37,11 +37,11 @@
   ,Occupancy.OccupancyNotes
   ,Occupancy.OccupancyLeaveDate
   ,Occupancy.OccupancyLeaverType
-  ,Occupancy.OccupancyReasonForLeavingID
+  ,Occupancy.OccupancyLeavingReasonId
   ,Occupancy.OccupancyRegionRegionId
 FROM
   Occupancy</CommandText>
-        <rd:DesignerState><QueryDefinition xmlns="http://schemas.microsoft.com/ReportingServices/QueryDefinition/Relational"><SelectedColumns><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyId" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyRefId" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyFirstName" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyLastName" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyGenderId" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyType" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyServiceTransition" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyServiceId" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyDateStartedWithGroup" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyPlacementStartDate" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyDOB" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyAgeAtLeaving" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyLocalAuthorityId" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyFramework" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyWeeklyFee" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyLengthOfStayWithGroup" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyLengthOfStayWithPlacement" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyNotes" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyLeaveDate" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyLeaverType" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyReasonForLeavingID" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyRegionRegionId" /></SelectedColumns></QueryDefinition></rd:DesignerState>
+        <rd:DesignerState><QueryDefinition xmlns="http://schemas.microsoft.com/ReportingServices/QueryDefinition/Relational"><SelectedColumns><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyId" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyRefId" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyFirstName" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyLastName" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyGenderId" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyType" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyServiceTransition" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyServiceId" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyDateStartedWithGroup" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyPlacementStartDate" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyDOB" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyAgeAtLeaving" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyLocalAuthorityId" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyFramework" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyWeeklyFee" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyLengthOfStayWithGroup" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyLengthOfStayWithPlacement" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyNotes" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyLeaveDate" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyLeaverType" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyLeavingReasonId" /><ColumnExpression ColumnOwner="Occupancy" ColumnName="OccupancyRegionRegionId" /></SelectedColumns></QueryDefinition></rd:DesignerState>
       </Query>
       <Fields>
         <Field Name="OccupancyId">
@@ -124,8 +124,8 @@ FROM
           <DataField>OccupancyLeaverType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OccupancyReasonForLeavingID">
-          <DataField>OccupancyReasonForLeavingID</DataField>
+        <Field Name="OccupancyLeavingReasonId">
+          <DataField>OccupancyLeavingReasonId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="OccupancyRegionRegionId">

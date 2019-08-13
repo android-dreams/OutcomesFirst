@@ -48,7 +48,7 @@ BEGIN
 	  inner join Service serv on o.OccupancyServiceId = serv.ServiceId
 	  inner join Gender g on o.OccupancyGenderId = g.GenderId
 	  inner join LocalAuthority LA on o.OccupancyLocalAuthorityId = LA.LocalAuthorityId
-	  left outer join LeavingReason LR on o.OccupancyReasonForLeavingID = LR.LeavingReasonId
+	  left outer join LeavingReason LR on o.OccupancyLeavingReasonId = LR.LeavingReasonId
 	  where o.OccupancyLeaveDate is null
 
 END

@@ -54,7 +54,7 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LeavingReasonId,LeavingReasonDesc")] LeavingReason leavingReason)
+        public async Task<IActionResult> Create([Bind("LeavingReasonId,LeavingReasonName")] LeavingReason leavingReason)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LeavingReasonId,LeavingReasonDesc")] LeavingReason leavingReason)
+        public async Task<IActionResult> Edit(int id, [Bind("LeavingReasonId,LeavingReasonName")] LeavingReason leavingReason)
         {
             if (id != leavingReason.LeavingReasonId)
             {

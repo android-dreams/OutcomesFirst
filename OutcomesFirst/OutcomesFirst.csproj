@@ -33,6 +33,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="BootstrapMvc.Bootstrap3Mvc6" Version="2.4.1" />
+    <PackageReference Include="Bower" Version="1.3.11" />
     <PackageReference Include="BuildBundlerMinifier" Version="2.9.406" />
     <PackageReference Include="jQuery.Validation" Version="1.17.0" />
     <PackageReference Include="jQuery.Validation.Unobtrusive.Native.MVC3" Version="1.1.1" />
