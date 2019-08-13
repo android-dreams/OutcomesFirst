@@ -1,7 +1,7 @@
 ﻿@model OutcomesFirst.ViewModels.ReferralViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
     IEnumerable<SelectListItem> localAuthorities = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
              .Concat(Model.localAuthorities
              .OrderBy(x => x.LocalAuthorityName)
@@ -57,10 +57,13 @@
     <div class="container">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.HiddenFor(m => m.ReferralId)
+            @Html.HiddenFor(m => m.ReferralName)
+            @Html.HiddenFor(m => m.ReferralStatusId)
+            @Html.HiddenFor(m => m.ReferralSuitableColor)
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-5 card">
-
                         <div class="card-block">
                             <h4 class="card-title">
                                 <span style="font-size: 1em; color:coral;">
@@ -71,7 +74,6 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label asp-for="ReferralName" class="control-label"></label>
                                     </div>
                                     <div class="col-md-6">
                                         @Model.ReferralName
@@ -90,6 +92,7 @@
                                     <div class="col-md-7"></div>
                                 </div>
                             </div>
+                           
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-2">
@@ -159,47 +162,26 @@
                <div><p></p></div>
                 <div class="row">
                     <div class="col-md-12 card">
-                        <p class="card-block">
+                        <div class="card-block">
                             <h4 class="card-title">
                                 <span style="font-size: 1em; color:coral;">
                                     <i class="fas fa-question"></i>
                                 </span>
                                 Decision
                             </h4>
-                            
-                            @*<div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <input asp-for="ReferralSuitableColor" type="radio" value="red" class="form-control form-horizontal" required/>Not Suitable
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input asp-for="ReferralSuitableColor" type="radio" value="green" class="form-control form-horizontal" />Suitable
-                                    </div>
-                                    <div class="col-md-3">
-                                        <span asp-validation-for="ReferralSuitableColor" class="text-danger small"></span>
-                                    </div>
-                                </div>
-                            </div>*@
-                            <div class="form-group">
-                                <h5>Suitable</h5>
-                            </div>
-                            @*<div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <input type="radio" value="red" id="ReferralSuitableColor" required> Not Suitable
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input type="radio" Value="green" id="ReferralSuitableColor">  Suitable
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <span asp-validation-for="ReferralSuitableColor" class="text-danger small"></span>
-                                </div>
-                            </div>*@
 
-                            
-                            <p>
-                                Enter <strong>Suitable</strong> comments
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h3>Suitable</h3>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                           
+
+                            <div class="green">
 
                                 <div class="col-md-2">
                                     <label asp-for="ReferralSuitableComments" class="control-label"></label>
@@ -208,14 +190,14 @@
                                     <textarea asp-for="ReferralSuitableComments" class="form-control rows=10"></textarea>
                                     <span asp-validation-for="ReferralSuitableComments" class="text-danger small"></span>
                                 </div>
-                            </p>
-                            
+                            </div>
                         </div>
 
                     </div>
+                    </div>
                 </div>
             <div class="form-group">
-                <input type="submit" value="Edit" class="btn btn-primary" />
+                <input type="submit" value="Update" class="btn btn-primary" />
             </div>
               
         </form>
@@ -231,4 +213,13 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
- 
+ <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[type="radio"]').click(function () {
+                var inputValue = $(this).attr("value");
+                var targetBox = $("." + inputValue);
+                $(".box").not(targetBox).hide();
+                $(targetBox).show();
+            });
+        });
+    </script>
