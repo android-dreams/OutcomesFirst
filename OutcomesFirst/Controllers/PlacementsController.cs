@@ -25,7 +25,8 @@ namespace OutcomesFirst
             var applicationDbContext = _context.Placement
                  .Include(p => p.PlacementService)
                  .Include(p => p.PlacementGender)
-                 .Include(p => p.PlacementLocalAuthority);
+                 .Include(p => p.PlacementLocalAuthority)
+                 .Include(p => p.PlacementLeavingReason);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -37,10 +38,11 @@ namespace OutcomesFirst
                .Include(p => p.PlacementGender)
                 .Include(p => p.PlacementLocalAuthority)
                 .Include(p => p.PlacementService)
+                .Include(p => p.PlacementLeavingReason)
                 .OrderBy(p => p.PlacementService.ServiceName);
 
 
-            //ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderName");
+            ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonName");
             //ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityName");
             //ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName");
             return View(await applicationDbContext.ToListAsync());
@@ -61,6 +63,7 @@ namespace OutcomesFirst
                 .Include(p => p.PlacementGender)
                 .Include(p => p.PlacementLocalAuthority)
                 .Include(p => p.PlacementService)
+                 .Include(p => p.PlacementLeavingReason)
                 .FirstOrDefaultAsync(m => m.PlacementId == id);
             if (placement == null)
             {
@@ -74,8 +77,9 @@ namespace OutcomesFirst
         public IActionResult Create()
         {
             ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderName");
-            ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityId");
-            ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceId");
+            ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityName");
+            ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName");
+            ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonName");
             return View();
         }
 
@@ -84,7 +88,7 @@ namespace OutcomesFirst
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PlacementId,PlacementRefId,PlacementFirstName,PlacementLastName,PlacementGenderId,PlacementType,PlacementServiceTransition,PlacementServiceId,PlacementDateStartedWithGroup,PlacementPlacementStartDate,PlacementDOB,PlacementAgeAtLeaving,PlacementLocalAuthorityId,PlacementFramework,PlacementWeeklyFee,PlacementLengthOfStayWithGroup,PlacementLengthOfStayWithPlacement,PlacementNotes,PlacementLeaveDate,PlacementLeaverType,PlacementReasonForLeavingID")] Placement placement)
+        public async Task<IActionResult> Create([Bind("PlacementId,PlacementRefId,PlacementFirstName,PlacementLastName,PlacementGenderId,PlacementType,PlacementServiceTransition,PlacementServiceId,PlacementDateStartedWithGroup,PlacementPlacementStartDate,PlacementDOB,PlacementAgeAtLeaving,PlacementLocalAuthorityId,PlacementFramework,PlacementWeeklyFee,PlacementLengthOfStayWithGroup,PlacementLengthOfStayWithPlacement,PlacementNotes,PlacementLeaveDate,PlacementLeaverType,PlacementLeavingReasonId")] Placement placement)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +99,7 @@ namespace OutcomesFirst
             ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderId", placement.PlacementGenderId);
             ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityId", placement.PlacementLocalAuthorityId);
             ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceId", placement.PlacementServiceId);
+            ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonId", placement.PlacementLeavingReasonId);
             return View(placement);
         }
 
@@ -111,9 +116,10 @@ namespace OutcomesFirst
             {
                 return NotFound();
             }
-            ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderId", placement.PlacementGenderId);
-            ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityId", placement.PlacementLocalAuthorityId);
-            ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceId", placement.PlacementServiceId);
+            ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderName", placement.PlacementGenderId);
+            ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityName", "LocalAuthorityId", placement.PlacementLocalAuthorityId);
+            ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName", placement.PlacementServiceId);
+            ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonName", placement.PlacementLeavingReasonId);
             return View(placement);
         }
 
@@ -122,7 +128,7 @@ namespace OutcomesFirst
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PlacementId,PlacementRefId,PlacementFirstName,PlacementLastName,PlacementGenderId,PlacementType,PlacementServiceTransition,PlacementServiceId,PlacementDateStartedWithGroup,PlacementPlacementStartDate,PlacementDOB,PlacementAgeAtLeaving,PlacementLocalAuthorityId,PlacementFramework,PlacementWeeklyFee,PlacementLengthOfStayWithGroup,PlacementLengthOfStayWithPlacement,PlacementNotes,PlacementLeaveDate,PlacementLeaverType,PlacementReasonForLeavingID")] Placement placement)
+        public async Task<IActionResult> Edit(int id, [Bind("PlacementId,PlacementRefId,PlacementFirstName,PlacementLastName,PlacementGenderId,PlacementType,PlacementServiceTransition,PlacementServiceId,PlacementDateStartedWithGroup,PlacementPlacementStartDate,PlacementDOB,PlacementAgeAtLeaving,PlacementLocalAuthorityId,PlacementFramework,PlacementWeeklyFee,PlacementLengthOfStayWithGroup,PlacementLengthOfStayWithPlacement,PlacementNotes,PlacementLeaveDate,PlacementLeaverType,PlacementLeavingReasonId")] Placement placement)
         {
             if (id != placement.PlacementId)
             {
@@ -152,8 +158,81 @@ namespace OutcomesFirst
             ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderId", placement.PlacementGenderId);
             ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityId", placement.PlacementLocalAuthorityId);
             ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceId", placement.PlacementServiceId);
+            ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonId",placement.PlacementLeavingReasonId);
             return View(placement);
         }
+
+
+
+
+
+        // GET: Placements/Edit/5
+        public async Task<IActionResult> OccupancyEdit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var placement = await _context.Placement
+                .Include(p => p.PlacementGender)
+                .Include(p => p.PlacementLocalAuthority)
+                .Include(p => p.PlacementService)
+                .Include(p => p.PlacementLeavingReason)
+                .FirstOrDefaultAsync(m => m.PlacementId == id);
+       
+            if (placement == null)
+            {
+                return NotFound();
+            }
+            ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderName", placement.PlacementGenderId);
+            ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityName", placement.PlacementLocalAuthorityId);
+            ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName", placement.PlacementServiceId);
+            ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonName",placement.PlacementLeavingReasonId);
+            return View(placement);
+        }
+
+        // POST: Occupancy/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OccupancyEdit(int id, [Bind("PlacementId,PlacementRefId,PlacementFirstName,PlacementLastName,PlacementGenderId,PlacementType,PlacementServiceTransition,PlacementServiceId,PlacementDateStartedWithGroup,PlacementPlacementStartDate,PlacementDOB,PlacementAgeAtLeaving,PlacementLocalAuthorityId,PlacementFramework,PlacementWeeklyFee,PlacementLengthOfStayWithGroup,PlacementLengthOfStayWithPlacement,PlacementNotes,PlacementLeaveDate,PlacementLeaverType,PlacemenLeavingReasonId")] Placement placement)
+        {
+            if (id != placement.PlacementId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(placement);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PlacementExists(placement.PlacementId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderId", placement.PlacementGenderId);
+            ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityId", placement.PlacementLocalAuthorityId);
+            ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceId", placement.PlacementServiceId);
+            ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonId", placement.PlacementLeavingReasonId);
+            return View(placement);
+        }
+
+
+               
 
         // GET: Placements/Delete/5
         public async Task<IActionResult> Delete(int? id)

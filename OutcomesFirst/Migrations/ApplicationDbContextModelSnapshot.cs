@@ -15,7 +15,7 @@ namespace OutcomesFirst.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -263,7 +263,7 @@ namespace OutcomesFirst.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("LeavingReasonDesc");
+                    b.Property<string>("LeavingReasonName");
 
                     b.HasKey("LeavingReasonId");
 
@@ -370,6 +370,8 @@ namespace OutcomesFirst.Migrations
 
                     b.Property<string>("PlacementLeaverType");
 
+                    b.Property<int?>("PlacementLeavingReasonId");
+
                     b.Property<int?>("PlacementLengthOfStayWithGroup");
 
                     b.Property<int?>("PlacementLengthOfStayWithPlacement");
@@ -379,8 +381,6 @@ namespace OutcomesFirst.Migrations
                     b.Property<string>("PlacementNotes");
 
                     b.Property<DateTime?>("PlacementPlacementStartDate");
-
-                    b.Property<int?>("PlacementReasonForLeavingID");
 
                     b.Property<string>("PlacementRefId");
 
@@ -397,6 +397,8 @@ namespace OutcomesFirst.Migrations
                     b.HasKey("PlacementId");
 
                     b.HasIndex("PlacementGenderId");
+
+                    b.HasIndex("PlacementLeavingReasonId");
 
                     b.HasIndex("PlacementLocalAuthorityId");
 
@@ -657,6 +659,10 @@ namespace OutcomesFirst.Migrations
                         .WithMany()
                         .HasForeignKey("PlacementGenderId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("OutcomesFirst.Models.LeavingReason", "PlacementLeavingReason")
+                        .WithMany()
+                        .HasForeignKey("PlacementLeavingReasonId");
 
                     b.HasOne("OutcomesFirst.Models.LocalAuthority", "PlacementLocalAuthority")
                         .WithMany()
