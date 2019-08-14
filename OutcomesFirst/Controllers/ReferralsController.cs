@@ -28,7 +28,7 @@ namespace OutcomesFirst.Controllers
         public async Task<IActionResult> Index(int? pageNumber)
         {
             int pageSize = 10;
-            var outcomesFirstContext = _context.Referral
+            var outcomesFirstContext = _context.Referral.Include(s => s.Submissions)
               .Include(r => r.ReferralGender)
               .Include(r => r.ReferralLocalAuthority)
               .Include(r => r.ReferralStatus)
@@ -179,9 +179,6 @@ namespace OutcomesFirst.Controllers
         }
 
       
-
-
-
         // POST: Referral/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
