@@ -328,3 +328,5 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/OutcomesFirst/Migrations/20190813172302_placement.cs
+/OutcomesFirst/Migrations

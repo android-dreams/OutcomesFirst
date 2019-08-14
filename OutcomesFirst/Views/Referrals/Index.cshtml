@@ -72,12 +72,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ReferralStatus.StatusName)
             </td>
-           <td>
+            <td>
                 @{
                     var count = 0;
                     if (item.Submissions != null)
                     {
-                        item.Submissions.Count();
+                        count = item.Submissions.Count();
                     }
                 }
                 @Html.DisplayFor(modelItem => count)
