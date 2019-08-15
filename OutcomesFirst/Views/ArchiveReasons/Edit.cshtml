@@ -15,15 +15,17 @@
 
         <div>
 
-            <div class="row text-left">
-                <div class="col-md-6 offset-3 card">
-                    <div class="card-block">
+            <div class="row">
+                <div class="card">
+                    <div class="card-header">
                         <h4 class="card-title">
                             <span style="font-size: 1em; color:coral;">
-                                <i class="fas fa-file-archive"></i>
+                                <i class="fas fa-user small"></i>
                             </span>
                             Details
                         </h4>
+                    </div>
+                    <div class="card-body">                        
                         <div style="font-size:17px;">
                             <div class="form-group">
                                 <div class="row">
@@ -51,7 +53,7 @@
                                                 new SelectListItem{ Text="Local Authority Decision", Value = "2" },
                                                 new SelectListItem{ Text="Parent Decision/Other", Value = "3" },
                                                 new SelectListItem{ Text="Withdrawn", Value = "4" }
-                                             })
+                                             }, htmlAttributes: new { @class = "form-control" })
                                     </div>
                                 </div>
                             </div>
