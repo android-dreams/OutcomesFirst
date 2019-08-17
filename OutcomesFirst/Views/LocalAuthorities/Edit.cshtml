@@ -1,36 +1,69 @@
-﻿@model OutcomesFirst.Models.LocalAuthority
+﻿@model OutcomesFirst.ViewModels.LocalAuthorityViewModel
 
 @{
     ViewData["Title"] = "Edit";
+  
+    IEnumerable<SelectListItem> regions = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
+            .Concat(Model.regions
+            .OrderBy(x => x.RegionName)
+            .Select(t => new SelectListItem
+            {
+                Value = t.RegionId.ToString(),
+                Text = t.RegionName
+            })); ;
+     
 }
 
-<h1>Edit</h1>
+<h3>System Admin</h3>
 
-<h4>LocalAuthority</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="LocalAuthorityId" />
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @Html.HiddenFor(m => m.LocalAuthorityId)
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">
+                <span style="font-size: 1em; color:coral;">
+                    <i class="fas fa-tools small"></i>
+                </span>
+                Local Authority Edit
+            </h5>
+        </div>
+        <div class="card-body">
             <div class="form-group">
-                <label asp-for="LocalAuthorityName" class="control-label"></label>
-                <input asp-for="LocalAuthorityName" class="form-control" />
-                <span asp-validation-for="LocalAuthorityName" class="text-danger"></span>
-            </div>
-            <div class="col-md-4">
-                <label asp-for="LocalAuthorityRegionId" class="control-label"></label>
-                <div>
-                    <select asp-for="LocalAuthorityRegionId" class="form-control" asp-items="ViewBag.LocalAuthorityRegionId"></select>
-                    <span asp-validation-for="LocalAuthorityRegionId" class="text-danger"></span>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label asp-for="LocalAuthorityName" class="control-label"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <input asp-for="LocalAuthorityName" class="form-control" />
+                        <span asp-validation-for="LocalAuthorityName" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <div class="row">
+                    <div class="col-md-5">
+                        <label asp-for="LocalAuthorityRegionId" class="control-label"></label>
+                    </div>
+                    <div class="col-md-7">
+                        <select asp-for="LocalAuthorityRegionId" class="form-control" asp-items="regions"></select>
+                        <span asp-validation-for="LocalAuthorityRegionId" class="text-danger small"></span>
+                    </div>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Update" class="btn btn-primary" />
+    </div>
+
+</form>
+
 
 <div>
     <a asp-action="Index">Back to List</a>

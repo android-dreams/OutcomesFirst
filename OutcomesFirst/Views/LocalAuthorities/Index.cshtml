@@ -1,10 +1,10 @@
-﻿@model IEnumerable<OutcomesFirst.Models.LocalAuthority>
+﻿@model IEnumerable<OutcomesFirst.ViewModels.LocalAuthorityViewModel>
 
 @{
     ViewData["Title"] = "Local Authorities";
 }
 
-<h1>Local Authorities</h1>
+<h3>Local Authorities</h3>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -29,12 +29,11 @@
             </td>
             <td>
                
-                @Html.DisplayFor(modelItem => item.LocalAuthorityRegion.RegionName)
+                @Html.DisplayFor(modelItem => item.Region.RegionName)
         
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.LocalAuthorityId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.LocalAuthorityId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.LocalAuthorityId">Delete</a>
             </td>
         </tr>

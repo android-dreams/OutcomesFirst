@@ -1,10 +1,10 @@
-﻿@model IEnumerable<OutcomesFirst.Models.Gender>
+﻿@model IEnumerable<OutcomesFirst.ViewModels.GenderViewModel>
 
 @{
     ViewData["Title"] = "Genders";
 }
 
-<h5>Genders</h5>
+<h3>Genders</h3>
 
 <p>
     <a asp-action="Create">Create New Gender</a>
@@ -24,7 +24,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.GenderName)
             </td>
-           
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.GenderId">Delete</a>
+            </td>
         </tr>
 }
     </tbody>

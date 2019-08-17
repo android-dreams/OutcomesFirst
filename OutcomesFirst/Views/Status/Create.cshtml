@@ -1,33 +1,52 @@
-﻿@model OutcomesFirst.Models.Status
+﻿@model OutcomesFirst.ViewModels.StatusViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h3>System Admin</h3>
 
-<h4>Status</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">
+                <span style="font-size: 1em; color:coral;">
+                    <i class="fas fa-tools small"></i>
+                </span>
+                Status Code Create
+            </h5>
+        </div>
+        <div class="card-body">
             <div class="form-group">
-                <label asp-for="StatusName" class="control-label"></label>
-                <input asp-for="StatusName" class="form-control" />
-                <span asp-validation-for="StatusName" class="text-danger"></span>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label asp-for="StatusName" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        <input asp-for="StatusName" class="form-control" />
+                        <span asp-validation-for="StatusName" class="text-danger"></span>
+                    </div>
+
+                </div>
             </div>
-
-
-            @Html.DropDownListFor(m => m.StatusPriority, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
-
-           
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <div class="row">
+                    <div class="col-md-4">
+                        <label asp-for="StatusPriority" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.StatusPriority, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() } ))
+                    </div>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+    <br/>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>

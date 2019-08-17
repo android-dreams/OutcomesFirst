@@ -1,10 +1,10 @@
-﻿@model IEnumerable<OutcomesFirst.Models.LeavingReason>
+﻿@model IEnumerable<OutcomesFirst.ViewModels.LeavingReasonsViewModel>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h3>Leaving Reasons</h3>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.LeavingReasonName)
+                @Html.DisplayNameFor(model => model.LeavingReasonDesc)
             </th>
             <th></th>
         </tr>
@@ -22,11 +22,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.LeavingReasonName)
+                @Html.DisplayFor(modelItem => item.LeavingReasonDesc)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.LeavingReasonId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.LeavingReasonId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.LeavingReasonId">Delete</a>
             </td>
         </tr>

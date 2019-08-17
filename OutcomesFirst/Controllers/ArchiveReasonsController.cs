@@ -2,29 +2,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OutcomesFirst.Data;
 using OutcomesFirst.Models;
+using OutcomesFirst.ViewModels;
 
 namespace OutcomesFirst.Controllers
 {
     public class ArchiveReasonsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ArchiveReasonsController(ApplicationDbContext context)
+        public ArchiveReasonsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: ArchiveReasons
         public async Task<IActionResult> Index()
         {
 
-           
-            return View(await _context.ArchiveReason.ToListAsync());
+            ArchiveReasonViewModel viewModel = new ArchiveReasonViewModel();
+
+            var archiveReasons = await _context.ArchiveReason.ToArrayAsync();
+
+            IEnumerable<ArchiveReasonViewModel> archiveReasonVM = _mapper.Map<ArchiveReason[], IEnumerable<ArchiveReasonViewModel>>(archiveReasons);
+            //ICollection<ArchiveReasonViewModel> icollectionDest = _mapper.Map<ArchiveReason[], ICollection<ArchiveReasonViewModel>>(archiveReasons);
+            //IList<ArchiveReasonViewModel> ilistDest = _mapper.Map<ArchiveReason[], IList<ArchiveReasonViewModel>>(archiveReasons);
+            //List<ArchiveReasonViewModel> listDest = _mapper.Map<ArchiveReason[], List<ArchiveReasonViewModel>>(archiveReasons);
+            //ArchiveReasonViewModel[] arrayDest = _mapper.Map<ArchiveReason[], ArchiveReasonViewModel[]>(archiveReasons);
+
+            return View(archiveReasonVM);
+
+            //return View(await _context.ArchiveReason.ToListAsync());
         }
 
         // GET: ArchiveReasons/Details/5
@@ -56,15 +71,18 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ArchiveReasonId,ArchiveReasonName, ArchiveReasonBy")] ArchiveReason archiveReason)
+        public async Task<IActionResult> Create(ArchiveReasonViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(archiveReason);
+                ArchiveReason model = new ArchiveReason();
+                _mapper.Map(viewModel, model);
+
+                _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(archiveReason);
+            return View(viewModel);
         }
 
         // GET: ArchiveReasons/Edit/5
@@ -75,12 +93,16 @@ namespace OutcomesFirst.Controllers
                 return NotFound();
             }
 
-            var archiveReason = await _context.ArchiveReason.FindAsync(id);
-            if (archiveReason == null)
+            var model = await _context.ArchiveReason.FindAsync(id);
+            if (model == null)
             {
                 return NotFound();
             }
-            return View(archiveReason);
+
+            ArchiveReasonViewModel viewModel = new ArchiveReasonViewModel();
+            _mapper.Map(model, viewModel);
+
+            return View(viewModel);
         }
 
         // POST: ArchiveReasons/Edit/5
@@ -88,9 +110,9 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ArchiveReasonId,ArchiveReasonName,ArchiveReasonBy")] ArchiveReason archiveReason)
+        public async Task<IActionResult> Edit(int id, ArchiveReasonViewModel viewModel)
         {
-            if (id != archiveReason.ArchiveReasonId)
+            if (id != viewModel.ArchiveReasonId)
             {
                 return NotFound();
             }
@@ -99,12 +121,17 @@ namespace OutcomesFirst.Controllers
             {
                 try
                 {
-                    
+                    ArchiveReason model = await _context.ArchiveReason.FindAsync(id);
+
+                    _mapper.Map(viewModel, model);
+
+                    _context.Update(model);
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ArchiveReasonExists(archiveReason.ArchiveReasonId))
+                    if (!ArchiveReasonExists(viewModel.ArchiveReasonId))
                     {
                         return NotFound();
                     }
@@ -115,7 +142,7 @@ namespace OutcomesFirst.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(archiveReason);
+            return View(viewModel);
         }
 
         // GET: ArchiveReasons/Delete/5
@@ -126,14 +153,18 @@ namespace OutcomesFirst.Controllers
                 return NotFound();
             }
 
-            var archiveReason = await _context.ArchiveReason
+            var model = await _context.ArchiveReason
                 .FirstOrDefaultAsync(m => m.ArchiveReasonId == id);
-            if (archiveReason == null)
+            if (model == null)
             {
                 return NotFound();
             }
 
-            return View(archiveReason);
+            ArchiveReasonViewModel viewModel = new ArchiveReasonViewModel();
+            _mapper.Map(model, viewModel);
+
+
+            return View(viewModel);
         }
 
         // POST: ArchiveReasons/Delete/5
