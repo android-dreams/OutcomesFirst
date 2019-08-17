@@ -42,7 +42,7 @@ namespace OutcomesFirst
                 .OrderBy(p => p.PlacementService.ServiceName);
 
 
-            ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonName");
+            ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonDesc");
             //ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityName");
             //ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName");
             return View(await applicationDbContext.ToListAsync());

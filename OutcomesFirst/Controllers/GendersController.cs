@@ -2,47 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OutcomesFirst.Data;
 using OutcomesFirst.Models;
+using OutcomesFirst.ViewModels;
 
 namespace OutcomesFirst.Controllers
 {
     public class GendersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public GendersController(ApplicationDbContext context)
+        public GendersController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+
         }
 
         // GET: Genders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Gender.ToListAsync());
+            GenderViewModel viewModel = new GenderViewModel();
+
+            var genders = await _context.Gender.ToArrayAsync();
+
+            IEnumerable<GenderViewModel> gendersVM = _mapper.Map<Gender[], IEnumerable<GenderViewModel>>(genders);
+
+            return View(gendersVM);
         }
 
-        // GET: Genders/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var gender = await _context.Gender
-                .FirstOrDefaultAsync(m => m.GenderId == id);
-            if (gender == null)
-            {
-                return NotFound();
-            }
-
-            return View(gender);
-        }
-
+        
         // GET: Genders/Create
         public IActionResult Create()
         {
@@ -54,15 +48,18 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GenderId,GenderName")] Gender gender)
+        public async Task<IActionResult> Create(GenderViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(gender);
+                Gender model = new Gender();
+                _mapper.Map(viewModel, model);
+
+                _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(gender);
+            return View(viewModel);
         }
 
         // GET: Genders/Edit/5
@@ -73,9 +70,9 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GenderId,GenderName")] Gender gender)
+        public async Task<IActionResult> Edit(int id, GenderViewModel viewModel)
         {
-            if (id != gender.GenderId)
+            if (id != viewModel.GenderId)
             {
                 return NotFound();
             }
@@ -84,12 +81,16 @@ namespace OutcomesFirst.Controllers
             {
                 try
                 {
-                    _context.Update(gender);
+                    Gender model = new Gender();
+                    _mapper.Map(viewModel, model);
+
+
+                    _context.Update(model);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GenderExists(gender.GenderId))
+                    if (!GenderExists(viewModel.GenderId))
                     {
                         return NotFound();
                     }
@@ -100,7 +101,7 @@ namespace OutcomesFirst.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(gender);
+            return View(viewModel);
         }
 
         // GET: Genders/Delete/5
@@ -111,14 +112,17 @@ namespace OutcomesFirst.Controllers
                 return NotFound();
             }
 
-            var gender = await _context.Gender
+            var model = await _context.Gender
                 .FirstOrDefaultAsync(m => m.GenderId == id);
-            if (gender == null)
+            if (model == null)
             {
                 return NotFound();
             }
 
-            return View(gender);
+            GenderViewModel viewModel = new GenderViewModel();
+            _mapper.Map(model, viewModel);
+
+            return View(viewModel);
         }
 
         // POST: Genders/Delete/5
@@ -126,8 +130,8 @@ namespace OutcomesFirst.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var gender = await _context.Gender.FindAsync(id);
-            _context.Gender.Remove(gender);
+            var model = await _context.Gender.FindAsync(id);
+            _context.Gender.Remove(model);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OutcomesFirst.Models.Placement>
+﻿@model IEnumerable<OutcomesFirst.ViewModels.PlacementViewModel>
 
 @{
     ViewData["Title"] = "Occupancy";
@@ -43,18 +43,18 @@
                 <tr>
 
                     <td>
-                        @Html.DisplayFor(modelItem => item.PlacementService.ServiceName)
+                        @Html.DisplayFor(modelItem => item.Service.ServiceName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PlacementLastName)
                     </td>
 
                     <td>
-                        @Html.DisplayFor(modelItem => item.PlacementGender.GenderName)
+                        @Html.DisplayFor(modelItem => item.Gender.GenderName)
                     </td>
 
                     <td>
-                        @Html.DisplayFor(modelItem => item.PlacementLocalAuthority.LocalAuthorityName)
+                        @Html.DisplayFor(modelItem => item.LocalAuthority.LocalAuthorityName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PlacementPlacementStartDate)

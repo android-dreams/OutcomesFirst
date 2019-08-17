@@ -49,4 +49,14 @@
     <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Content Update="Views\LeavingReasons\Delete.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\RegionalManagers\Delete.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

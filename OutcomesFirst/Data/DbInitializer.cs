@@ -41,14 +41,14 @@ namespace OutcomesFirst.Data
             var leavingReasons = new LeavingReason[]
   {
 
-                 new LeavingReason{LeavingReasonName="Increased level of risk"},
-                 new LeavingReason{LeavingReasonName="Returned home"},
-                 new LeavingReason{LeavingReasonName="Transition to foster care"},
-                 new LeavingReason{LeavingReasonName="Age-related leaver"},
-                 new LeavingReason{LeavingReasonName="Geography"},
-                 new LeavingReason{LeavingReasonName="Internal Transfer within group"},
-                 new LeavingReason{LeavingReasonName="LA Decision"},
-                 new LeavingReason{LeavingReasonName="Other"}
+                 new LeavingReason{LeavingReasonDesc="Increased level of risk"},
+                 new LeavingReason{LeavingReasonDesc="Returned home"},
+                 new LeavingReason{LeavingReasonDesc="Transition to foster care"},
+                 new LeavingReason{LeavingReasonDesc="Age-related leaver"},
+                 new LeavingReason{LeavingReasonDesc="Geography"},
+                 new LeavingReason{LeavingReasonDesc="Internal Transfer within group"},
+                 new LeavingReason{LeavingReasonDesc="LA Decision"},
+                 new LeavingReason{LeavingReasonDesc="Other"}
 
 
   };

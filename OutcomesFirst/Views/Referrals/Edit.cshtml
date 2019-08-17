@@ -1,7 +1,7 @@
 ﻿@model OutcomesFirst.ViewModels.ReferralViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     IEnumerable<SelectListItem> localAuthorities = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
              .Concat(Model.localAuthorities
              .OrderBy(x => x.LocalAuthorityName)
