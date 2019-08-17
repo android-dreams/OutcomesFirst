@@ -4,10 +4,13 @@
     ViewData["Title"] = "Referrals";
 }
 
-<h1>Referrals</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <h3>Referrals</h3>
+</p>
+
+<p>
+    
 </p>
 
 @*<p>
@@ -70,12 +73,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ReferralStatus.StatusName)
             </td>
-           <td>
+            <td>
                 @{
                     var count = 0;
                     if (item.Submissions != null)
                     {
-                        item.Submissions.Count();
+                        count = item.Submissions.Count();
                     }
                 }
                 @Html.DisplayFor(modelItem => count)
@@ -85,7 +88,7 @@
            <td>
                <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a> |
                <a asp-action="Details" asp-route-id="@item.ReferralId">Details</a> |
-               <a asp-action="SubmissionsByReferral" asp-route-id="@item.ReferralId">Submissions</a> |
+               <a asp-action="" asp-route-id="@item.ReferralId">Submissions</a> |
                <a asp-action="Delete" asp-route-id="@item.ReferralId">Delete</a>
            </td>
         </tr>

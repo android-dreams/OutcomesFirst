@@ -1,4 +1,4 @@
-﻿@model OutcomesFirst.Models.Placement
+﻿@model OutcomesFirst.Models.Service
 
 @{
     ViewData["Title"] = "Details";
@@ -7,132 +7,72 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Placement</h4>
+    <h4>Service</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementRefId)
+            @Html.DisplayNameFor(model => model.ServiceName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementRefId)
+            @Html.DisplayFor(model => model.ServiceName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementFirstName)
+            @Html.DisplayNameFor(model => model.ServiceAddress1)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementFirstName)
+            @Html.DisplayFor(model => model.ServiceAddress1)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementLastName)
+            @Html.DisplayNameFor(model => model.ServiceAddress2)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementLastName)
+            @Html.DisplayFor(model => model.ServiceAddress2)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementType)
+            @Html.DisplayNameFor(model => model.ServiceAddress3)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementType)
+            @Html.DisplayFor(model => model.ServiceAddress3)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementServiceTransition)
+            @Html.DisplayNameFor(model => model.ServiceAddress4)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementServiceTransition)
+            @Html.DisplayFor(model => model.ServiceAddress4)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementDateStartedWithGroup)
+            @Html.DisplayNameFor(model => model.ServicePostcode)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementDateStartedWithGroup)
+            @Html.DisplayFor(model => model.ServicePostcode)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementPlacementStartDate)
+            @Html.DisplayNameFor(model => model.ServiceContact)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementPlacementStartDate)
+            @Html.DisplayFor(model => model.ServiceContact)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementDOB)
+            @Html.DisplayNameFor(model => model.ServiceContactNumber)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementDOB)
+            @Html.DisplayFor(model => model.ServiceContactNumber)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementAgeAtLeaving)
+            @Html.DisplayNameFor(model => model.ServicePlaces)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementAgeAtLeaving)
+            @Html.DisplayFor(model => model.ServicePlaces)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementFramework)
+            @Html.DisplayNameFor(model => model.ServiceRegion)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementFramework)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementWeeklyFee)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementWeeklyFee)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementLengthOfStayWithGroup)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementLengthOfStayWithGroup)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementLengthOfStayWithPlacement)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementLengthOfStayWithPlacement)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementNotes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementNotes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementLeaveDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementLeaveDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementLeaverType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementLeaverType)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementReasonForLeavingID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementReasonForLeavingID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementGender)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementGender.GenderId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementService)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementService.ServiceId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PlacementLocalAuthority)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PlacementLocalAuthority.LocalAuthorityId)
+            @Html.DisplayFor(model => model.ServiceRegion.RegionId)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.PlacementId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.ServiceId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
