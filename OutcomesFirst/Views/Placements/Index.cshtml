@@ -40,32 +40,36 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+            <tr>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Service.ServiceName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PlacementLastName)
-                    </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Gender.GenderName)
-                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlacementService.ServiceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlacementFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlacementLastName)
+                </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LocalAuthority.LocalAuthorityName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PlacementPlacementStartDate)
-                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlacementGender.GenderName)
+                </td>
 
-                    <td>
-                        <a asp-action="OccupancyEdit" asp-route-id="@item.PlacementId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.PlacementId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.PlacementId">Delete</a>
-                    </td>
-                </tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlacementLocalAuthority.LocalAuthorityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlacementPlacementStartDate)
+              </td>
+
+                <td>
+                    <a asp-action="OccupancyEdit" asp-route-id="@item.PlacementId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.PlacementId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PlacementId">Delete</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

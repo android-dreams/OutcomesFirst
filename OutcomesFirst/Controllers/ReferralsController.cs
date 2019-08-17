@@ -17,7 +17,7 @@ namespace OutcomesFirst.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public ReferralsController(ApplicationDbContext context, IMapper mapper)
+             public ReferralsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

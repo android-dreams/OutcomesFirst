@@ -13,7 +13,7 @@
     <div class="container">
         <div style="textcenter;">
             @*<input readonly asp-for="PlacementService.ServiceName" class="form-control border-white bg-transparent" />*@
-            <h2 style="color:#11ad90;">
+            <h2 style="color:#0da3c4;">
 
                 @Html.DisplayFor(r => r.PlacementService.ServiceName) -
 
@@ -24,6 +24,7 @@
                 @Html.DisplayFor(r => r.PlacementGender.GenderName) - 
 
                 @Html.DisplayFor(r => r.PlacementDOB)
+                <br />
             </h2>
         </div>
         <div class="row text-left">
@@ -39,7 +40,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-5">
-                                    Type
+                                     Type
                                 </div>
                                 <div class="col-md-7">
                                     <input readonly asp-for="PlacementType" class="form-control border-white bg-transparent" />
@@ -108,13 +109,13 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-1"></div>
+
             <div class="col-md-5 card">
                 <div class="card-block">
                     <h4 class="card-title">
@@ -208,7 +209,7 @@
             </div>
         </div>
         <br />
-        <div class="col-md-10 card">
+        <div class="col-md-12 card">
             <div class="card-block">
                 <h4 class="card-title">
                     <span style="font-size: 1em; color:coral;">
@@ -218,7 +219,7 @@
                 </h4>
                 <div class="form-group">
 
-                    <input asp-for="PlacementNotes" class="form-control rows=5" />
+                    <textarea asp-for="PlacementNotes" class="form-control rows=5" ></textarea>
                     <span asp-validation-for="PlacementNotes" class="text-danger"></span>
                 </div>
             </div>
