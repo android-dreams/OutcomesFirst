@@ -1,17 +1,13 @@
-﻿@model IEnumerable<OutcomesFirst.ViewModels.SubmissionViewModel>
+﻿@model IEnumerable<OutcomesFirst.Models.Submission>
 
 
 @{
     ViewData["Title"] = "Submissionas";
 }
 
-    <h3>System Admin</h3>
+    <h3>Submissions</h3>
 
 
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -39,7 +35,6 @@
 
             <td>
                 <a asp-action="Edit" asp-route-id="@item.SubmissionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SubmissionId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item..SubmissionId">Delete</a>
             </td>
         </tr>

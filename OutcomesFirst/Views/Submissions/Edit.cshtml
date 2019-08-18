@@ -4,37 +4,68 @@
     ViewData["Title"] = "Edit";
 }
 
-
-
-<h1>Submission - Edit</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="SubmissionId" />
+<h3>Submission</h3>
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="SubmissionId" />
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">
+                <span style="font-size: 1em; color:coral;">
+                    <i class="fas fa-tools small"></i>
+                </span>
+                Edit
+            </h5>
+        </div>
+        <div class="card-body">
             <div class="form-group">
-                <label asp-for="SubmissionReferral.ReferralName" class="control-label"></label>
-                <input asp-for="SubmissionReferral.ReferralName" class="form-control" />
-                <span asp-validation-for="SubmissionReferral.ReferralName" class="text-danger"></span>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="SubmissionReferral.ReferralName" class="control-label"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            @Model.SubmissionReferral.ReferralName
+                            @*<input asp-for="SubmissionReferral.ReferralName" class="form-control" />
+                            <span asp-validation-for="SubmissionReferral.ReferralName" class="text-danger"></span>*@
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="SubmissionServiceId" class="control-label"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <select asp-for="SubmissionServiceId" class="form-control" asp-items="ViewBag.SubmissionServiceId" disabled="disabled"></select>
+                            <span asp-validation-for="SubmissionServiceId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="SubmissionStatusId" class="control-label"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <select asp-for="SubmissionStatusId" class="form-control" asp-items="ViewBag.SubmissionStatusId"></select>
+                            <span asp-validation-for="SubmissionStatusId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="SubmissionServiceId" class="control-label"></label>
-                <select asp-for="SubmissionServiceId" class="form-control" asp-items="ViewBag.SubmissionServiceId"></select>
-                <span asp-validation-for="SubmissionServiceId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SubmissionStatusId" class="control-label"></label>
-                <select asp-for="SubmissionStatusId" class="form-control" asp-items="ViewBag.SubmissionStatusId"></select>
-                <span asp-validation-for="SubmissionStatusId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+   
+<br/>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
