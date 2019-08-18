@@ -177,21 +177,28 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("SubmissionId,SubmissionName")] Submission submission)
+    public async Task<IActionResult> Edit(int id, Submission submission)
     {
         if (id != submission.SubmissionId)
         {
             return NotFound();
         }
 
-        if (ModelState.IsValid)
+            //get referal
+            var referral = _context.Referral
+                   .Where(r => r.ReferralId == submission.SubmissionReferralId).FirstOrDefault();
+
+            submission.SubmissionReferral = referral;
+
+            if (ModelState.IsValid)
         {
             try
             {
+
                 _context.Update(submission);
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
                 if (!SubmissionExists(submission.SubmissionId))
                 {

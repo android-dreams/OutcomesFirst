@@ -17,7 +17,7 @@ namespace OutcomesFirst.Models
         [Display(Name = "Regional Manager")]
         public int RegionRegionalManagerId { get; set; }
 
-        [ForeignKey("RegionRegionalManagerId")]
+      
         public virtual RegionalManager RegionalManager { get; set; }
     }
 }
