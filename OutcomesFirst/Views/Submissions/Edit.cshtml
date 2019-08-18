@@ -8,6 +8,8 @@
 <form asp-action="Edit">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="SubmissionId" />
+    <input type="hidden" asp-for="SubmissionReferralId" />
+    <input type="hidden" asp-for="SubmissionServiceId" />
     <div class="card">
         <div class="card-header">
             <h5 class="card-title">
@@ -29,7 +31,7 @@
                         <div class="form-group">
                             @Model.SubmissionReferral.ReferralName
                             @*<input asp-for="SubmissionReferral.ReferralName" class="form-control" />
-                            <span asp-validation-for="SubmissionReferral.ReferralName" class="text-danger"></span>*@
+                                <span asp-validation-for="SubmissionReferral.ReferralName" class="text-danger"></span>*@
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -55,9 +57,9 @@
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
+    </div>
     </div>
     <br />
     <div class="form-group">
