@@ -8,7 +8,7 @@ using OutcomesFirst.Models;
 using OutcomesFirst.Data;
 using OutcomesFirst.ViewModels;
 using System;
-
+using Xceed.Wpf.Toolkit;
 
 namespace OutcomesFirst.Controllers
 {
@@ -27,24 +27,24 @@ namespace OutcomesFirst.Controllers
             var servicedata = _context.Submission
                 .Include(s => s.SubmissionReferral)
                 .Include(s => s.SubmissionService);
-            
+
 
 
 
             return View(await servicedata.ToListAsync());
-           
+
 
         }
 
         // GET: Submissions/Details/5
-        public  ActionResult Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var submission =  _context.Submission
+            var submission = _context.Submission
                 .Include(s => s.SubmissionServiceId)
                 .FirstOrDefaultAsync(m => m.SubmissionId == id);
             if (submission == null)
@@ -53,17 +53,27 @@ namespace OutcomesFirst.Controllers
             }
 
             return View(submission);
-           
+
         }
 
 
         // GET: Submissions/Create
         //public IActionResult Create(int id)
-        public ViewResult Create(int id)
+        public ViewResult Create(int id, string searchString)
         {
 
             ViewBag.Title = "Submission Page";
             ViewBag.Header = "Add Submission Details";
+
+            var servicesList = _context.Service
+             .Include(s => s.ServiceRegion)
+             .OrderBy(s => s.ServiceName).ToList();
+
+            var servicesForSearch = _context.Service
+             .Include(s => s.ServiceRegion);
+
+
+
 
 
             var referral = _context.Referral
@@ -71,13 +81,22 @@ namespace OutcomesFirst.Controllers
 
             var submission = new Submission();
 
-            var servicesList = _context.Service
-                .OrderBy(s => s.ServiceName)
-                .ToList();
+            var RegionLst = new List<string>();
+
+           
+
+          
+
+         
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                //servicesForSearch = servicesForSearch.Where(s => s.ServiceRegion.RegionName.Contains(searchString));
+            }
 
 
             //Creating the ViewModel
-            SubmissionIndexData submissionIndexData = new SubmissionIndexData()
+            SubmissionServicesViewModel SubmissionServicesViewModel = new SubmissionServicesViewModel()
             {
 
                 MVReferralId = referral.ReferralId,
@@ -88,13 +107,13 @@ namespace OutcomesFirst.Controllers
                 //   MVDateReceived = referral.ReferralReceivedDate,
 
                 Submission = submission,
-                Services = servicesList
+                SubmissionServices = servicesList
 
             };
 
             ViewData["Services.ServiceId"] = new SelectList(servicesList, "ServiceId", "ServiceName");
 
-            return View(submissionIndexData);
+            return View(SubmissionServicesViewModel);
 
         }
 
@@ -104,30 +123,41 @@ namespace OutcomesFirst.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public IActionResult Create(Submission submission, SubmissionIndexData submissionIndexData)
+        public IActionResult Create(Submission submission, SubmissionServicesViewModel SubmissionServicesViewModel)
         {
             if (ModelState.IsValid)
             {
-                //int count = submissionIndexData.Submission.IsChecked.Count;
-                int count = submissionIndexData.Submission.IsChecked.Count;
-               // string result = string.Join(",", submissionIndexData.Submission.IsChecked);
-                string result = string.Join(",", submissionIndexData.Submission.IsChecked);
-                var subrefid = submissionIndexData.MVReferralId;
-
-
-                for (int i = 0; i < count; i++)
+                int count = 0;
+                //int count = SubmissionServicesViewModel.Submission.IsChecked.Count;
+                if (SubmissionServicesViewModel.Submission != null)
                 {
-                    var submissions = new Submission[]
+                     count = SubmissionServicesViewModel.Submission.IsChecked.Count;
+                    // string result = string.Join(",", SubmissionServicesViewModel.Submission.IsChecked);
+                    string result = string.Join(",", SubmissionServicesViewModel.Submission.IsChecked);
+
+
+                    var subrefid = SubmissionServicesViewModel.MVReferralId;
+
+
+                    for (int i = 0; i < count; i++)
                     {
-                       new Submission {SubmissionReferralId= subrefid,SubmissionServiceId = Int32.Parse(submissionIndexData.Submission.IsChecked[i])}
-                     };
-                    foreach (Submission s in submissions)
-                    {
-                        _context.Submission.Add(s);
+                        var submissions = new Submission[]
+                        {
+                       new Submission {SubmissionReferralId= subrefid,SubmissionServiceId = Int32.Parse(SubmissionServicesViewModel.Submission.IsChecked[i])}
+                         };
+                        foreach (Submission s in submissions)
+                        {
+                            _context.Submission.Add(s);
+                        }
+
                     }
-                   
+                    _context.SaveChanges();
                 }
-                _context.SaveChanges();
+                else
+                {
+                    TempData["Message"] = "No Services Entered";
+                }
+
 
                 return RedirectToAction("Index", "Referrals");
 
@@ -137,52 +167,52 @@ namespace OutcomesFirst.Controllers
             {
                 return RedirectToAction("Index", "Referrals");
             }
-            
+
         }
 
 
 
         // GET: Submissions/Edit/5
-           public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
+                return NotFound();
+            }
 
 
-                var submission = await _context.Submission
-                .Include(r => r.SubmissionReferral)
-                .Include(r => r.SubmissionStatus)
-                .Include(r => r.SubmissionService)
-                 .FirstOrDefaultAsync(r => r.SubmissionId == id);
+            var submission = await _context.Submission
+            .Include(r => r.SubmissionReferral)
+            .Include(r => r.SubmissionStatus)
+            .Include(r => r.SubmissionService)
+             .FirstOrDefaultAsync(r => r.SubmissionId == id);
 
             if (submission == null)
-                {
-                    return NotFound();
-                }
+            {
+                return NotFound();
+            }
 
-           
+
             ViewData["SubmissionReferralId"] = new SelectList(_context.Referral, "ReferralId", "ReferralName", submission.SubmissionReferralId);
             ViewData["SubmissionStatusId"] = new SelectList(_context.Status, "StatusId", "StatusName", submission.SubmissionStatusId);
             ViewData["SubmissionServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName", submission.SubmissionServiceId);
-          
+
             return View(submission);
         }
 
-    
+
 
         // POST: Submissions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, Submission submission)
-    {
-        if (id != submission.SubmissionId)
+        public async Task<IActionResult> Edit(int id, Submission submission)
         {
-            return NotFound();
-        }
+            if (id != submission.SubmissionId)
+            {
+                return NotFound();
+            }
 
             //get referal
             var referral = _context.Referral
@@ -191,30 +221,30 @@ namespace OutcomesFirst.Controllers
             submission.SubmissionReferral = referral;
 
             if (ModelState.IsValid)
-        {
-            try
             {
+                try
+                {
 
-                _context.Update(submission);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                if (!SubmissionExists(submission.SubmissionId))
-                {
-                    return NotFound();
+                    _context.Update(submission);
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (Exception ex)
                 {
-                    throw;
+                    if (!SubmissionExists(submission.SubmissionId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+                return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
+            return View(submission);
         }
-        return View(submission);
-    }
-    // GET: Submissions/Delete/5
-    public async Task<IActionResult> Delete(int? id)
+        // GET: Submissions/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {

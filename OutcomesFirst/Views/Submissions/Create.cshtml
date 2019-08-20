@@ -1,10 +1,12 @@
-﻿@model OutcomesFirst.ViewModels.SubmissionIndexData
+﻿@model OutcomesFirst.ViewModels.SubmissionServicesViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
+<script src="~/js/site.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
 
 <h4>Services</h4>
 <hr />
@@ -15,9 +17,15 @@
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+                <p>
+                    
+
+                    Region:@Html.TextBox("SearchString") 
+                    <input type="submit" value="Filter" />
+                </p>
+
                 <div class="inline">
-                 ID                         Gender                                 Age            Local Authority
-                 Date Received
+               
                 </div>
                 <div class="inline">
                     <input asp-for="MVReferralId" class="form-control-static" asp-items="ViewBag.MVReferralId" readonly></>
@@ -28,34 +36,41 @@
                     <table class="table">
                         <thead>
                             <tr>
-                               <th>
+                                <th>
                                     Services
                                 </th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.Services)
+                            @foreach (var item in Model.SubmissionServices)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ServiceName)
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ServiceName)
 
-                                    </td>
-                                    <td>
-                                        <input asp-for="MVIsChecked" name="Submission.IsChecked" type="checkbox" value="@item.ServiceId" /> <br />
-                                        @* <input asp-for="Referral.ReferralName" name="submissionIndexData.Submission.IsChecked" type="checkbox" value="@item.ServiceId" /> <br />*@
-                                        @*<input asp-for="Submission.IsChecked" class="checkbox"  asp-items="@item.ServiceId">*@
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ServiceRegion.RegionName)
+
+                                </td>
+                                <td>
+                                    <input asp-for="MVIsChecked" name="Submission.IsChecked" id="Services" type="checkbox" value="@item.ServiceId" /> <br />
+                                    @* <input asp-for="Referral.ReferralName" name="SubmissionServicesViewModel.Submission.IsChecked" type="checkbox" value="@item.ServiceId" /> <br />*@
+                                    @*<input asp-for="Submission.IsChecked" class="checkbox"  asp-items="@item.ServiceId">*@
 
 
-                                    </td>
-                                </tr>
+                                </td>
+                            </tr>
                             }
+
+
+
                         </tbody>
                     </table>
-                 </div>
+                </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Create" id="Create" class="btn btn-primary" />
                 </div>
 
             </form>
@@ -65,3 +80,21 @@
         <a asp-action="Index">Back to List</a>
     </div>
 </body>
+
+<script>
+    $(document).ready(function() {
+        $("#Create").on("click", function (e) {
+            var services = $("#Services").val();
+            if (services == "") {
+
+                alert("You have not entered any Services");
+            }
+        });
+    });
+
+
+
+
+    alert(@TempData["Message"])
+</script>
+
