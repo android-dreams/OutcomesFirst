@@ -388,9 +388,7 @@ namespace OutcomesFirst.Migrations
 
                     b.Property<bool?>("PlacementServiceTransition");
 
-                    b.Property<string>("PlacementType")
-                        .IsRequired()
-                        .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 1)));
+                    b.Property<int>("PlacementType");
 
                     b.Property<int?>("PlacementWeeklyFee");
 

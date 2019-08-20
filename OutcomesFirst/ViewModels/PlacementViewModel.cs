@@ -82,18 +82,10 @@ namespace OutcomesFirst.ViewModels
         [Display(Name = "Reason for Leaving")]
         public int? PlacementLeavingReasonId { get; set; }
 
-        [ForeignKey("PlacementGenderId")]
-        public Gender Gender { get; set; }
 
 
-        [ForeignKey("PlacementServiceId")]
-        public Service Service { get; set; }
+        public List<LeavingReason> leavingReasons { get; set; }
+        public List<Gender> genders { get; set; }
 
-        [ForeignKey("PlacementLocalAuthorityId")]
-        public LocalAuthority LocalAuthority { get; set; }
-
-
-        [ForeignKey("PlacementLeavingReasonId")]
-        public LeavingReason LeavingReason { get; set; }
     }
 }
