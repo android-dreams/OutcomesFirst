@@ -42,6 +42,9 @@ namespace OutcomesFirst
             CreateMap<LeavingReason, LeavingReasonsViewModel>();
             CreateMap<LeavingReasonsViewModel, LeavingReason>();
 
+            CreateMap<Placement, PlacementViewModel>();
+            CreateMap<PlacementViewModel, Placement>();
+
         }
 
     }
