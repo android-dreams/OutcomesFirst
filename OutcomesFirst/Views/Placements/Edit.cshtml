@@ -79,9 +79,17 @@
                             <input asp-for="PlacementDOB" class="form-control" />
                         </div>
                     </div>
-                    <div class="col-md-6 col-md-offset-4">
-                        <span asp-validation-for="PlacementDOB" class="text-danger small"></span>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label asp-for="PlacementDOB" class="control-label"></label>
+                        </div>
+                        <div class="col-md-3">
+                            <input asp-for="PlacementDOB" class="form-control" />
+                        </div>
                     </div>
+                   
+           
+
                 </div>
             </div>
         </div>
@@ -102,10 +110,12 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-5">
-                                    Type
+                                    <label asp-for="PlacementType" class="control-label"></label>
                                 </div>
                                 <div class="col-md-7">
-                                    <input readonly asp-for="PlacementType" class="form-control border-white bg-transparent" />
+                                    <input asp-for="PlacementType" class="form-control border-white bg-transparent" />
+                                    <span asp-validation-for="PlacementType" class="text-danger"></span>
+
                                 </div>
                             </div>
                         </div>
@@ -127,7 +137,9 @@
                                     <label asp-for="PlacementDateStartedWithGroup" class="control-label"></label>
                                 </div>
                                 <div class="col-md-7">
-                                    <input readonly asp-for="PlacementDateStartedWithGroup" class="form-control border-white bg-transparent" />
+                                    <input asp-for="PlacementDateStartedWithGroup" class="form-control border-white bg-transparent" />
+                                    <span asp-validation-for="PlacementDateStartedWithGroup" class="text-danger"></span>
+
                                 </div>
                             </div>
                         </div>
@@ -148,7 +160,7 @@
                                 <label asp-for="PlacementLocalAuthorityId" class="control-label"></label>
                             </div>
                             <div class="col-md-7">
-                                <input readonly asp-for="PlacementLocalAuthorityId" class="form-control border-white bg-transparent"></>
+                                <input asp-for="PlacementLocalAuthorityId" class="form-control border-white bg-transparent"></>
                                 <span asp-validation-for="PlacementLocalAuthorityId" class="text-danger"></span>
                             </div>
                         </div>

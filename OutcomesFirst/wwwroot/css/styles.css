@@ -5,6 +5,27 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+.android-bg {
+   /*background-color: hsl(87.9,62.8%,44.3%);*/
+    color: hsl(213.5,81.7%,50.4%);
+    font-weight:300;
+    
+}
+.android-img {
+    color: hsl(213.5,81.7%,50.4%);
+}
+
+.android-card-title {
+    background-color: hsl(87.9,62.8%,44.3%);
+}
+
+.android-nav-link {
+    padding: 2.5rem;
+    color: hsl(213.5,81.7%,50.4%);
+    font-weight: 300;
+}
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -7885,13 +7906,15 @@ a:not(:hover) .lit {
   transition: transform 0.5s, box-shadow 0.5s;
   box-shadow: 0 0 0 #666;
 }
-.auction-dashboard-item .auction-headline {
-  position: relative;
-  height: 100px;
-  border: 1px solid #999;
-  background-color: hsl(36, 100%, 80%);
-  text-align: center;
-}
+    .auction-dashboard-item .auction-headline {
+        position: relative;
+        height: 100px;
+        border: 1px solid #999;
+        /*background-color: hsl(36, 100%, 80%);*/
+        background-color: hsl(87.9,62.8%,44.3%);
+        color: hsl(213.5,81.7%,50.4%);
+        text-align: center;
+    }
 .auction-dashboard-item .auction-headline h1 {
   padding-top: 0.5em;
   margin-top: 0;

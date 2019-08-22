@@ -23,15 +23,18 @@ namespace OutcomesFirst.ViewModels
         public string PlacementLastName { get; set; }
 
         [Display(Name = "Gender")]
+        [Required]
         public int PlacementGenderId { get; set; }
 
         [Display(Name = "Residental")]
+        [Required]
         public char PlacementType { get; set; }
 
         [Display(Name = "Service Transition")]
         public bool? PlacementServiceTransition { get; set; }
 
         [Display(Name = "Service")]
+        [Required]
         public int PlacementServiceId { get; set; }
 
 
@@ -48,12 +51,17 @@ namespace OutcomesFirst.ViewModels
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date of Birth")]
+        [Required]
         public DateTime PlacementDOB { get; set; }
+        public int PlacementDOBDay { get; set; }
+        public int PlacementDOBMonth { get; set; }
+        public int PlacementDOBYear { get; set; }
 
         [Display(Name = "Age at Leaving")]
         public int? PlacementAgeAtLeaving { get; set; }
 
         [Display(Name = "Local Authority")]
+        [Required]
         public int PlacementLocalAuthorityId { get; set; }
 
         [Display(Name = "Framework")]
@@ -86,6 +94,10 @@ namespace OutcomesFirst.ViewModels
 
         public List<LeavingReason> leavingReasons { get; set; }
         public List<Gender> genders { get; set; }
+
+        public List<int> years { get; set; }
+        public List<int> months { get; set; }
+        public List<int> days { get; set; }
 
     }
 }

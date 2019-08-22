@@ -132,6 +132,7 @@ namespace OutcomesFirst
 
             PlacementViewModel viewModel = new PlacementViewModel();
 
+               
             _mapper.Map(model, viewModel);
 
             PopulateDropDowns(viewModel);
@@ -294,6 +295,17 @@ namespace OutcomesFirst
 
             viewModel.leavingReasons = _context.LeavingReason.ToList();
             viewModel.genders = _context.Gender.ToList();
+
+            List<int> years = new List<int>();
+            List<int> months = new List<int>();
+
+            for (int i = 1900; i <= 2020; i++)
+            {
+                years.Add(i);
+            }
+
+            viewModel.years = years;
+
         }
     }
 }
