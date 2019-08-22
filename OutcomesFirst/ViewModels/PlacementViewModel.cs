@@ -17,18 +17,20 @@ namespace OutcomesFirst.ViewModels
 
 
         [Display(Name = "First Name")]
+        [Required]
         public string PlacementFirstName { get; set; }
 
         [Display(Name = "Last Name")]
+        [Required]
         public string PlacementLastName { get; set; }
 
         [Display(Name = "Gender")]
         [Required]
         public int PlacementGenderId { get; set; }
 
-        [Display(Name = "Residental")]
+        [Display(Name = "Placement Type")]
         [Required]
-        public char PlacementType { get; set; }
+        public int PlacementType { get; set; }
 
         [Display(Name = "Service Transition")]
         public bool? PlacementServiceTransition { get; set; }
@@ -87,6 +89,7 @@ namespace OutcomesFirst.ViewModels
         [Display(Name = "Good/Bad Leaver")]
         public string PlacementLeaverType { get; set; }
 
+        [Range(1, 99, ErrorMessage = "Please select Reason for Leaving")]
         [Display(Name = "Reason for Leaving")]
         public int? PlacementLeavingReasonId { get; set; }
 

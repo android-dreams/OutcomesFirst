@@ -178,6 +178,8 @@ namespace OutcomesFirst
                 return RedirectToAction(nameof(Index));
             }
 
+            PopulateDropDowns(viewModel);
+
             return View(viewModel);
         }
 
