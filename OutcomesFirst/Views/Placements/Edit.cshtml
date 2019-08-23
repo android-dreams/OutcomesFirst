@@ -2,14 +2,23 @@
 @{
     ViewData["Title"] = "Edit";
 
-    IEnumerable<SelectListItem> leavingreasons = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
-           .Concat(Model.leavingReasons
-           .OrderBy(x => x.LeavingReasonDesc)
-           .Select(t => new SelectListItem
-           {
-               Value = t.LeavingReasonId.ToString(),
-               Text = t.LeavingReasonDesc
-           })); ;
+    //IEnumerable<SelectListItem> localAuthorities = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
+    //         .Concat(Model.localAuthorities
+    //         .OrderBy(x => x.LocalAuthorityName)
+    //         .Select(t => new SelectListItem
+    //         {
+    //             Value = t.LocalAuthorityId.ToString(),
+    //             Text = t.LocalAuthorityName
+    //         })); ;
+
+    //IEnumerable<SelectListItem> leavingreasons = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
+    //       .Concat(Model.leavingReasons
+    //       .OrderBy(x => x.LeavingReasonDesc)
+    //       .Select(t => new SelectListItem
+    //       {
+    //           Value = t.LeavingReasonId.ToString(),
+    //           Text = t.LeavingReasonDesc
+    //       })); ;
 
     IEnumerable<SelectListItem> genders = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
              .Concat(Model.genders
@@ -28,7 +37,7 @@
     <form asp-action="Edit">
         @Html.HiddenFor(m => m.PlacementId)
         <div class="card">
-            <div class="card-header">
+            <div class="card-header android-card-header ">
                 <h4 class="card-title">
                     <span style="font-size: 1em; color:coral;">
                         <i class="fas fa-user small"></i>
@@ -92,9 +101,9 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header" style="background-color:#76b82a">
                         <h4 class="card-title">
-                            <span style="font-size: 1em; color:coral;">
+                            <span style="font-size: 1em; color:#1a75e8;">
                                 <i class="fas fa-home small"></i>
                             </span>
                             Placement Details
@@ -154,10 +163,10 @@
                                 <div class="col-md-5">
                                     <label asp-for="PlacementLocalAuthorityId" class="control-label"></label>
                                 </div>
-                                <div class="col-md-7">
-                                    <input asp-for="PlacementLocalAuthorityId" class="form-control"></>
+                                @*<div class="col-md-7">
+                                    <select asp-for="PlacementLocalAuthorityId" class="form-control" asp-items="localAuthorities"></select>
                                     <span asp-validation-for="PlacementLocalAuthorityId" class="text-danger"></span>
-                                </div>
+                                </div>*@
                             </div>
                         </div>
                         <div class="form-group">
@@ -229,8 +238,8 @@
                                 </div>
                                 <div class="col-md-7">
 
-                                    <select asp-for="PlacementLeavingReasonId" class="form-control" asp-items="leavingreasons"></select>
-                                    <span asp-validation-for="PlacementLeavingReasonId" class="text-danger"></span>
+                                    @*<select asp-for="PlacementLeavingReasonId" class="form-control" asp-items="leavingreasons"></select>
+                                    <span asp-validation-for="PlacementLeavingReasonId" class="text-danger"></span>*@
 
                                 </div>
                             </div>

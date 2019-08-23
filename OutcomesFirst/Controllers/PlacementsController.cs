@@ -295,7 +295,7 @@ namespace OutcomesFirst
         private void PopulateDropDowns(PlacementViewModel viewModel)
         {
 
-            viewModel.leavingReasons = _context.LeavingReason.ToList();
+            viewModel.localAuthorities = _context.LocalAuthority.ToList();
             viewModel.genders = _context.Gender.ToList();
 
             List<int> years = new List<int>();

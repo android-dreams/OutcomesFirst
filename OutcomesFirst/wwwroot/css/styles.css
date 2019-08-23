@@ -1,4 +1,8 @@
 ﻿
+.android-card-header {
+    background-color: darkred;
+}
+
 .auction-dashboard-item {
   width: 150px;
   display: inline-block;
