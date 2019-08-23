@@ -297,6 +297,7 @@ namespace OutcomesFirst
 
             viewModel.localAuthorities = _context.LocalAuthority.ToList();
             viewModel.genders = _context.Gender.ToList();
+            viewModel.leavingReasons = _context.LeavingReason.ToList();
 
             List<int> years = new List<int>();
             List<int> months = new List<int>();
