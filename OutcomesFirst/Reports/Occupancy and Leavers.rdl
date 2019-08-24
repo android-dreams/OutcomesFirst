@@ -191,8 +191,8 @@
           <DataField>LocalAuthorityName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="LeavingReasonDesc">
-          <DataField>LeavingReasonDesc</DataField>
+        <Field Name="LeavingReasonName">
+          <DataField>LeavingReasonName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -5046,14 +5046,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="LeavingReasonDesc">
+                        <Textbox Name="LeavingReasonName">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!LeavingReasonDesc.Value</Value>
+                                  <Value>=Fields!LeavingReasonName.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -5063,7 +5063,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>LeavingReasonDesc</rd:DefaultName>
+                          <rd:DefaultName>LeavingReasonName</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>

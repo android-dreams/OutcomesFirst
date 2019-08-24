@@ -13,7 +13,7 @@ namespace OutcomesFirst.ViewModels
 
         [Display(Name="Leaving Resaon")]
         [Required]
-        public string LeavingReasonDesc { get; set; }
+        public string LeavingReasonName { get; set; }
 
     }
 }

@@ -145,10 +145,10 @@ INSERT INTO [dbo].[Placement]
 
 
 		  INSERT INTO [dbo].[LeavingReason] 
-		  ([LeavingReasonDesc]) VALUES ('Increased level of risk')
-		  INSERT INTO [dbo].[LeavingReason] ([LeavingReasonDesc]) VALUES ('Increased level of risk')
-		  INSERT INTO [dbo].[LeavingReason] ([LeavingReasonDesc]) VALUES ('Increased level of risk')
-		  INSERT INTO [dbo].[LeavingReason]  ([LeavingReasonDesc]) VALUES ('Increased level of risk')
-		  INSERT INTO [dbo].[LeavingReason] ([LeavingReasonDesc]) VALUES ('Increased level of risk')
-		  INSERT INTO [dbo].[LeavingReason] ([LeavingReasonDesc]) VALUES ('Increased level of risk')
-		  INSERT INTO [dbo].[LeavingReason] ([LeavingReasonDesc]) VALUES ('Increased level of risk')
+		  ([LeavingReasonName]) VALUES ('Increased level of risk')
+		  INSERT INTO [dbo].[LeavingReason] ([LeavingReasonName]) VALUES ('Increased level of risk')
+		  INSERT INTO [dbo].[LeavingReason] ([LeavingReasonName]) VALUES ('Increased level of risk')
+		  INSERT INTO [dbo].[LeavingReason]  ([LeavingReasonName]) VALUES ('Increased level of risk')
+		  INSERT INTO [dbo].[LeavingReason] ([LeavingReasonName]) VALUES ('Increased level of risk')
+		  INSERT INTO [dbo].[LeavingReason] ([LeavingReasonName]) VALUES ('Increased level of risk')
+		  INSERT INTO [dbo].[LeavingReason] ([LeavingReasonName]) VALUES ('Increased level of risk')

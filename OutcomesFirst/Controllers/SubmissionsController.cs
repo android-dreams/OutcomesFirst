@@ -22,9 +22,8 @@ namespace OutcomesFirst.Controllers
         }
 
         // GET: Submissions
-        public async Task<IActionResult> Index(int? pageNumber)
+        public async Task<IActionResult> Index()
         {
-            int pageSize = 3;
             var servicedata = _context.Submission
                 .Include(s => s.SubmissionReferral)
                 .Include(s => s.SubmissionService);
@@ -32,7 +31,7 @@ namespace OutcomesFirst.Controllers
 
 
 
-            return View(await PaginatedList<Submission>.CreateAsync(servicedata, pageNumber ?? 1, pageSize));
+            return View(await servicedata.ToListAsync());
            
 
         }
@@ -178,49 +177,37 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Submission submission)
+    public async Task<IActionResult> Edit(int id, [Bind("SubmissionId,SubmissionName")] Submission submission)
+    {
+        if (id != submission.SubmissionId)
         {
-            if (id != submission.SubmissionId)
-            {
-                return NotFound();
-            }
- 
-            if (ModelState.IsValid)
-            {
-                //get referal
-                var referral = _context.Referral
-                        .Where(r => r.ReferralId == submission.SubmissionReferralId).FirstOrDefault();
-
-                submission.SubmissionReferral = referral;
-
-                var service = _context.Service
-                        .Where(r => r.ServiceId == submission.SubmissionServiceId).FirstOrDefault();
-
-                submission.SubmissionService = service;
-
-                if (submission.SubmissionStatusId == 7)
-                {
-
-                    Placement model = new Placement();
-                    model.PlacementRefId = referral.ReferralName;
-                    model.PlacementServiceId = submission.SubmissionServiceId;
-                    model.PlacementType = referral.ReferralType;
-                    model.PlacementGenderId = referral.ReferralGenderId;
-                    model.PlacementLocalAuthorityId = referral.ReferralLocalAuthorityId;
-
-                    _context.Update(model);
-                }
-                    
-                _context.Update(submission);
-                await _context.SaveChangesAsync();    
-            
-            }
-            return View(submission);
+            return NotFound();
         }
 
-
-        // GET: Submissions/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _context.Update(submission);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SubmissionExists(submission.SubmissionId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        return View(submission);
+    }
+    // GET: Submissions/Delete/5
+    public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
