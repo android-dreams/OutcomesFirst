@@ -132,6 +132,7 @@ namespace OutcomesFirst
 
             PlacementViewModel viewModel = new PlacementViewModel();
 
+               
             _mapper.Map(model, viewModel);
 
             PopulateDropDowns(viewModel);
@@ -176,6 +177,8 @@ namespace OutcomesFirst
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            PopulateDropDowns(viewModel);
 
             return View(viewModel);
         }
@@ -292,8 +295,20 @@ namespace OutcomesFirst
         private void PopulateDropDowns(PlacementViewModel viewModel)
         {
 
-            viewModel.leavingReasons = _context.LeavingReason.ToList();
+            viewModel.localAuthorities = _context.LocalAuthority.ToList();
             viewModel.genders = _context.Gender.ToList();
+            viewModel.leavingReasons = _context.LeavingReason.ToList();
+
+            List<int> years = new List<int>();
+            List<int> months = new List<int>();
+
+            for (int i = 1900; i <= 2020; i++)
+            {
+                years.Add(i);
+            }
+
+            viewModel.years = years;
+
         }
     }
 }
