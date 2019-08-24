@@ -1,10 +1,12 @@
-﻿@model OutcomesFirst.ViewModels.SubmissionIndexData
+﻿@model OutcomesFirst.ViewModels.SubmissionServicesViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
+<script src="~/js/site.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
 
 <h4>Services</h4>
 <hr />
@@ -12,56 +14,109 @@
 <body>
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* @Html.ActionLink("Create New", "Create")*@
+            @* <form asp-action="Create">*@
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <div class="inline">
-                 ID                         Gender                                 Age            Local Authority
-                 Date Received
-                </div>
-                <div class="inline">
+            @using (Html.BeginForm("Create", "Service", FormMethod.Get))
+            {
+                <p>
+                    <div>
+                        Region : @Html.DropDownList("SRegion", "ALL")
+
+
+                        <input type="submit" value="Filter" />
+                    </div>
+                </p>
+
+            }
+
+
+            @*<div class="inline">
+
+                </div>*@
+            @*<div class="inline">
                     <input asp-for="MVReferralId" class="form-control-static" asp-items="ViewBag.MVReferralId" readonly></>
                     <input asp-for="MVReferralName" class="form-control-static" asp-items="ViewBag.MVReferralName" readonly></>
-                </div>
+                </div>*@
 
-                <div class="form-group">
-                    <table class="table">
-                        <thead>
+            <div class="form-group">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Services
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SubmissionServices)
+                        {
                             <tr>
-                               <th>
-                                    Services
-                                </th>
-                                <th></th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ServiceName)
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ServiceRegion.RegionName)
+
+                                </td>
+                                <td>
+                                    <input asp-for="MVIsChecked" name="Submission.IsChecked" id="Services" type="checkbox" value="@item.ServiceId" /> <br />
+                                    @* <input asp-for="Referral.ReferralName" name="SubmissionServicesViewModel.Submission.IsChecked" type="checkbox" value="@item.ServiceId" /> <br />*@
+                                    @*<input asp-for="Submission.IsChecked" class="checkbox"  asp-items="@item.ServiceId">*@
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.Services)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ServiceName)
-
-                                    </td>
-                                    <td>
-                                        <input asp-for="MVIsChecked" name="Submission.IsChecked" type="checkbox" value="@item.ServiceId" /> <br />
-                                        @* <input asp-for="Referral.ReferralName" name="submissionIndexData.Submission.IsChecked" type="checkbox" value="@item.ServiceId" /> <br />*@
-                                        @*<input asp-for="Submission.IsChecked" class="checkbox"  asp-items="@item.ServiceId">*@
-
-
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-
-            </form>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div>
+        @* <a asp-action type="submit" value="Confirm" />*@
+
+    </div>
+    <div>
+        <a class="btn btn-primary"
+           asp-action="PostCreate"
+           asp-controller="Submissions"
+           asp-route-accountKey="@Model.MVReferralId"
+           method="post">Help Me!</a>
+        @*<a class="btn" asp-action="Post" asp-controller="Submissions" asp-route-accountKey="@Model.MVReferralId" method="Create">Delete</a>*@
+        @*@Html.ActionLink("Help", "Create", "Submissions", new { @class = "postLink" })
+        <a asp-action="Create">Write</a>*@
         <a asp-action="Index">Back to List</a>
     </div>
+    
+
 </body>
+
+@*<script>
+        $(document).ready(function() {
+            $("#Create").on("click", function (e) {
+                var services = $("#Services").val();
+                if (services == "") {
+
+                    alert("You have not entered any Services");
+                }
+            });
+        });
+
+
+
+
+        alert(@TempData["Message"])
+    </script>*@
+<script type="text/javascript">
+    $(function () {
+        $("a.postLink").click(function (e) {
+            e.preventDefault();
+            $.post($(this).attr("href"), function (data) {
+                // got the result in data variable. do whatever you want now
+                //may be reload the page
+            });
+        });
+    });
+</script>
