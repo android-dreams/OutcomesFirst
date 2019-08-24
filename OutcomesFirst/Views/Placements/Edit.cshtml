@@ -2,6 +2,16 @@
 @{
     ViewData["Title"] = "Edit";
 
+
+    IEnumerable<SelectListItem> localauthorities = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
+           .Concat(Model.localAuthorities
+           .OrderBy(x => x.LocalAuthorityName)
+           .Select(x => new SelectListItem
+           {
+               Value = x.LocalAuthorityId.ToString(),
+               Text = x.LocalAuthorityName
+           })); ;
+
     IEnumerable<SelectListItem> leavingreasons = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
            .Concat(Model.leavingReasons
            .OrderBy(x => x.LeavingReasonDesc)
@@ -27,6 +37,7 @@
 <div class="container">
     <form asp-action="Edit">
         @Html.HiddenFor(m => m.PlacementId)
+        @Html.HiddenFor(m => m.PlacementServiceId)
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">
@@ -84,13 +95,13 @@
                             <span asp-validation-for="PlacementDOB" class="text-danger small"></span>
                         </div>
                     </div>
-                           
+
                 </div>
             </div>
         </div>
         <br />
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-5">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">
@@ -121,8 +132,10 @@
                                     <label asp-for="PlacementServiceTransition" class="control-label"></label>
                                 </div>
                                 <div class="col-md-7">
-                                    <input asp-for="PlacementServiceTransition" class="form-control" />
-                                    <span asp-validation-for="PlacementServiceTransition" class="text-danger"></span>
+                                    <input type="checkbox" name="PlacementServiceTransition" id="PlacementServiceTransition" value="PlacementServiceTransition" required> Service Transition
+
+                                    @*<input asp-for="PlacementServiceTransition" class="form-control" />
+                                    <span asp-validation-for="PlacementServiceTransition" class="text-danger"></span>*@
                                 </div>
                             </div>
                         </div>
@@ -155,7 +168,7 @@
                                     <label asp-for="PlacementLocalAuthorityId" class="control-label"></label>
                                 </div>
                                 <div class="col-md-7">
-                                    <input asp-for="PlacementLocalAuthorityId" class="form-control"></>
+                                    <select asp-for="PlacementLocalAuthorityId" class="form-control" asp-items="localauthorities"></select>
                                     <span asp-validation-for="PlacementLocalAuthorityId" class="text-danger"></span>
                                 </div>
                             </div>
@@ -186,7 +199,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">
@@ -199,10 +212,10 @@
                     <div class="card-body">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-sm-5">
                                     <label asp-for="PlacementAgeAtLeaving" class="control-label"></label>
                                 </div>
-                                <div class="col-md-7">
+                                <div class="col-sm-7">
                                     <input asp-for="PlacementAgeAtLeaving" class="form-control" />
                                     <span asp-validation-for="PlacementAgeAtLeaving" class="text-danger"></span>
                                 </div>
@@ -212,10 +225,10 @@
 
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-sm-5">
                                     <label asp-for="PlacementLeaveDate" class="control-label"></label>
                                 </div>
-                                <div class="col-md-7">
+                                <div class="col-sm-7">
                                     <input asp-for="PlacementLeaveDate" class="form-control" />
                                     <span asp-validation-for="PlacementLeaveDate" class="text-danger"></span>
                                 </div>
@@ -224,10 +237,10 @@
 
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-sm-5">
                                     <label asp-for="PlacementLeavingReasonId" class="control-label"></label>
                                 </div>
-                                <div class="col-md-7">
+                                <div class="col-sm-7">
 
                                     <select asp-for="PlacementLeavingReasonId" class="form-control" asp-items="leavingreasons"></select>
                                     <span asp-validation-for="PlacementLeavingReasonId" class="text-danger"></span>
@@ -238,10 +251,10 @@
 
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-sm-5">
                                     <label asp-for="PlacementLeaverType" class="control-label"></label>
                                 </div>
-                                <div class="col-md-7">
+                                <div class="col-sm-7">
                                     <input asp-for="PlacementLeaverType" class="form-control" />
                                     <span asp-validation-for="PlacementLeaverType" class="text-danger"></span>
                                 </div>
@@ -252,10 +265,10 @@
                         <div class="form-group">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-5">
+                                    <div class="col-sm-5">
                                         <label asp-for="PlacementLengthOfStayWithPlacement" class="control-label"></label>
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-sm-7">
                                         <input asp-for="PlacementLengthOfStayWithPlacement" class="form-control" />
                                         <span asp-validation-for="PlacementLengthOfStayWithPlacement" class="text-danger"></span>
                                     </div>
@@ -265,10 +278,10 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-md-5">
+                                        <div class="col-sm-5">
                                             <label asp-for="PlacementLengthOfStayWithGroup" class="control-label"></label>
                                         </div>
-                                        <div class="col-md-7">
+                                        <div class="col-sm-7">
                                             <input asp-for="PlacementLengthOfStayWithGroup" class="form-control" />
                                             <span asp-validation-for="PlacementLengthOfStayWithGroup" class="text-danger"></span>
                                         </div>

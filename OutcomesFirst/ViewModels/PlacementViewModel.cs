@@ -95,6 +95,7 @@ namespace OutcomesFirst.ViewModels
 
 
 
+        public List<LocalAuthority> localAuthorities { get; set; }
         public List<LeavingReason> leavingReasons { get; set; }
         public List<Gender> genders { get; set; }
 
