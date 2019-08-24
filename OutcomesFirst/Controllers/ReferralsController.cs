@@ -27,7 +27,7 @@ namespace OutcomesFirst.Controllers
         // GET: Referrals
         public async Task<IActionResult> Index(int? pageNumber)
         {
-            int pageSize = 3;
+            int pageSize = 10;
 
             var outcomesFirstContext = _context.Referral.Include(s => s.Submissions)
               .Include(r => r.ReferralGender)
