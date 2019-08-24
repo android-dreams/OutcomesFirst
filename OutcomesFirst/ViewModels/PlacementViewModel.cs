@@ -26,7 +26,7 @@ namespace OutcomesFirst.ViewModels
         public int PlacementGenderId { get; set; }
 
         [Display(Name = "Residental")]
-        public char PlacementType { get; set; }
+        public int PlacementType { get; set; }
 
         [Display(Name = "Service Transition")]
         public bool? PlacementServiceTransition { get; set; }

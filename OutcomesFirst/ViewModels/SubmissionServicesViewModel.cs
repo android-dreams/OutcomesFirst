@@ -29,6 +29,8 @@ namespace OutcomesFirst.ViewModels
 
         public Submission Submission { get; set; }
 
+        public List<Region> region { get; set; }
+
         public virtual ICollection<Service> SubmissionServices { get; set; }
 
        

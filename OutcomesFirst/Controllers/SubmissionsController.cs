@@ -9,6 +9,8 @@ using OutcomesFirst.Data;
 using OutcomesFirst.ViewModels;
 using System;
 using Xceed.Wpf.Toolkit;
+using System.Data;
+using System.Configuration.Assemblies;
 
 namespace OutcomesFirst.Controllers
 {
@@ -28,12 +30,7 @@ namespace OutcomesFirst.Controllers
                 .Include(s => s.SubmissionReferral)
                 .Include(s => s.SubmissionService);
 
-
-
-
             return View(await servicedata.ToListAsync());
-
-
         }
 
         // GET: Submissions/Details/5
@@ -59,7 +56,7 @@ namespace OutcomesFirst.Controllers
 
         // GET: Submissions/Create
         //public IActionResult Create(int id)
-        public ViewResult Create(int id, string searchString)
+        public ViewResult Create(string SRegion, int id, string searchString)
         {
 
             ViewBag.Title = "Submission Page";
@@ -67,15 +64,15 @@ namespace OutcomesFirst.Controllers
 
             var servicesList = _context.Service
              .Include(s => s.ServiceRegion)
-             .OrderBy(s => s.ServiceName).ToList();
+             .OrderBy(s => s.ServiceRegion.RegionName).ThenBy(s => s.ServiceName).ToList();
 
-            var servicesForSearch = _context.Service
-             .Include(s => s.ServiceRegion);
+            //var servicesForSearch = _context.Service
+            // .Include(s => s.ServiceRegion);
 
+            //var services = from m in _context.Service
+            //               select m;
 
-
-
-
+           
             var referral = _context.Referral
                 .Where(i => i.ReferralId == id).Single();
 
@@ -83,17 +80,27 @@ namespace OutcomesFirst.Controllers
 
             var RegionLst = new List<string>();
 
-           
+            
+           var regionQry = from r in _context.Region
+                         select r.RegionName;
 
+            RegionLst.AddRange(regionQry.Distinct());
+                     
+
+
+
+            ViewBag.SRegion = new SelectList(RegionLst);
+
+
+            //System.Data.DataTable data = GetDataFromQuery("SELECT distinct ServiceRegionId from Service");
           
-
-         
-
-            if(!String.IsNullOrEmpty(searchString))
+            if(!String.IsNullOrEmpty(SRegion))
             {
-                //servicesForSearch = servicesForSearch.Where(s => s.ServiceRegion.RegionName.Contains(searchString));
+                servicesList = servicesList.Where(s => s.ServiceRegion.RegionName.Contains(SRegion)).ToList();
             }
 
+
+           
 
             //Creating the ViewModel
             SubmissionServicesViewModel SubmissionServicesViewModel = new SubmissionServicesViewModel()
@@ -111,7 +118,7 @@ namespace OutcomesFirst.Controllers
 
             };
 
-            ViewData["Services.ServiceId"] = new SelectList(servicesList, "ServiceId", "ServiceName");
+           // ViewData["Services.ServiceId"] = new SelectList(servicesList, "ServiceId", "ServiceName");
 
             return View(SubmissionServicesViewModel);
 
@@ -123,15 +130,15 @@ namespace OutcomesFirst.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public IActionResult Create(Submission submission, SubmissionServicesViewModel SubmissionServicesViewModel)
+        public IActionResult PostCreate( SubmissionServicesViewModel SubmissionServicesViewModel)
         {
             if (ModelState.IsValid)
             {
-                int count = 0;
+              
                 //int count = SubmissionServicesViewModel.Submission.IsChecked.Count;
                 if (SubmissionServicesViewModel.Submission != null)
                 {
-                     count = SubmissionServicesViewModel.Submission.IsChecked.Count;
+                     var count = SubmissionServicesViewModel.Submission.IsChecked.Count;
                     // string result = string.Join(",", SubmissionServicesViewModel.Submission.IsChecked);
                     string result = string.Join(",", SubmissionServicesViewModel.Submission.IsChecked);
 
@@ -277,5 +284,18 @@ namespace OutcomesFirst.Controllers
         {
             return _context.Submission.Any(e => e.SubmissionId == id);
         }
+
+        //DataTable GetDataFromQuery(string query)
+        //{
+
+           
+        //    System.Data.SqlClient.SqlDataAdapter adap =
+        //        new System.Data.SqlClient.SqlDataAdapter(query, "DefaultConnection");
+        //    DataTable data = new DataTable();
+        //    adap.Fill(data);
+        //    return data;
+
+        //}
     }
 }
+
