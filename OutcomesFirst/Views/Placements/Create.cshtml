@@ -3,17 +3,17 @@
     ViewData["Title"] = "Edit";
 
 
-  
+
 }
 
 <hr />
 
 
-<form asp-action="OccupancyEdit">
+<form asp-action="Edit">
     <div class="container">
         <div style="textcenter;">
             @*<input readonly asp-for="PlacementService.ServiceName" class="form-control border-white bg-transparent" />*@
-            <h2 style="color:#0da3c4;">
+            <h2 style="color:#11ad90;">
 
                 @Html.DisplayFor(r => r.PlacementService.ServiceName) -
 
@@ -21,17 +21,16 @@
 
                 @Html.DisplayFor(r => r.PlacementLastName) -
 
-                @Html.DisplayFor(r => r.PlacementGender.GenderName) - 
+                @Html.DisplayFor(r => r.PlacementGender.GenderName) -
 
                 @Html.DisplayFor(r => r.PlacementDOB)
-                <br />
             </h2>
         </div>
         <div class="row text-left">
             <div class="col-md-5 card">
                 <div class="card-block">
                     <h4 class="card-title">
-                        <span style="font-size: 1em; color:coral;">
+                        <span style="font-size: 1em; color:#1a75e8;">
                             <i class="fas fa-home"></i>
                         </span>
                         Placement Details
@@ -40,7 +39,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-5">
-                                     Type
+                                    Type
                                 </div>
                                 <div class="col-md-7">
                                     <input readonly asp-for="PlacementType" class="form-control border-white bg-transparent" />
@@ -84,7 +83,7 @@
                                         <label asp-for="PlacementLocalAuthorityId" class="control-label"></label>
                                     </div>
                                     <div class="col-md-7">
-                                        <input readonly asp-for="PlacementLocalAuthority.LocalAuthorityName" class="form-control border-white bg-transparent" ></>
+                                        <input readonly asp-for="PlacementLocalAuthority.LocalAuthorityName" class="form-control border-white bg-transparent"></>
                                         <span asp-validation-for="PlacementLocalAuthorityId" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -109,17 +108,17 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-1"></div>
-
             <div class="col-md-5 card">
                 <div class="card-block">
                     <h4 class="card-title">
-                        <span style="font-size: 1em; color:coral;">
+                        <span style="font-size: 1em; color:#1a75e8;">
                             <i class="fas fa-walking"></i>
                         </span>
                         Leaving Details
@@ -131,7 +130,7 @@
                                     <label asp-for="PlacementAgeAtLeaving" class="control-label"></label>
                                 </div>
                                 <div class="col-md-7">
-                                    <input asp-for="PlacementAgeAtLeaving" class="form-control"/>
+                                    <input asp-for="PlacementAgeAtLeaving" class="form-control" />
                                     <span asp-validation-for="PlacementAgeAtLeaving" class="text-danger"></span>
                                 </div>
                             </div>
@@ -156,10 +155,10 @@
                                     <label asp-for="PlacementLeavingReasonId" class="control-label"></label>
                                 </div>
                                 <div class="col-md-7">
-                             
+
                                     <select asp-for="PlacementLeavingReasonId" class="form-control" asp-items="ViewBag.PlacementLeavingReasonId"></select>
                                     <span asp-validation-for="PlacementLeavingReasonId" class="text-danger"></span>
-                                  
+
                                 </div>
                             </div>
                         </div>
@@ -209,17 +208,17 @@
             </div>
         </div>
         <br />
-        <div class="col-md-12 card">
+        <div class="col-md-10 card">
             <div class="card-block">
                 <h4 class="card-title">
-                    <span style="font-size: 1em; color:coral;">
+                    <span style="font-size: 1em; color:#1a75e8;">
                         <i class="fas fa-comment-alt"></i>
                     </span>
                     Notes
                 </h4>
                 <div class="form-group">
 
-                    <textarea asp-for="PlacementNotes" class="form-control rows=5" ></textarea>
+                    <input asp-for="PlacementNotes" class="form-control rows=5" />
                     <span asp-validation-for="PlacementNotes" class="text-danger"></span>
                 </div>
             </div>
@@ -233,5 +232,4 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
 

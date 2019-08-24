@@ -58,6 +58,9 @@
     <Content Update="Views\RegionalManagers\Delete.cshtml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Update="wwwroot\css\stylesold - Copy.min.css">
+      <DependentUpon>stylesold - Copy.css</DependentUpon>
+    </Content>
   </ItemGroup>
 
 </Project>

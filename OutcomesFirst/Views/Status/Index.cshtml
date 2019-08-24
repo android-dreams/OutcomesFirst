@@ -1,40 +1,76 @@
-﻿@model IEnumerable<OutcomesFirst.Models.Status>
+﻿@model IEnumerable<OutcomesFirst.ViewModels.PlacementViewModel>
 
 @{
-    ViewData["Title"] = "Referral Statuses";
+    ViewData["Title"] = "Occupancy";
 }
 
-<h3>Referral Status</h3>
+<h1>Occupancy</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.StatusName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StatusPriority)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusPriority)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.StatusId">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.StatusId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Service
+                </th>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Gender
+                </th>
+                <th>
+                    Local Authority
+                </th>
+
+                <th>
+                    Placement Start Date
+                </th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.PlacementService.ServiceName)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlacementFirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlacementLastName)
+                    </td>
+
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.PlacementGender.GenderName)*@
+                    </td>
+
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.PlacementLocalAuthority.LocalAuthorityName)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlacementPlacementStartDate)
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.PlacementId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.PlacementId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.PlacementId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

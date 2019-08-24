@@ -2,32 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OutcomesFirst.Data;
 using OutcomesFirst.Models;
+using OutcomesFirst.ViewModels;
 
 namespace OutcomesFirst
 {
     public class PlacementsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public PlacementsController(ApplicationDbContext context)
+
+        public PlacementsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: Placements
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Placement
-                 .Include(p => p.PlacementService)
-                 .Include(p => p.PlacementGender)
-                 .Include(p => p.PlacementLocalAuthority)
-                 .Include(p => p.PlacementLeavingReason);
-            return View(await applicationDbContext.ToListAsync());
+
+            PlacementViewModel viewModel = new PlacementViewModel();
+
+            var placements = await _context.Placement.ToArrayAsync();
+
+            IEnumerable<PlacementViewModel> placementVM = _mapper.Map<Placement[], IEnumerable<PlacementViewModel>>(placements);
+
+            return View(placementVM);
+
+
         }
 
 
@@ -96,10 +105,14 @@ namespace OutcomesFirst
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderId", placement.PlacementGenderId);
-            ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityId", placement.PlacementLocalAuthorityId);
-            ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceId", placement.PlacementServiceId);
-            ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonId", placement.PlacementLeavingReasonId);
+
+            PlacementViewModel viewModel = new PlacementViewModel();
+            PopulateDropDowns(viewModel);
+
+            //ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderId", placement.PlacementGenderId);
+            //ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityId", placement.PlacementLocalAuthorityId);
+            //ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceId", placement.PlacementServiceId);
+            //ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonId", placement.PlacementLeavingReasonId);
             return View(placement);
         }
 
@@ -111,16 +124,20 @@ namespace OutcomesFirst
                 return NotFound();
             }
 
-            var placement = await _context.Placement.FindAsync(id);
-            if (placement == null)
+            var model = await _context.Placement.FindAsync(id);
+            if (model == null)
             {
                 return NotFound();
             }
-            ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderName", placement.PlacementGenderId);
-            ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityName", "LocalAuthorityId", placement.PlacementLocalAuthorityId);
-            ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName", placement.PlacementServiceId);
-            ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonName", placement.PlacementLeavingReasonId);
-            return View(placement);
+
+            PlacementViewModel viewModel = new PlacementViewModel();
+
+               
+            _mapper.Map(model, viewModel);
+
+            PopulateDropDowns(viewModel);
+
+            return View(viewModel);
         }
 
         // POST: Placements/Edit/5
@@ -128,23 +145,28 @@ namespace OutcomesFirst
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PlacementId,PlacementRefId,PlacementFirstName,PlacementLastName,PlacementGenderId,PlacementType,PlacementServiceTransition,PlacementServiceId,PlacementDateStartedWithGroup,PlacementPlacementStartDate,PlacementDOB,PlacementAgeAtLeaving,PlacementLocalAuthorityId,PlacementFramework,PlacementWeeklyFee,PlacementLengthOfStayWithGroup,PlacementLengthOfStayWithPlacement,PlacementNotes,PlacementLeaveDate,PlacementLeaverType,PlacementLeavingReasonId")] Placement placement)
+        public async Task<IActionResult> Edit(int id, [Bind("PlacementId,PlacementRefId,PlacementFirstName,PlacementLastName,PlacementGenderId,PlacementType,PlacementServiceTransition,PlacementServiceId,PlacementDateStartedWithGroup,PlacementPlacementStartDate,PlacementDOB,PlacementAgeAtLeaving,PlacementLocalAuthorityId,PlacementFramework,PlacementWeeklyFee,PlacementLengthOfStayWithGroup,PlacementLengthOfStayWithPlacement,PlacementNotes,PlacementLeaveDate,PlacementLeaverType,PlacementLeavingReasonId")] PlacementViewModel viewModel)
         {
-            if (id != placement.PlacementId)
+            if (id != viewModel.PlacementId)
             {
                 return NotFound();
             }
 
+            
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(placement);
+                    Placement model = await _context.Placement.FindAsync(id);
+
+                    _mapper.Map(viewModel, model);
+
+                    _context.Update(model);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PlacementExists(placement.PlacementId))
+                    if (!PlacementExists(viewModel.PlacementId))
                     {
                         return NotFound();
                     }
@@ -155,11 +177,10 @@ namespace OutcomesFirst
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderId", placement.PlacementGenderId);
-            ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityId", placement.PlacementLocalAuthorityId);
-            ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceId", placement.PlacementServiceId);
-            ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonId",placement.PlacementLeavingReasonId);
-            return View(placement);
+
+            PopulateDropDowns(viewModel);
+
+            return View(viewModel);
         }
 
 
@@ -269,6 +290,25 @@ namespace OutcomesFirst
         private bool PlacementExists(int id)
         {
             return _context.Placement.Any(e => e.PlacementId == id);
+        }
+
+        private void PopulateDropDowns(PlacementViewModel viewModel)
+        {
+
+            viewModel.localAuthorities = _context.LocalAuthority.ToList();
+            viewModel.genders = _context.Gender.ToList();
+            viewModel.leavingReasons = _context.LeavingReason.ToList();
+
+            List<int> years = new List<int>();
+            List<int> months = new List<int>();
+
+            for (int i = 1900; i <= 2020; i++)
+            {
+                years.Add(i);
+            }
+
+            viewModel.years = years;
+
         }
     }
 }

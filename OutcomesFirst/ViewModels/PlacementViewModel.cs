@@ -17,21 +17,26 @@ namespace OutcomesFirst.ViewModels
 
 
         [Display(Name = "First Name")]
+        [Required]
         public string PlacementFirstName { get; set; }
 
         [Display(Name = "Last Name")]
+        [Required]
         public string PlacementLastName { get; set; }
 
         [Display(Name = "Gender")]
+        [Required]
         public int PlacementGenderId { get; set; }
 
-        [Display(Name = "Residental")]
+        [Display(Name = "Placement Type")]
+        [Required]
         public int PlacementType { get; set; }
 
         [Display(Name = "Service Transition")]
         public bool? PlacementServiceTransition { get; set; }
 
         [Display(Name = "Service")]
+        [Required]
         public int PlacementServiceId { get; set; }
 
 
@@ -48,12 +53,18 @@ namespace OutcomesFirst.ViewModels
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date of Birth")]
+        [Required]
         public DateTime PlacementDOB { get; set; }
+        public int PlacementDOBDay { get; set; }
+        public int PlacementDOBMonth { get; set; }
+        public int PlacementDOBYear { get; set; }
 
         [Display(Name = "Age at Leaving")]
+        [Range(0, 19, ErrorMessage = "Leaving age must be between 0 and 19")]
         public int? PlacementAgeAtLeaving { get; set; }
 
         [Display(Name = "Local Authority")]
+        [Required]
         public int PlacementLocalAuthorityId { get; set; }
 
         [Display(Name = "Framework")]
@@ -79,21 +90,19 @@ namespace OutcomesFirst.ViewModels
         [Display(Name = "Good/Bad Leaver")]
         public string PlacementLeaverType { get; set; }
 
+        [Range(1, 99, ErrorMessage = "Please select Reason for Leaving")]
         [Display(Name = "Reason for Leaving")]
         public int? PlacementLeavingReasonId { get; set; }
 
-        [ForeignKey("PlacementGenderId")]
-        public Gender Gender { get; set; }
 
 
-        [ForeignKey("PlacementServiceId")]
-        public Service Service { get; set; }
+        public List<LocalAuthority> localAuthorities { get; set; }
+        public List<LeavingReason> leavingReasons { get; set; }
+        public List<Gender> genders { get; set; }
 
-        [ForeignKey("PlacementLocalAuthorityId")]
-        public LocalAuthority LocalAuthority { get; set; }
+        public List<int> years { get; set; }
+        public List<int> months { get; set; }
+        public List<int> days { get; set; }
 
-
-        [ForeignKey("PlacementLeavingReasonId")]
-        public LeavingReason LeavingReason { get; set; }
     }
 }
