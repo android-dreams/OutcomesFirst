@@ -263,7 +263,7 @@ namespace OutcomesFirst.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("LeavingReasonDesc");
+                    b.Property<string>("LeavingReasonName");
 
                     b.HasKey("LeavingReasonId");
 

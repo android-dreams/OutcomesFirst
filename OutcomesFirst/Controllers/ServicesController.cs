@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OutcomesFirst.Data;
 using OutcomesFirst.Models;
+using AutoMapper;
+using OutcomesFirst.ViewModels;
+
 
 namespace OutcomesFirst.Controllers
 {
@@ -20,10 +23,12 @@ namespace OutcomesFirst.Controllers
         }
 
         // GET: Services
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber)
         {
-            var applicationDbContext = _context.Service.Include(s => s.ServiceRegion);
-            return View(await applicationDbContext.ToListAsync());
+            int pageSize = 10;
+            var applicationDbContext = _context.Service.Include(s => s.ServiceRegion)
+                .OrderBy(s => s.ServiceRegion.RegionName).ThenBy(s => s.ServiceName);
+            return View(await PaginatedList<Service>.CreateAsync(applicationDbContext.AsNoTracking(),pageNumber ?? 1, pageSize));
         }
 
         // GET: Services/Details/5

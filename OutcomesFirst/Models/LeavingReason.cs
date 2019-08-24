@@ -8,6 +8,6 @@ namespace OutcomesFirst.Models
     public class LeavingReason
     {
         public int LeavingReasonId { get; set; }
-        public string LeavingReasonDesc { get; set; }
+        public string LeavingReasonName { get; set; }
     }
 }
