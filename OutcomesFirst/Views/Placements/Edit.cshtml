@@ -13,11 +13,11 @@
 
     IEnumerable<SelectListItem> leavingreasons = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
            .Concat(Model.leavingReasons
-           .OrderBy(x => x.LeavingReasonDesc)
+           .OrderBy(x => x.LeavingReasonName)
            .Select(t => new SelectListItem
            {
                Value = t.LeavingReasonId.ToString(),
-               Text = t.LeavingReasonDesc
+               Text = t.LeavingReasonName
            })); ;
 
     IEnumerable<SelectListItem> genders = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
