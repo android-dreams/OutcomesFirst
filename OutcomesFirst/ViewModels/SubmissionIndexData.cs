@@ -22,10 +22,12 @@ namespace OutcomesFirst.ViewModels
 
         public bool MVIsChecked { get; set; }
 
+        public int status { get; set; }
+
         //[NotMapped]
         //public List<string> IsChecked { get; set; }
 
-         public Referral Referral { get; set;  }
+        public Referral Referral { get; set;  }
 
         public Submission Submission { get; set; }
 
