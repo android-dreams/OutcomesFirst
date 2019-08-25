@@ -3,6 +3,7 @@ using OutcomesFirst.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace OutcomesFirst.ViewModels
 {
@@ -26,6 +27,12 @@ namespace OutcomesFirst.ViewModels
         [Display(Name = "Local Authority")]
         public int ReferralLocalAuthorityId { get; set; }
 
+        [DataType(DataType.Date)]
+        [Display(Name = "Date of Birth")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
+        public DateTime? ReferralDOB { get; set; }
+
+
         public int DOBDay { get; set; }
         public int DOBMonth { get; set; }
         public int DOBYear { get; set; }
@@ -38,6 +45,11 @@ namespace OutcomesFirst.ViewModels
         [Range(0, 19, ErrorMessage = "Age must be between 0 and 19")]
         [Display(Name = "Age")]
         public int ReferralAge { get; set; }
+
+        internal IQueryable<Referral> AsNoTracking()
+        {
+            throw new NotImplementedException();
+        }
 
         [Display(Name = "Comments")]
         public string ReferralComments { get; set; }
