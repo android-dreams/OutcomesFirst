@@ -60,6 +60,7 @@ namespace OutcomesFirst.ViewModels
         public int PlacementDOBYear { get; set; }
 
         [Display(Name = "Age at Leaving")]
+        [Range(0, 19, ErrorMessage = "Leaving age must be between 0 and 19")]
         public int? PlacementAgeAtLeaving { get; set; }
 
         [Display(Name = "Local Authority")]

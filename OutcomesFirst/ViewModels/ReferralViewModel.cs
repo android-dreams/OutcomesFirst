@@ -50,7 +50,7 @@ namespace OutcomesFirst.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime? ReferralPlacementStartDate { get; set; }
 
-        [Required(ErrorMessage ="You've got to put something in here!")]
+        
         public string ReferralSuitableColor { get; set; }
 
         public bool? ReferralSuitable { get; set; }
