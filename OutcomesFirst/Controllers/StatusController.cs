@@ -27,7 +27,7 @@ namespace OutcomesFirst.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Status
-                .OrderBy(o => o.StatusName)
+                .OrderBy(o => o.StatusPriority)
                 .ToListAsync());
         }
 
