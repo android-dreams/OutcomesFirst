@@ -554,3 +554,10 @@ label {
 .form-heading{
     font-weight:bold;
 }
+.widercontainer {
+    width: 100%;
+    padding-right: 1px;
+    padding-left: 1px;
+    margin-right: auto;
+    margin-left: auto;
+}

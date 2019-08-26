@@ -358,13 +358,15 @@ namespace OutcomesFirst.Migrations
 
                     b.Property<DateTime>("PlacementDateStartedWithGroup");
 
-                    b.Property<string>("PlacementFirstName");
+                    b.Property<string>("PlacementFirstName")
+                        .IsRequired();
 
                     b.Property<string>("PlacementFramework");
 
                     b.Property<int>("PlacementGenderId");
 
-                    b.Property<string>("PlacementLastName");
+                    b.Property<string>("PlacementLastName")
+                        .IsRequired();
 
                     b.Property<DateTime?>("PlacementLeaveDate");
 
@@ -380,13 +382,15 @@ namespace OutcomesFirst.Migrations
 
                     b.Property<string>("PlacementNotes");
 
-                    b.Property<DateTime?>("PlacementPlacementStartDate");
+                    b.Property<DateTime?>("PlacementPlacementStartDate")
+                        .IsRequired();
 
                     b.Property<string>("PlacementRefId");
 
                     b.Property<int>("PlacementServiceId");
 
-                    b.Property<bool?>("PlacementServiceTransition");
+                    b.Property<bool?>("PlacementServiceTransition")
+                        .IsRequired();
 
                     b.Property<int>("PlacementType");
 

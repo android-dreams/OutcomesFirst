@@ -14,31 +14,39 @@ namespace OutcomesFirst.Models
         [Display(Name = "Referral ID")]
         public string PlacementRefId { get; set; }
 
-
+        [Required]
         [Display(Name = "First Name")]
         public string PlacementFirstName { get; set; }
 
+        [Required]
         [Display(Name = "Last Name")]
         public string PlacementLastName { get; set; }
 
+        [Required]
         [Display(Name = "Gender")]
         public int PlacementGenderId { get; set; }
 
+        [Required]
         [Display(Name = "Residental")]
         public int PlacementType { get; set; }
 
+        [Required]
         [Display(Name = "Service Transition")]
         public bool? PlacementServiceTransition { get; set; }
 
+        [Required]
         [Display(Name = "Service")]
         public int PlacementServiceId { get; set; }
 
-       
+
+        [Required]
         [Display(Name = "Date Started With Group")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString ="{0:dd-MM-yyyy}",ApplyFormatInEditMode = true)]
         public DateTime PlacementDateStartedWithGroup { get; set; }
 
+
+        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Placement Start Date")]
@@ -47,6 +55,8 @@ namespace OutcomesFirst.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date of Birth")]
+
+        [Required]
         public DateTime PlacementDOB { get; set; }
 
         [Display(Name = "Age at Leaving")]
@@ -80,6 +90,7 @@ namespace OutcomesFirst.Models
 
         [Display(Name = "Reason for Leaving")]
         public int? PlacementLeavingReasonId { get; set; }
+
 
         [ForeignKey("PlacementGenderId")]
         public Gender PlacementGender { get; set; }
