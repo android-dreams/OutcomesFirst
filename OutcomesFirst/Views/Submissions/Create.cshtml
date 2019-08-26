@@ -15,20 +15,18 @@
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <div class="inline">
-                 ID                         Gender                                 Age            Local Authority
-                 Date Received
-                </div>
-                <div class="inline">
-                    <input asp-for="MVReferralId" class="form-control-static" asp-items="ViewBag.MVReferralId" readonly></>
-                    <input asp-for="MVReferralName" class="form-control-static" asp-items="ViewBag.MVReferralName" readonly></>
-                </div>
+                <h4>
+                    @ViewBag.MVReferralName
+                </h4>
+              
+                @*<input asp-for="MVReferralName" class="form-control-static" asp-items="ViewBag.MVReferralName" readonly></>*@
+
 
                 <div class="form-group">
                     <table class="table">
                         <thead>
                             <tr>
-                               <th>
+                                <th>
                                     Services
                                 </th>
                                 <th></th>
@@ -53,7 +51,7 @@
                             }
                         </tbody>
                     </table>
-                 </div>
+                </div>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>

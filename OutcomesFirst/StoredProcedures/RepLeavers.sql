@@ -18,7 +18,7 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE Rep_OccupancyLeavers 
+CREATE PROCEDURE Rep_Leavers 
 --exec Rep_OccupancyLeavers 
 	-- Add the parameters for the stored procedure here
 	--<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
