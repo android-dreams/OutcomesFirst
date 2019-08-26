@@ -22,19 +22,23 @@
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
-        <CommandText>New_LapsedCustomers</CommandText>
+        <CommandText>LocalAuthorityStatus</CommandText>
       </Query>
       <Fields>
+        <Field Name="LocalAuthorityId">
+          <DataField>LocalAuthorityId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
         <Field Name="LocalAuthorityName">
           <DataField>LocalAuthorityName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="ID">
-          <DataField />
+        <Field Name="LocalAuthorityRegionId">
+          <DataField>LocalAuthorityRegionId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="RegionName">
-          <DataField>RegionName</DataField>
+        <Field Name="lastatus">
+          <DataField>lastatus</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>

@@ -273,23 +273,21 @@
                     <div class="card-body">
                         <div class="form-group">
                             <div class="row">
-                                    <textarea asp-for="PlacementNotes" class="form-control rows=10"></textarea> 
-                                    <span asp-validation-for="PlacementNotes" class="text-danger"></span>
-                                </div>
+                                <textarea asp-for="PlacementNotes" class="form-control rows=10"></textarea>
+                                <span asp-validation-for="PlacementNotes" class="text-danger"></span>
                             </div>
                         </div>
-
-
-
-
-
                     </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <input type="submit" value="Save" class="btn btn-primary" />
-                        </div>
-                    </div>
-</form>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
     <div>
         <a asp-action="Index">Back to List</a>
     </div>

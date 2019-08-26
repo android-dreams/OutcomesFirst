@@ -227,6 +227,9 @@ namespace OutcomesFirst.Controllers
                    
                 foreach (Submission s in allsubmissions)
                 {
+                    if (s.SubmissionId != id)
+
+                    { }
 
                     //var substat = _context.Status.Where(r => r.StatusId == s.SubmissionStatusId);
 
