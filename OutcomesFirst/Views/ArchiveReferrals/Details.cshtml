@@ -1,40 +1,40 @@
-﻿@model OutcomesFirst.ViewModels.ArchiveReferralViewModel
+﻿@model OutcomesFirst.Models.ArchiveReferral
 
 @{
-    ViewData["Title"] = "Details";
-    //IEnumerable<SelectListItem> localAuthorities = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
-    //         .Concat(Model.localAuthorities
-    //         .OrderBy(x => x.LocalAuthorityName)
-    //         .Select(t => new SelectListItem
-    //         {
-    //             Value = t.LocalAuthorityId.ToString(),
-    //             Text = t.LocalAuthorityName
-    //         })); ;
+//ViewData["Title"] = "Details";
+//IEnumerable<SelectListItem> localAuthorities = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
+//         .Concat(Model.localAuthorities
+//         .OrderBy(x => x.LocalAuthorityName)
+//         .Select(t => new SelectListItem
+//         {
+//             Value = t.LocalAuthorityId.ToString(),
+//             Text = t.LocalAuthorityName
+//         })); ;
 
-    //IEnumerable<SelectListItem> genders = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
-    //         .Concat(Model.genders
-    //         .OrderBy(x => x.GenderName)
-    //         .Select(t => new SelectListItem
-    //         {
-    //             Value = t.GenderId.ToString(),
-    //             Text = t.GenderName
-    //         })); ;
+//IEnumerable<SelectListItem> genders = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
+//         .Concat(Model.genders
+//         .OrderBy(x => x.GenderName)
+//         .Select(t => new SelectListItem
+//         {
+//             Value = t.GenderId.ToString(),
+//             Text = t.GenderName
+//         })); ;
 
-    //IEnumerable<SelectListItem> referraltypes
-    //    = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true },
-    //                        new SelectListItem{ Text="Educational & Residential", Value = "1" },
-    //                        new SelectListItem{ Text="Educational Only", Value = "2" },
-    //                        new SelectListItem{ Text="Residential Only", Value = "3" }       };
+//IEnumerable<SelectListItem> referraltypes
+//    = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true },
+//                        new SelectListItem{ Text="Educational & Residential", Value = "1" },
+//                        new SelectListItem{ Text="Educational Only", Value = "2" },
+//                        new SelectListItem{ Text="Residential Only", Value = "3" }       };
 
 
-    //IEnumerable<SelectListItem> archivereasons = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
-    //         .Concat(Model.archiveReasons
-    //         .OrderBy(x => x.ArchiveReasonName)
-    //         .Select(t => new SelectListItem
-    //         {
-    //             Value = t.ArchiveReasonId.ToString(),
-    //             Text = t.ArchiveReasonName
-    //         })); ;
+//IEnumerable<SelectListItem> archivereasons = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
+//         .Concat(Model.archiveReasons
+//         .OrderBy(x => x.ArchiveReasonName)
+//         .Select(t => new SelectListItem
+//         {
+//             Value = t.ArchiveReasonId.ToString(),
+//             Text = t.ArchiveReasonName
+//         })); ;
 
 
 }
@@ -69,13 +69,13 @@
                             @Html.DisplayNameFor(model => model.ArchiveReferralGenderId)
                         </dt>
                         <dd class="col-sm-9">
-                            @Html.DisplayFor(model => model.ArchiveReferralGenderId)
+                            @Html.DisplayFor(model => model.ArchiveReferralGender.GenderName)
                         </dd>
                         <dt class="col-sm-3">
                             @Html.DisplayNameFor(model => model.ArchiveReferralLocalAuthorityId)
                         </dt>
                         <dd class="col-sm-9">
-                            @Html.DisplayFor(model => model.ArchiveReferralLocalAuthorityId)
+                            @Html.DisplayFor(model => model.ArchiveReferralLocalAuthority.LocalAuthorityName)
                         </dd>
                         <dt class="col-sm-3">
                             @Html.DisplayNameFor(model => model.ArchiveReferralReceivedDate)
@@ -99,7 +99,7 @@
                             @Html.DisplayNameFor(model => model.ArchiveReferralStatusId)
                         </dt>
                         <dd class="col-sm-9">
-                            @Html.DisplayFor(model => model.ArchiveReferralStatusId)
+                            @Html.DisplayFor(model => model.ArchiveReferralStatus.StatusName)
                         </dd>
                         <dt class="col-sm-3">
                             @Html.DisplayNameFor(model => model.ArchiveReferralSuitable)
@@ -111,7 +111,7 @@
                             @Html.DisplayNameFor(model => model.ArchiveReferralArchiveReasonId)
                         </dt>
                         <dd class="col-sm-9">
-                            @Html.DisplayFor(model => model.ArchiveReferralArchiveReasonId)
+                            @Html.DisplayFor(model => model.ArchiveReferralArchiveReason.ArchiveReasonName)
                         </dd>
                         <dt class="col-sm-3">
                             @Html.DisplayNameFor(model => model.ArchiveReferralSuitableComments)

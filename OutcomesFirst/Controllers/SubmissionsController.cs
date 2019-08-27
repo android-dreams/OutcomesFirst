@@ -28,7 +28,8 @@ namespace OutcomesFirst.Controllers
             var servicedata = _context.Submission
                 .Include(s => s.SubmissionReferral)
                 .Include(s => s.SubmissionService)
-                .Include(s => s.SubmissionStatus);
+                .Include(s => s.SubmissionStatus)
+                .OrderBy(s => s.SubmissionReferral.ReferralName).ThenBy (s => s.SubmissionStatus.StatusPriority);
 
 
 
@@ -74,7 +75,8 @@ namespace OutcomesFirst.Controllers
             var submission = new Submission();
 
             var servicesList = _context.Service
-                .OrderBy(s => s.ServiceName)
+                .Include(r => r.ServiceRegion)
+                .OrderBy(s => s.ServiceRegion.RegionName).ThenBy(s => s.ServiceName)
                 .ToList();
 
 
@@ -227,7 +229,7 @@ namespace OutcomesFirst.Controllers
                    
                 foreach (Submission s in allsubmissions)
                 {
-
+                   
                     //var substat = _context.Status.Where(r => r.StatusId == s.SubmissionStatusId);
 
                     if (s.SubmissionStatusId < highest)
