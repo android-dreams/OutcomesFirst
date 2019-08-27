@@ -22,14 +22,8 @@ namespace OutcomesFirst.ViewModels
         public int? SubmissionStatusId { get; set; }
 
 
-
-
-
-
-
-
-        public List<Region> regions { get; set; }
-        public List<ServiceViewModel> services { get; set; }
+        public IList<Region> regions { get; set; }
+        public IList<ServiceViewModel> services { get; set; }
 
     }
 }

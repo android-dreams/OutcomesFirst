@@ -24,9 +24,10 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @Html.HiddenFor(m => m.SubmissionReferralId)
-            @for(int i = 0; i < Model.services.Count(); i++)
+            @for (int i = 0; i < Model.services.Count(); i++)
             {
-             @Html.HiddenFor(model => model.services[i].IsChecked)
+                @Html.HiddenFor(model => model.services[i].IsChecked)
+                @Html.HiddenFor(model => model.services[i].ServiceId)
             }
 
             <div class="row">
@@ -53,8 +54,8 @@
                                                     @Model.services[i].ServiceName;
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input asp-for="services[i].IsChecked" type="checkbox" value="true">
-
+                                                    <input name="IsChecked" type="checkbox" value="@i" /><br />
+                                                    <input name="isChecked" hidden />
                                                     <span asp-validation-for="services[i].IsChecked" class="text-danger small"></span>
                                                     <br />
                                                 </div>
