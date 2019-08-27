@@ -2,6 +2,12 @@
 @{
     ViewData["Title"] = "Edit";
 
+    IEnumerable<SelectListItem> placementypes
+    = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true },
+                        new SelectListItem{ Text="Educational & Residential", Value = "1" },
+                        new SelectListItem{ Text="Educational Only", Value = "2" },
+                        new SelectListItem{ Text="Residential Only", Value = "3" }       };
+
 }
 
 <hr />
@@ -9,6 +15,7 @@
 <div class="container">
     <form asp-action="OccupancyEdit">
         @Html.HiddenFor(m => m.PlacementId)
+        @Html.HiddenFor(m => m.PlacementServiceId)
 
         <div class="form-group">
             <h4>
@@ -91,7 +98,8 @@
                                     <label asp-for="PlacementType" class="control-label"></label>
                                 </div>
                                 <div class="col-md-7">
-                                    <input asp-for="PlacementType" class="form-control" />
+                                    @*<input asp-for="PlacementType" class="form-control" />*@
+                                    <select asp-for="PlacementType" class="form-control" asp-items="placementypes"></select>
                                     <span asp-validation-for="PlacementType" class="text-danger"></span>
 
                                 </div>
@@ -278,15 +286,17 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-        </div>
-        <div class="row">
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </div>
+
+
+
+
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
     </form>
     <div>
         <a asp-action="Index">Back to List</a>

@@ -22,7 +22,7 @@ namespace OutcomesFirst.ViewModels
         public int ReferralGenderId { get; set; }
 
         [Required(ErrorMessage = "{0} is required.")]
-        [Range(1, 99, ErrorMessage = "Please select Local Authority")]
+        [Range(1, 999, ErrorMessage = "Please select Local Authority")]
 
         [Display(Name = "Local Authority")]
         public int ReferralLocalAuthorityId { get; set; }
