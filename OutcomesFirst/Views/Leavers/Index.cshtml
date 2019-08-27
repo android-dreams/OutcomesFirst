@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OutcomesFirst.Models.Occupancy>
+﻿@model IEnumerable<OutcomesFirst.Models.Placement>
 
 @{
     ViewData["Title"] = "Leavers";
@@ -45,31 +45,31 @@
         <tr>
 
             <td>
-                @Html.DisplayFor(modelItem => item.OccupancyFirstName)
+                @Html.DisplayFor(modelItem => item.PlacementFirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OccupancyLastName)
+                @Html.DisplayFor(modelItem => item.PlacementLastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OccupancyGender.GenderName)
+                @Html.DisplayFor(modelItem => item.PlacementGender.GenderName)
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.OccupancyAgeAtLeaving)
+                @Html.DisplayFor(modelItem => item.PlacementAgeAtLeaving)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OccupancyLeaveDate)
+                @Html.DisplayFor(modelItem => item.PlacementLeaveDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OccupancyService.ServiceName)
+                @Html.DisplayFor(modelItem => item.PlacementService.ServiceName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OccupancyLocalAuthority.LocalAuthorityName)
+                @Html.DisplayFor(modelItem => item.PlacementLocalAuthority.LocalAuthorityName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.OccupancyId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OccupancyId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OccupancyId">Delete</a>
+               
+                <a asp-action="Details" asp-route-id="@item.PlacementId">Details</a> |
+              
             </td>
         </tr>
 }
