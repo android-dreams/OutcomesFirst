@@ -19,8 +19,8 @@ namespace OutcomesFirst.Models
         [Display(Name = "Status")]
         public int? SubmissionStatusId { get; set; }
 
-        [NotMapped]
-        public List<string> IsChecked { get; set; }
+        //[NotMapped]
+        //public bool IsChecked { get; set; }
        
  
         public virtual Referral SubmissionReferral { get; set; }

@@ -45,6 +45,9 @@ namespace OutcomesFirst
             CreateMap<Placement, PlacementViewModel>();
             CreateMap<PlacementViewModel, Placement>();
 
+            CreateMap<Service, ServiceViewModel>();
+            CreateMap<ServiceViewModel, Service>();
+
         }
 
     }

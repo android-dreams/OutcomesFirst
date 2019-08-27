@@ -31,6 +31,8 @@ namespace OutcomesFirst.Controllers
             return View(await PaginatedList<Service>.CreateAsync(applicationDbContext.AsNoTracking(),pageNumber ?? 1, pageSize));
         }
 
+
+
         // GET: Services/Details/5
         public async Task<IActionResult> Details(int? id)
         {

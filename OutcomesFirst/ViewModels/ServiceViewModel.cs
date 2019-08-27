@@ -41,7 +41,7 @@ namespace OutcomesFirst.ViewModels
         [Display(Name = "Number of Places")]
         public int ServicePlaces { get; set; }
 
-
+        public bool IsChecked { get; set; }
         public virtual Region Region { get; set; }
     }
 }

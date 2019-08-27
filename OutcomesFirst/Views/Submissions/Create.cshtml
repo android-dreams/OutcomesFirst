@@ -1,67 +1,104 @@
-﻿@model OutcomesFirst.ViewModels.SubmissionIndexData
+﻿@model OutcomesFirst.ViewModels.SubmissionViewModel
 
 @{
     ViewData["Title"] = "Create";
+   
 }
 
-<h1>Create</h1>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<h4>Services</h4>
-<hr />
+
+    <link href="~/css/site.min.css" rel="stylesheet" />
+    <script src="~/js/site.js"></script>
+  
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+</head>
+<p>
+    <h3>Create New Submission</h3>
+</p>
 
 <body>
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="container">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.HiddenFor(m => m.SubmissionReferralId)
+            @for(int i = 0; i < Model.services.Count(); i++)
+            {
+             @Html.HiddenFor(model => model.services[i].IsChecked)
+            }
 
-                <div class="inline">
-                 ID                         Gender                                 Age            Local Authority
-                 Date Received
+            <div class="row">
+                @for (int j = 0; j < @Model.regions.Count; j++)
+                {
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header" style="background-color:#b9e488">
+                                <h4 class="card-title">
+                                    <span style="font-size: 1em;">
+                                        <i class="fas fa-user small"></i>
+                                    </span>
+                                    @Model.regions[j].RegionName
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                @for (int i = 0; i < @Model.services.Count; i++)
+                                {
+                                    @if (@Model.services[i].ServiceRegionId == @Model.regions[j].RegionId)
+                                    {
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    @Model.services[i].ServiceName;
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input asp-for="services[i].IsChecked" type="checkbox" value="true">
+
+                                                    <span asp-validation-for="services[i].IsChecked" class="text-danger small"></span>
+                                                    <br />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+            <div class="form=group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </p>
+                    </div>
                 </div>
-                <div class="inline">
-                    <input asp-for="MVReferralId" class="form-control-static" asp-items="ViewBag.MVReferralId" readonly></>
-                    <input asp-for="MVReferralName" class="form-control-static" asp-items="ViewBag.MVReferralName" readonly></>
-                </div>
-
-                <div class="form-group">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                               <th>
-                                    Services
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.Services)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ServiceName)
-
-                                    </td>
-                                    <td>
-                                        <input asp-for="MVIsChecked" name="Submission.IsChecked" type="checkbox" value="@item.ServiceId" /> <br />
-                                        @* <input asp-for="Referral.ReferralName" name="submissionIndexData.Submission.IsChecked" type="checkbox" value="@item.ServiceId" /> <br />*@
-                                        @*<input asp-for="Submission.IsChecked" class="checkbox"  asp-items="@item.ServiceId">*@
-
-
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+
 </body>
+
+
+<div>
+    <a asp-action="Index" class="small">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+ <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[type="radio"]').click(function () {
+                var inputValue = $(this).attr("value");
+                var targetBox = $("." + inputValue);
+                $(".box").not(targetBox).hide();
+                $(targetBox).show();
+            });
+        });
+    </script>
