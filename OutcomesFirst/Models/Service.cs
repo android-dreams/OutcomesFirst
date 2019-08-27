@@ -33,7 +33,7 @@ namespace OutcomesFirst.Models
         public string ServicePostcode { get; set; }
 
         [Display(Name = "Region")]
-        public int? ServiceRegionId { get; set; }
+        public int ServiceRegionId { get; set; }
      
         [Display(Name = "Contact")]
         public string ServiceContact { get; set; }
@@ -44,7 +44,6 @@ namespace OutcomesFirst.Models
         [Display(Name = "Number of Places")]
         public int ServicePlaces { get; set; }
 
-       
         public virtual Region ServiceRegion { get; set; }
     }
 }

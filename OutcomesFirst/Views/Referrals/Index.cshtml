@@ -49,49 +49,99 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReferralName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReferralGender.GenderName)
-            </td>
+            @if (DateTime.Now > item.ReferralReceivedDate.AddHours(2) && item.Submissions.Count() == 0)
+            {
+                <tr style="background-color:red">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReferralName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReferralGender.GenderName)
+                    </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.ReferralAge)
-            </td>
-            <td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReferralAge)
+                    </td>
+                    <td>
 
-                @Html.DisplayFor(modelItem => item.ReferralLocalAuthority.LocalAuthorityName)
+                        @Html.DisplayFor(modelItem => item.ReferralLocalAuthority.LocalAuthorityName)
 
-            </td>
+                    </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.ReferralReceivedDate)
-            </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReferralReceivedDate)
+                    </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.ReferralStatus.StatusName)
-            </td>
-            <td>
-                @{
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReferralStatus.StatusName)
+                    </td>
+                    <td>
+                        @{
+                var count = 0;
+                if (item.Submissions != null)
+                {
+                    count = item.Submissions.Count();
+                }
+                        }
+                        @Html.DisplayFor(modelItem => count)
+                    </td>
+
+
+                   <td>
+                       <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a> |
+                       <a asp-action="Details" asp-route-id="@item.ReferralId">Details</a> |
+                       <a asp-action="Delete" asp-route-id="@item.ReferralId">Delete</a>
+                   </td>
+                </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReferralName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReferralGender.GenderName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReferralAge)
+                        </td>
+                        <td>
+
+                            @Html.DisplayFor(modelItem => item.ReferralLocalAuthority.LocalAuthorityName)
+
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReferralReceivedDate)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReferralStatus.StatusName)
+                        </td>
+                        <td>
+                            @{
                     var count = 0;
                     if (item.Submissions != null)
                     {
                         count = item.Submissions.Count();
                     }
+                            }
+                            @Html.DisplayFor(modelItem => count)
+                        </td>
+
+
+
+                       <td>
+                           <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a> |
+                           <a asp-action="Details" asp-route-id="@item.ReferralId">Details</a> |
+                           <a asp-action="Delete" asp-route-id="@item.ReferralId">Delete</a>
+                       </td>
+                    </tr>       
+
                 }
-                @Html.DisplayFor(modelItem => count)
-            </td>
-
-
-           <td>
-               <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a> |
-               <a asp-action="Details" asp-route-id="@item.ReferralId">Details</a> |
-               @*<a asp-action="" asp-route-id="@item.ReferralId">Submissions</a> |*@
-               <a asp-action="Delete" asp-route-id="@item.ReferralId">Delete</a>
-           </td>
-        </tr>
+            }
         }
     </tbody>
 </table>
