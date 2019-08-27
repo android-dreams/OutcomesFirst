@@ -19,6 +19,8 @@ namespace OutcomesFirst.Models
         [Display(Name = "Status")]
         public int? SubmissionStatusId { get; set; }
 
+        public bool? SubmissionArchived { get; set; }
+
         [NotMapped]
         public List<string> IsChecked { get; set; }
 
