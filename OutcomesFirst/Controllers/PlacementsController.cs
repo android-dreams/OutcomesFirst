@@ -48,6 +48,7 @@ namespace OutcomesFirst
                 .Include(p => p.PlacementLocalAuthority)
                 .Include(p => p.PlacementService)
                 .Include(p => p.PlacementLeavingReason)
+                .Where(p => p.PlacementLeaveDate == null)
                 .OrderBy(p => p.PlacementService.ServiceName);
 
 
