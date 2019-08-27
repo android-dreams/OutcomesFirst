@@ -28,13 +28,16 @@ namespace OutcomesFirst.Controllers
         public async Task<IActionResult> Index(int? pageNumber)
         {
             int pageSize = 10;
-            var outcomesFirstContext = _context.Referral.Include(s => s.Submissions)
+
+            var outcomesFirstContext = _context.Referral
+              .Include(s => s.Submissions)
               .Include(r => r.ReferralGender)
               .Include(r => r.ReferralLocalAuthority)
               .Include(r => r.ReferralStatus)
               .Include(r => r.ReferralArchiveReason)
-              .Where(r => r.ReferralStatusId != 7 & r.ReferralStatusId != 8)
-              .OrderBy(o => o.ReferralStatus.StatusPriority);
+              .Where(r => r.ReferralStatusId != 1 & r.ReferralStatusId != 2)
+              .OrderBy(o => o.ReferralStatus.StatusId);
+
 
             return View(await PaginatedList<Referral>.CreateAsync(outcomesFirstContext.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
@@ -90,7 +93,7 @@ namespace OutcomesFirst.Controllers
                 }
 
                 ////set initial status to 'Under Consideration By Service'
-                model.ReferralStatusId = 6;
+                model.ReferralStatusId = 8;
                 if (model.ReferralSuitableColor == "green")
                 {
                     model.ReferralSuitable = true;
@@ -115,7 +118,7 @@ namespace OutcomesFirst.Controllers
                 else
                 {
                     //set referral status to Archive
-                    model.ReferralStatusId = 8;
+                    model.ReferralStatusId = 2;
                     model.ReferralSuitable = false;
           
                     var archive = new ArchiveReferral[]
@@ -219,7 +222,7 @@ namespace OutcomesFirst.Controllers
                 if (viewModel.ReferralSuitable == true)
                 {
                     // referral.ReferralSuitable = true;
-                    viewModel.ReferralStatusId = 5;
+                    viewModel.ReferralStatusId = 8;
                     return RedirectToAction("Index", "Referrals");
 
                 }
@@ -234,7 +237,7 @@ namespace OutcomesFirst.Controllers
 
 
             // If offer is made///
-            if (viewModel.ReferralStatusId == 7)
+            if (viewModel.ReferralStatusId == 1)
             {
                 var occupancy = new Occupancy[]
                 {
@@ -282,7 +285,7 @@ namespace OutcomesFirst.Controllers
 
 
             //If Referal is archived///
-            if (viewModel.ReferralStatusId == 8)
+            if (viewModel.ReferralStatusId == 2)
             {
 
 

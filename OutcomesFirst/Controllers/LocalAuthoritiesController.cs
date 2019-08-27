@@ -7,55 +7,51 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OutcomesFirst.Models;
 using OutcomesFirst.Data;
+using AutoMapper;
+using OutcomesFirst.ViewModels;
 
 namespace OutcomesFirst.Controllers
 {
     public class LocalAuthoritiesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public LocalAuthoritiesController(ApplicationDbContext context)
+        public LocalAuthoritiesController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+
         }
 
         // GET: LocalAuthorities
         public async Task<IActionResult> Index(int? pageNumber)
         {
-            int pageSize = 5;
             var outcomesFirstContext = _context.LocalAuthority
               .Include(r => r.LocalAuthorityRegion)
               .OrderBy(o => o.LocalAuthorityName);
              
-            return View(await PaginatedList<LocalAuthority>.CreateAsync(outcomesFirstContext.AsNoTracking(), pageNumber ?? 1, pageSize));
+            LocalAuthorityViewModel viewModel = new LocalAuthorityViewModel();
 
-         
+            var localAuthorities = await _context.LocalAuthority
+                             .Include(r => r.LocalAuthorityRegion)
+                            .OrderBy(o => o.LocalAuthorityName)
+                            .ToArrayAsync();
+            IEnumerable<LocalAuthorityViewModel> localauthorityVM = _mapper.Map<LocalAuthority[], IEnumerable<LocalAuthorityViewModel>>(localAuthorities);
+
+            return View(localauthorityVM);
         }
 
-        // GET: LocalAuthorities/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var localAuthority = await _context.LocalAuthority
-                .FirstOrDefaultAsync(m => m.LocalAuthorityId == id);
-            if (localAuthority == null)
-            {
-                return NotFound();
-            }
-
-            return View(localAuthority);
-        }
+       
 
         // GET: LocalAuthorities/Create
         public IActionResult Create()
         {
-         
-            ViewData["LocalAuthorityRegionId"] = new SelectList(_context.Region, "RegionId", "RegionName");
-            return View();
+            LocalAuthorityViewModel viewModel = new LocalAuthorityViewModel();
+
+            PopulateDropDowns(viewModel);
+
+            return View(viewModel);
         }
 
         // POST: LocalAuthorities/Create
@@ -63,17 +59,21 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LocalAuthorityId,LocalAuthorityName,LocalAuthorityRegionId")] LocalAuthority localAuthority)
+        public async Task<IActionResult> Create( LocalAuthorityViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(localAuthority);
+                LocalAuthority model = new LocalAuthority();
+                _mapper.Map(viewModel, model);
+
+                _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["LocalAuthorityRegionId"] = new SelectList(_context.Region, "RegionId", "RegionName");
-            return View(localAuthority);
+            PopulateDropDowns(viewModel);
+
+            return View(viewModel);
         }
 
         // GET: LocalAuthorities/Edit/5
@@ -84,16 +84,18 @@ namespace OutcomesFirst.Controllers
                 return NotFound();
             }
 
-            var localAuthority = await _context.LocalAuthority.FindAsync(id);
-            if (localAuthority == null)
+            var model = await _context.LocalAuthority.FindAsync(id);
+            if (model == null)
             {
                 return NotFound();
             }
 
- 
-            ViewData["LocalAuthorityRegionId"] = new SelectList(_context.Region, "RegionId", "RegionName", localAuthority.LocalAuthorityRegionId);
-            // ViewData["LocalAuthorityRegionId"] = new SelectList(_context.Region, "RegionId", "RegionName", localAuthority.LocalAuthorityRegionId);
-            return View(localAuthority);
+            LocalAuthorityViewModel viewModel = new LocalAuthorityViewModel();
+            _mapper.Map(model, viewModel);
+
+            PopulateDropDowns(viewModel);
+
+            return View(viewModel);
         }
 
         // POST: LocalAuthorities/Edit/5
@@ -101,9 +103,9 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LocalAuthorityId,LocalAuthorityName,LocalAuthorityRegionId")] LocalAuthority localAuthority)
+        public async Task<IActionResult> Edit(int id, LocalAuthorityViewModel viewModel)
         {
-            if (id != localAuthority.LocalAuthorityId)
+            if (id != viewModel.LocalAuthorityId)
             {
                 return NotFound();
             }
@@ -112,12 +114,15 @@ namespace OutcomesFirst.Controllers
             {
                 try
                 {
-                    _context.Update(localAuthority);
+                    LocalAuthority model = new LocalAuthority();
+                    _mapper.Map(viewModel, model);
+
+                    _context.Update(model);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LocalAuthorityExists(localAuthority.LocalAuthorityId))
+                    if (!LocalAuthorityExists(viewModel.LocalAuthorityId))
                     {
                         return NotFound();
                     }
@@ -129,16 +134,14 @@ namespace OutcomesFirst.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["LocalAuthorityRegionId"] = new SelectList(_context.Region, "RegionId", "RegionId", localAuthority.LocalAuthorityRegionId);
-            return View(localAuthority);
+            return View(viewModel);
         }
 
         // GET: LocalAuthorities/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
-                return NotFound();
+            {                return NotFound();
             }
 
             var localAuthority = await _context.LocalAuthority
@@ -165,6 +168,12 @@ namespace OutcomesFirst.Controllers
         private bool LocalAuthorityExists(int id)
         {
             return _context.LocalAuthority.Any(e => e.LocalAuthorityId == id);
+        }
+
+        private void PopulateDropDowns(LocalAuthorityViewModel viewModel)
+        {
+
+            viewModel.regions = _context.Region.ToList();
         }
     }
 }

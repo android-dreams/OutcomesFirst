@@ -51,7 +51,7 @@ namespace OutcomesFirst.Controllers
             ArchiveReferralViewModel viewModel = new ArchiveReferralViewModel();
             _mapper.Map(model, viewModel);
 
-            return View(viewModel);
+            return View(model);
         }
 
         // GET: ArchiveReferrals/Create

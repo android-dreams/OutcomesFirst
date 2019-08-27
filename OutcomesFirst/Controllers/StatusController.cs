@@ -2,48 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OutcomesFirst.Data;
 using OutcomesFirst.Models;
+using OutcomesFirst.ViewModels;
 
 namespace OutcomesFirst.Controllers
 {
     public class StatusController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public StatusController(ApplicationDbContext context)
+        public StatusController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: Status
         public async Task<IActionResult> Index()
         {
             return View(await _context.Status
-                .OrderBy(o => o.StatusName)
+                .OrderBy(o => o.StatusPriority)
                 .ToListAsync());
         }
 
-        // GET: Status/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var status = await _context.Status
-                .FirstOrDefaultAsync(m => m.StatusId == id);
-            if (status == null)
-            {
-                return NotFound();
-            }
-
-            return View(status);
-        }
+       
 
         // GET: Status/Create
         public IActionResult Create()
@@ -56,15 +44,18 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StatusId,StatusName StatusPriority")] Status status)
+        public async Task<IActionResult> Create(StatusViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(status);
+                Status model = new Status();
+                _mapper.Map(viewModel, model);
+
+                _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(status);
+            return View(viewModel);
         }
 
         // GET: Status/Edit/5
@@ -85,14 +76,16 @@ namespace OutcomesFirst.Controllers
 
             ViewData["list"] = list;
           
-
-
-            var status = await _context.Status.FindAsync(id);
-            if (status == null)
+            var model = await _context.Status.FindAsync(id);
+            if (model == null)
             {
                 return NotFound();
             }
-            return View(status);
+
+            StatusViewModel viewModel = new StatusViewModel();
+            _mapper.Map(model, viewModel);
+
+            return View(viewModel);
         }
 
         // POST: Status/Edit/5
@@ -100,9 +93,9 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StatusId,StatusName, Priority")] Status status)
+        public async Task<IActionResult> Edit(int id, StatusViewModel viewModel)
         {
-            if (id != status.StatusId)
+            if (id != viewModel.StatusId)
             {
                 return NotFound();
             }
@@ -111,12 +104,15 @@ namespace OutcomesFirst.Controllers
             {
                 try
                 {
-                    _context.Update(status);
+                    Status model = new Status();
+                    _mapper.Map(viewModel, model);
+
+                    _context.Update(model);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StatusExists(status.StatusId))
+                    if (!StatusExists(viewModel.StatusId))
                     {
                         return NotFound();
                     }
@@ -127,7 +123,7 @@ namespace OutcomesFirst.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(status);
+            return View(viewModel);
         }
 
         // GET: Status/Delete/5

@@ -2,21 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OutcomesFirst.Data;
 using OutcomesFirst.Models;
+using OutcomesFirst.ViewModels;
 
 namespace OutcomesFirst.Controllers
 {
     public class RegionsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public RegionsController(ApplicationDbContext context)
+
+        public RegionsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: Regions
@@ -32,28 +37,14 @@ namespace OutcomesFirst.Controllers
         }
 
 
-        // GET: Regions/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var region = await _context.Region
-                .FirstOrDefaultAsync(m => m.RegionId == id);
-            if (region == null)
-            {
-                return NotFound();
-            }
-
-            return View(region);
-        }
-
         // GET: Regions/Create
         public IActionResult Create()
         {
-            return View();
+            RegionViewModel viewModel = new RegionViewModel();
+
+            PopulateDropDowns(viewModel);
+
+            return View(viewModel);
         }
 
         // POST: Regions/Create
@@ -61,15 +52,21 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RegionId,RegionName,RegionRegionalManagerId")] Region region)
+        public async Task<IActionResult> Create(RegionViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(region);
+                Region model = new Region();
+                _mapper.Map(viewModel, model);
+
+                _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(region);
+
+            PopulateDropDowns(viewModel);
+
+            return View(viewModel);
         }
 
         // GET: Regions/Edit/5
@@ -80,12 +77,18 @@ namespace OutcomesFirst.Controllers
                 return NotFound();
             }
 
-            var region = await _context.Region.FindAsync(id);
-            if (region == null)
+            var model = await _context.Region.FindAsync(id);
+            if (model == null)
             {
                 return NotFound();
             }
-            return View(region);
+
+            RegionViewModel viewModel = new RegionViewModel();
+            _mapper.Map(model, viewModel);
+
+            PopulateDropDowns(viewModel);
+
+            return View(viewModel);
         }
 
         // POST: Regions/Edit/5
@@ -93,9 +96,9 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RegionId,RegionName,RegionRegionalManagerId")] Region region)
+        public async Task<IActionResult> Edit(int id, RegionViewModel viewModel)
         {
-            if (id != region.RegionId)
+            if (id != viewModel.RegionId)
             {
                 return NotFound();
             }
@@ -104,12 +107,15 @@ namespace OutcomesFirst.Controllers
             {
                 try
                 {
-                    _context.Update(region);
+                    Region model = new Region();
+                    _mapper.Map(viewModel, model);
+
+                    _context.Update(model);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RegionExists(region.RegionId))
+                    if (!RegionExists(viewModel.RegionId))
                     {
                         return NotFound();
                     }
@@ -120,7 +126,7 @@ namespace OutcomesFirst.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(region);
+            return View(viewModel);
         }
 
         // GET: Regions/Delete/5
@@ -131,14 +137,14 @@ namespace OutcomesFirst.Controllers
                 return NotFound();
             }
 
-            var region = await _context.Region
+            var model = await _context.Region
                 .FirstOrDefaultAsync(m => m.RegionId == id);
-            if (region == null)
+            if (model == null)
             {
                 return NotFound();
             }
 
-            return View(region);
+            return View(model);
         }
 
         // POST: Regions/Delete/5
@@ -155,6 +161,12 @@ namespace OutcomesFirst.Controllers
         private bool RegionExists(int id)
         {
             return _context.Region.Any(e => e.RegionId == id);
+        }
+
+        private void PopulateDropDowns(RegionViewModel viewModel)
+        {
+
+            viewModel.regionalManagers = _context.RegionalManager.ToList();
         }
     }
 }

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Regions";
 }
 
-<h1>Regions</h1>
+<h3>Regions</h3>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -32,7 +32,6 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.RegionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RegionId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.RegionId">Delete</a>
             </td>
         </tr>

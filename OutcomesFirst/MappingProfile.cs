@@ -20,6 +20,35 @@ namespace OutcomesFirst
 
             CreateMap<ArchiveReferral, ArchiveReferralViewModel>();
             CreateMap<ArchiveReferralViewModel, ArchiveReferral>();
+
+            CreateMap<ArchiveReason, ArchiveReasonViewModel>();
+            CreateMap<ArchiveReasonViewModel, ArchiveReason>();
+
+            CreateMap<Gender, GenderViewModel>();
+            CreateMap<GenderViewModel, Gender>();
+
+            CreateMap<LocalAuthority, LocalAuthorityViewModel>();
+            CreateMap<LocalAuthorityViewModel, LocalAuthority>();
+
+            CreateMap<RegionalManager, RegionalManagerViewModel>();
+            CreateMap<RegionalManagerViewModel, RegionalManager>();
+
+            CreateMap<Region, RegionViewModel>();
+            CreateMap<RegionViewModel, Region>();
+
+            CreateMap<Status, StatusViewModel>();
+            CreateMap<StatusViewModel, Status>();
+
+            CreateMap<LeavingReason, LeavingReasonsViewModel>();
+            CreateMap<LeavingReasonsViewModel, LeavingReason>();
+
+            CreateMap<Placement, PlacementViewModel>();
+            CreateMap<PlacementViewModel, Placement>();
+
+            CreateMap<Submission, SubmissionViewModel>();
+            CreateMap<SubmissionViewModel, Submission>();
+
+
         }
 
     }

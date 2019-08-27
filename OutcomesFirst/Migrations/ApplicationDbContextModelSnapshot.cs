@@ -15,7 +15,7 @@ namespace OutcomesFirst.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -388,9 +388,7 @@ namespace OutcomesFirst.Migrations
 
                     b.Property<bool?>("PlacementServiceTransition");
 
-                    b.Property<string>("PlacementType")
-                        .IsRequired()
-                        .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 1)));
+                    b.Property<int>("PlacementType");
 
                     b.Property<int?>("PlacementWeeklyFee");
 
@@ -544,6 +542,8 @@ namespace OutcomesFirst.Migrations
                     b.Property<int>("SubmissionId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool?>("SubmissionArchived");
 
                     b.Property<int>("SubmissionReferralId");
 

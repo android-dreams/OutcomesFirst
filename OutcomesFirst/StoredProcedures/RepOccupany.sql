@@ -18,8 +18,10 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE Rep_OccupancyLeavers 
---exec Rep_OccupancyLeavers 
+
+
+ALTER PROCEDURE Rep_Occupancy
+--exec Rep_Occupancy 
 	-- Add the parameters for the stored procedure here
 	--<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
 	--<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
@@ -30,26 +32,26 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT o.OccupancyFirstName,
-	o.OccupancyLastName,
-	o.OccupancyGenderId,
-	o.OccupancyType,
-	o.OccupancyDateStartedWithGroup,
-	o.OccupancyPlacementStartDate,
-	o.OccupancyDOB,
-	o.OccupancyLocalAuthorityId,
-	o.OccupancyFramework,
-	o.OccupancyLengthOfStayWithPlacement,
-	o.OccupancyNotes
-	OccupancyLengthOfStayWithGroup,
+	SELECT o.PlacementFirstName,
+	o.PlacementLastName,
+	o.PlacementGenderId,
+	o.PlacementType,
+	o.PlacementDateStartedWithGroup,
+	o.PlacementPlacementStartDate,
+	o.PlacementDOB,
+	o.PlacementLocalAuthorityId,
+	o.PlacementFramework,
+	o.PlacementLengthOfStayWithPlacement,
+	o.PlacementNotes
+	PlacementLengthOfStayWithGroup,
 	serv.ServiceName,
 	serv.ServicePlaces
-	 from Occupancy o
-	  inner join Service serv on o.OccupancyServiceId = serv.ServiceId
-	  inner join Gender g on o.OccupancyGenderId = g.GenderId
-	  inner join LocalAuthority LA on o.OccupancyLocalAuthorityId = LA.LocalAuthorityId
-	  left outer join LeavingReason LR on o.OccupancyReasonForLeavingID = LR.LeavingReasonId
-	  where o.OccupancyLeaveDate is null
+	 from Placement o
+	  inner join Service serv on o.PlacementServiceId = serv.ServiceId
+	  inner join Gender g on o.PlacementGenderId = g.GenderId
+	  inner join LocalAuthority LA on o.PlacementLocalAuthorityId = LA.LocalAuthorityId
+	  left outer join LeavingReason LR on o.PlacementLeavingReasonId = LR.LeavingReasonId
+	  where o.PlacementLeaveDate is null
 
 END
 GO

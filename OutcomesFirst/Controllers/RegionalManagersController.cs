@@ -2,47 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OutcomesFirst.Data;
 using OutcomesFirst.Models;
+using OutcomesFirst.ViewModels;
 
 namespace OutcomesFirst.Controllers
 {
     public class RegionalManagersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public RegionalManagersController(ApplicationDbContext context)
+        public RegionalManagersController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+
         }
 
         // GET: RegionalManagers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.RegionalManager.ToListAsync());
+            RegionalManagerViewModel viewModel = new RegionalManagerViewModel();
+
+            var regionalManagers = await _context.RegionalManager.ToArrayAsync();
+
+            IEnumerable<RegionalManagerViewModel> regionalManagerVM = _mapper.Map<RegionalManager[], IEnumerable<RegionalManagerViewModel>>(regionalManagers);
+
+            return View(regionalManagerVM);
+
         }
 
-        // GET: RegionalManagers/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var regionalManager = await _context.RegionalManager
-                .FirstOrDefaultAsync(m => m.RegionalManagerId == id);
-            if (regionalManager == null)
-            {
-                return NotFound();
-            }
-
-            return View(regionalManager);
-        }
-
+     
         // GET: RegionalManagers/Create
         public IActionResult Create()
         {
@@ -54,15 +49,19 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RegionalManagerId,RegionalManagerName")] RegionalManager regionalManager)
+        public async Task<IActionResult> Create( RegionalManagerViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(regionalManager);
+                RegionalManager model = new RegionalManager();
+                _mapper.Map(viewModel, model);
+
+                _context.Add(model);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(regionalManager);
+            return View(viewModel);
         }
 
         // GET: RegionalManagers/Edit/5
@@ -73,12 +72,16 @@ namespace OutcomesFirst.Controllers
                 return NotFound();
             }
 
-            var regionalManager = await _context.RegionalManager.FindAsync(id);
-            if (regionalManager == null)
+            var model = await _context.RegionalManager.FindAsync(id);
+            if (model == null)
             {
                 return NotFound();
             }
-            return View(regionalManager);
+
+            RegionalManagerViewModel viewModel = new RegionalManagerViewModel();
+            _mapper.Map(model, viewModel);
+
+            return View(viewModel);
         }
 
         // POST: RegionalManagers/Edit/5
@@ -86,9 +89,9 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RegionalManagerId,RegionalManagerName")] RegionalManager regionalManager)
+        public async Task<IActionResult> Edit(int id,  RegionalManagerViewModel viewModel)
         {
-            if (id != regionalManager.RegionalManagerId)
+            if (id != viewModel.RegionalManagerId)
             {
                 return NotFound();
             }
@@ -97,12 +100,15 @@ namespace OutcomesFirst.Controllers
             {
                 try
                 {
-                    _context.Update(regionalManager);
+                    RegionalManager model = new RegionalManager();
+                    _mapper.Map(viewModel, model);
+
+                    _context.Update(model);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RegionalManagerExists(regionalManager.RegionalManagerId))
+                    if (!RegionalManagerExists(viewModel.RegionalManagerId))
                     {
                         return NotFound();
                     }
@@ -113,7 +119,7 @@ namespace OutcomesFirst.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(regionalManager);
+            return View(viewModel);
         }
 
         // GET: RegionalManagers/Delete/5
@@ -124,15 +130,20 @@ namespace OutcomesFirst.Controllers
                 return NotFound();
             }
 
-            var regionalManager = await _context.RegionalManager
+            var model = await _context.RegionalManager
                 .FirstOrDefaultAsync(m => m.RegionalManagerId == id);
-            if (regionalManager == null)
+            if (model == null)
             {
                 return NotFound();
             }
 
-            return View(regionalManager);
+            RegionalManagerViewModel viewModel = new RegionalManagerViewModel();
+            _mapper.Map(model, viewModel);
+
+            return View(viewModel);
         }
+
+
 
         // POST: RegionalManagers/Delete/5
         [HttpPost, ActionName("Delete")]

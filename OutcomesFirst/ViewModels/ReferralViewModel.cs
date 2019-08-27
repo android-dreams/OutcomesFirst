@@ -3,6 +3,7 @@ using OutcomesFirst.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace OutcomesFirst.ViewModels
 {
@@ -21,10 +22,16 @@ namespace OutcomesFirst.ViewModels
         public int ReferralGenderId { get; set; }
 
         [Required(ErrorMessage = "{0} is required.")]
-        [Range(1, 99, ErrorMessage = "Please select Local Authority")]
+        [Range(1, 999, ErrorMessage = "Please select Local Authority")]
 
         [Display(Name = "Local Authority")]
         public int ReferralLocalAuthorityId { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Date of Birth")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
+        public DateTime? ReferralDOB { get; set; }
+
 
         public int DOBDay { get; set; }
         public int DOBMonth { get; set; }
@@ -39,6 +46,11 @@ namespace OutcomesFirst.ViewModels
         [Display(Name = "Age")]
         public int ReferralAge { get; set; }
 
+        internal IQueryable<Referral> AsNoTracking()
+        {
+            throw new NotImplementedException();
+        }
+
         [Display(Name = "Comments")]
         public string ReferralComments { get; set; }
 
@@ -50,7 +62,7 @@ namespace OutcomesFirst.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime? ReferralPlacementStartDate { get; set; }
 
-        [Required(ErrorMessage ="You've got to put something in here!")]
+        
         public string ReferralSuitableColor { get; set; }
 
         public bool? ReferralSuitable { get; set; }

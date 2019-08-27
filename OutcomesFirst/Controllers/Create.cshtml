@@ -1,0 +1,126 @@
+﻿@page
+@model OutcomesFirst.Controllers.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Placement</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementRefId" class="control-label"></label>
+                <input asp-for="Placement.PlacementRefId" class="form-control" />
+                <span asp-validation-for="Placement.PlacementRefId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementFirstName" class="control-label"></label>
+                <input asp-for="Placement.PlacementFirstName" class="form-control" />
+                <span asp-validation-for="Placement.PlacementFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementLastName" class="control-label"></label>
+                <input asp-for="Placement.PlacementLastName" class="form-control" />
+                <span asp-validation-for="Placement.PlacementLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementGenderId" class="control-label"></label>
+                <select asp-for="Placement.PlacementGenderId" class ="form-control" asp-items="ViewBag.PlacementGenderId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementType" class="control-label"></label>
+                <input asp-for="Placement.PlacementType" class="form-control" />
+                <span asp-validation-for="Placement.PlacementType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementServiceTransition" class="control-label"></label>
+                <input asp-for="Placement.PlacementServiceTransition" class="form-control" />
+                <span asp-validation-for="Placement.PlacementServiceTransition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementServiceId" class="control-label"></label>
+                <select asp-for="Placement.PlacementServiceId" class ="form-control" asp-items="ViewBag.PlacementServiceId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementDateStartedWithGroup" class="control-label"></label>
+                <input asp-for="Placement.PlacementDateStartedWithGroup" class="form-control" />
+                <span asp-validation-for="Placement.PlacementDateStartedWithGroup" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementPlacementStartDate" class="control-label"></label>
+                <input asp-for="Placement.PlacementPlacementStartDate" class="form-control" />
+                <span asp-validation-for="Placement.PlacementPlacementStartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementDOB" class="control-label"></label>
+                <input asp-for="Placement.PlacementDOB" class="form-control" />
+                <span asp-validation-for="Placement.PlacementDOB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementAgeAtLeaving" class="control-label"></label>
+                <input asp-for="Placement.PlacementAgeAtLeaving" class="form-control" />
+                <span asp-validation-for="Placement.PlacementAgeAtLeaving" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementLocalAuthorityId" class="control-label"></label>
+                <select asp-for="Placement.PlacementLocalAuthorityId" class ="form-control" asp-items="ViewBag.PlacementLocalAuthorityId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementFramework" class="control-label"></label>
+                <input asp-for="Placement.PlacementFramework" class="form-control" />
+                <span asp-validation-for="Placement.PlacementFramework" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementWeeklyFee" class="control-label"></label>
+                <input asp-for="Placement.PlacementWeeklyFee" class="form-control" />
+                <span asp-validation-for="Placement.PlacementWeeklyFee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementLengthOfStayWithGroup" class="control-label"></label>
+                <input asp-for="Placement.PlacementLengthOfStayWithGroup" class="form-control" />
+                <span asp-validation-for="Placement.PlacementLengthOfStayWithGroup" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementLengthOfStayWithPlacement" class="control-label"></label>
+                <input asp-for="Placement.PlacementLengthOfStayWithPlacement" class="form-control" />
+                <span asp-validation-for="Placement.PlacementLengthOfStayWithPlacement" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementNotes" class="control-label"></label>
+                <input asp-for="Placement.PlacementNotes" class="form-control" />
+                <span asp-validation-for="Placement.PlacementNotes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementLeaveDate" class="control-label"></label>
+                <input asp-for="Placement.PlacementLeaveDate" class="form-control" />
+                <span asp-validation-for="Placement.PlacementLeaveDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementLeaverType" class="control-label"></label>
+                <input asp-for="Placement.PlacementLeaverType" class="form-control" />
+                <span asp-validation-for="Placement.PlacementLeaverType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Placement.PlacementLeavingReasonId" class="control-label"></label>
+                <select asp-for="Placement.PlacementLeavingReasonId" class ="form-control" asp-items="ViewBag.PlacementLeavingReasonId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

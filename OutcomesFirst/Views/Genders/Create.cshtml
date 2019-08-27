@@ -1,41 +1,42 @@
-﻿@model OutcomesFirst.Models.Gender
+﻿@model OutcomesFirst.ViewModels.GenderViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h3>System Admin</h3>
 
-<h4>Gender</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="GenderName" class="control-label"></label>
-                <input asp-for="GenderName" class="form-control" />
-                <span asp-validation-for="GenderName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-
-    <div class="card" style="width: 18rem;">
-        <div class="card-header">
-            <span style="font-size: 1em; color:coral;">
-                <i class="fas fa-user small"></i>
-            </span>Gender
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="card">
+        <div class="card-header" style="background-color:#b9e488">
+            <h5 class="card-title">
+                <span style="font-size: 1em; color:#1a75e8;">
+                    <i class="fas fa-tools small"></i>
+                </span>
+                Gender Create
+            </h5>
         </div>
         <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Quick sample text to create the card title and make up the body of the card's content.</p>
-            <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-5">
+                         <label asp-for="GenderName" class="control-label"></label>                      
+                    </div>
+                    <div class="col-md-7">
+                        <input asp-for="GenderName" class="form-control" />
+                        <span asp-validation-for="GenderName" class="text-danger"></span>                    
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+<br/>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
 
 <div>
     <a asp-action="Index">Back to List</a>

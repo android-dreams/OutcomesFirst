@@ -34,6 +34,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.1" />
     <PackageReference Include="BuildBundlerMinifier" Version="2.9.406" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="3.5.0" />
     <PackageReference Include="jQuery.Validation" Version="1.17.0" />
     <PackageReference Include="jQuery.Validation.Unobtrusive.Native.MVC3" Version="1.1.1" />
     <PackageReference Include="jQuery1" Version="1.12.4" />
@@ -47,6 +48,19 @@
     <PackageReference Include="MVCHtml5Toolkit" Version="1.8.0" />
     <PackageReference Include="PagedList" Version="1.17.0" />
     <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="Views\LeavingReasons\Delete.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\RegionalManagers\Delete.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\stylesold - Copy.min.css">
+      <DependentUpon>stylesold - Copy.css</DependentUpon>
+    </Content>
   </ItemGroup>
 
 </Project>

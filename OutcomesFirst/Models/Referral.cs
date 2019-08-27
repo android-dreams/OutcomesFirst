@@ -66,7 +66,7 @@ namespace OutcomesFirst.Models
         [Display(Name = "Referral Type")]
         public int ReferralType { get; set; }
 
-        public  LocalAuthority ReferralLocalAuthority { get; set; }
+        public LocalAuthority ReferralLocalAuthority { get; set; }
         public Gender ReferralGender { get; set; }
         public Status ReferralStatus { get; set; }
         public ArchiveReason ReferralArchiveReason { get; set; }

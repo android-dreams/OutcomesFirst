@@ -1,51 +1,54 @@
-﻿@model OutcomesFirst.Models.Status
+﻿@model OutcomesFirst.ViewModels.StatusViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-
-
-</head>
-
-<h1>Edit</h1>
-
-<h4>Status</h4>
-<hr />
+<h3>System Admin</h3>
 
 <form asp-action="Edit">
-    <div class="row">
-        <div class="col-md-4">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="StatusId" />
-            <div class="form-group">
-                <label asp-for="StatusName" class="control-label"></label>
-                <input asp-for="StatusName" class="form-control" />
-                <span asp-validation-for="StatusName" class="text-danger"></span>
-            </div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @Html.HiddenFor(m => m.StatusId)
+
+    <div class="card">
+        <div class="card-header" style="background-color:#b9e488">
+            <h5 class="card-title">
+                <span style="font-size: 1em; color:#1a75e8;">
+                    <i class="fas fa-tools small"></i>
+                </span>
+                Status Code Edit
+            </h5>
         </div>
-    </div>
-
-
-
-    <div class="row">
-        <div class="col-md-4">
+        <div class="card-body">
             <div class="form-group">
-                <label asp-for="StatusPriority" class="control-label"></label>
-                @Html.DropDownListFor(m => m.StatusPriority, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                <div class="row">
+                    <div class="col-md-4">
+                        <label asp-for="StatusName" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        <input asp-for="StatusName" class="form-control" />
+                        <span asp-validation-for="StatusName" class="text-danger"></span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label asp-for="StatusPriority" class="control-label"></label>
+                    </div>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.StatusPriority, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <br/>
+    <div class="form-group">
+        <input type="submit" value="Update" class="btn btn-primary" />
+    </div>
 </form>
-
 
 <div>
     <a asp-action="Index">Back to List</a>
