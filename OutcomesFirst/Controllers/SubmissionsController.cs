@@ -54,7 +54,7 @@ namespace OutcomesFirst.Controllers
 
             SubmissionViewModel viewModel = new SubmissionViewModel();
 
-            List<ServiceViewModel> serviceVM = _mapper.Map<Service[], List<ServiceViewModel>>(services);
+            IList<ServiceViewModel> serviceVM = _mapper.Map<Service[], List<ServiceViewModel>>(services);
 
             _mapper.Map(serviceVM, services);
 
