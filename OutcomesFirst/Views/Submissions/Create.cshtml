@@ -14,11 +14,13 @@
         <div class="col-md-4">
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @Html.DisplayFor(modelItem => modelItem.MVReferralId)
 
-                <h4>
-                    @ViewBag.MVReferralName
-                </h4>
-              
+
+            <h4>
+                @Html.DisplayFor(modelItem => modelItem.MVReferralName)
+            </h4>
+
                 @*<input asp-for="MVReferralName" class="form-control-static" asp-items="ViewBag.MVReferralName" readonly></>*@
 
 
@@ -38,6 +40,10 @@
                                 <tr>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.ServiceName)
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ServiceRegion.RegionName)
 
                                     </td>
                                     <td>

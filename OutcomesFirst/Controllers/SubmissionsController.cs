@@ -74,7 +74,8 @@ namespace OutcomesFirst.Controllers
             var submission = new Submission();
 
             var servicesList = _context.Service
-                .OrderBy(s => s.ServiceName)
+                .Include(s => s.ServiceRegion)
+                .OrderBy(s => s.ServiceRegion.RegionName).ThenBy(s => s.ServiceName)
                 .ToList();
 
 
