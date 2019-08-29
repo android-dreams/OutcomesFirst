@@ -22,10 +22,10 @@
             <input asp-for="MVReferralName" class="form-control-static" asp-items="ViewBag.MVReferralName" readonly></>
         </div>
 
-        <div class="form-group">
+        <div class="row">
             @foreach (var region in Model.regions)
             {
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="card">
                         <div class="card-header" style="background-color:#b9e488">
                             <h4 class="card-title">
@@ -35,7 +35,7 @@
                                 @Html.DisplayFor(modelItem => region.RegionName)
                             </h4>
                         </div>
-                     
+
                         <div class="card-body">
                             @foreach (var item in Model.Services)
                             {
