@@ -21,16 +21,9 @@ namespace OutcomesFirst.ViewModels
         [Display(Name = "Status")]
         public int? SubmissionStatusId { get; set; }
 
-        [NotMapped]
-        public List<string> IsChecked { get; set; }
 
+        public IList<Region> regions { get; set; }
+        public IList<ServiceViewModel> services { get; set; }
 
-        public virtual Referral SubmissionReferral { get; set; }
-
-
-        public virtual Service SubmissionService { get; set; }
-
-
-        public virtual Status SubmissionStatus { get; set; }
     }
 }

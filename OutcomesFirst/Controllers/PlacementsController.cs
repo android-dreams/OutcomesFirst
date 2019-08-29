@@ -48,6 +48,7 @@ namespace OutcomesFirst
                 .Include(p => p.PlacementLocalAuthority)
                 .Include(p => p.PlacementService)
                 .Include(p => p.PlacementLeavingReason)
+                .Where(p => p.PlacementLeaveDate == null)
                 .OrderBy(p => p.PlacementService.ServiceName);
 
 
@@ -206,6 +207,7 @@ namespace OutcomesFirst
             {
                 return NotFound();
             }
+           
             ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderName", placement.PlacementGenderId);
             ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityName", placement.PlacementLocalAuthorityId);
             ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName", placement.PlacementServiceId);

@@ -1,0 +1,306 @@
+﻿@model OutcomesFirst.Models.Placement
+@{
+    ViewData["Title"] = "Edit";
+
+    IEnumerable<SelectListItem> placementypes
+    = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true },
+                        new SelectListItem{ Text="Educational & Residential", Value = "1" },
+                        new SelectListItem{ Text="Educational Only", Value = "2" },
+                        new SelectListItem{ Text="Residential Only", Value = "3" }       };
+
+}
+
+<hr />
+
+<div class="container">
+    <form asp-action="OccupancyEdit">
+        @Html.HiddenFor(m => m.PlacementId)
+        @Html.HiddenFor(m => m.PlacementServiceId)
+
+        <div class="form-group">
+            <h4>
+
+                @Html.DisplayFor(modelItem => modelItem.PlacementService.ServiceName)      ReferralId -  @Html.DisplayFor(modelItem => modelItem.PlacementRefId)
+
+            </h4>
+        </div>
+        <div class="card">
+            <div class="card-header" style="background-color:#b9e488">
+                <h4 class="card-title">
+                    <span style="font-size: 1em; color:#1a75e8;">
+                        <i class="fas fa-user small"></i>
+                    </span>
+                    Personal Details
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group">
+
+                        @*<div class="col-md-10">*@
+                        <label asp-for="PlacementFirstName" class="control-label"></label>
+
+                        <input asp-for="PlacementFirstName" class="form-control" />
+                        <span asp-validation-for="PlacementFirstName" class="text-danger small"></span>
+
+
+                    </div>
+                    <div class=col-md-1></div>
+                    <div class="form-group">
+
+                        <label asp-for="PlacementLastName" class="control-label"></label>
+
+                        <input asp-for="PlacementLastName" class="form-control" />
+                        <span asp-validation-for="PlacementLastName" class="text-danger small"></span>
+
+
+                    </div>
+                    <div class=col-md-1></div>
+                    <div class="form-group">
+
+
+                        <label asp-for="PlacementGenderId" class="control-label"></label>
+
+                        <select asp-for="PlacementGenderId" class="form-control font-size:2em" asp-items="ViewBag.PlacementGenderId"></select>
+                        <span asp-validation-for="PlacementGenderId" class="text-danger"></span>
+                    </div>
+
+                    <div class=col-md-1></div>
+
+                    <div class="form-group">
+
+                        <label asp-for="PlacementDOB" class="control-label"></label>
+
+                        <input asp-for="PlacementDOB" class="form-control" />
+                        <span asp-validation-for="PlacementDOB" class="text-danger small"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header" style="background-color:#b9e488">
+                        <h4 class="card-title">
+                            <span style="font-size: 1em; color:#1a75e8;">
+                                <i class="fas fa-home small"></i>
+                            </span>
+                            Placement Details
+                        </h4>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementType" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    @*<input asp-for="PlacementType" class="form-control" />*@
+                                    <select asp-for="PlacementType" class="form-control" asp-items="placementypes"></select>
+                                    <span asp-validation-for="PlacementType" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementServiceTransition" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="PlacementServiceTransition" class="form-control" />
+                                    <span asp-validation-for="PlacementServiceTransition" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementDateStartedWithGroup" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="PlacementDateStartedWithGroup" class="form-control" />
+                                    <span asp-validation-for="PlacementDateStartedWithGroup" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementPlacementStartDate" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="PlacementPlacementStartDate" class="form-control" />
+                                    <span asp-validation-for="PlacementPlacementStartDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementLocalAuthorityId" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <select asp-for="PlacementLocalAuthorityId" class="form-control font-size:2em" asp-items="ViewBag.PlacementLocalAuthorityId"></select>
+                                    <span asp-validation-for="PlacementLocalAuthorityId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementFramework" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="PlacementFramework" class="form-control" />
+                                    <span asp-validation-for="PlacementFramework" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementWeeklyFee" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="PlacementWeeklyFee" class="form-control" />
+                                    <span asp-validation-for="PlacementWeeklyFee" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header" style="background-color:#b9e488">
+                        <h4 class="card-title">
+                            <span style="font-size: 1em; color:#1a75e8;">
+                                <i class="fas fa-walking small"></i>
+                            </span>
+                            Leaver Details
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementAgeAtLeaving" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="PlacementAgeAtLeaving" class="form-control" />
+                                    <span asp-validation-for="PlacementAgeAtLeaving" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementLeaveDate" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="PlacementLeaveDate" class="form-control" />
+                                    <span asp-validation-for="PlacementLeaveDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementLeavingReasonId" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <select asp-for="PlacementLeavingReasonId" class="form-control font-size:2em" asp-items="ViewBag.PlacementLeavingReasonId"></select>
+                                    <span asp-validation-for="PlacementLeavingReasonId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementLeaverType" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="PlacementLeaverType" class="form-control" />
+                                    <span asp-validation-for="PlacementLeaverType" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <label asp-for="PlacementLengthOfStayWithPlacement" class="control-label"></label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input asp-for="PlacementLengthOfStayWithPlacement" class="form-control" />
+                                        <span asp-validation-for="PlacementLengthOfStayWithPlacement" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label asp-for="PlacementLengthOfStayWithGroup" class="control-label"></label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input asp-for="PlacementLengthOfStayWithGroup" class="form-control" />
+                                            <span asp-validation-for="PlacementLengthOfStayWithGroup" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background-color:#b9e488">
+                        <h4 class="card-title">
+                            <span style="font-size: 1em; color:#1a75e8;">
+                                <i class="fas fa-comment-dots"></i>
+                            </span>
+                            Notes
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <textarea asp-for="PlacementNotes" class="form-control rows=10"></textarea>
+                                <span asp-validation-for="PlacementNotes" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </div>
+    </form>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+</div>
+

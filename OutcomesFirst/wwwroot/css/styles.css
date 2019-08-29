@@ -17,8 +17,10 @@
         height: 100px;
         border: 1px solid #999;
         /*background-color: hsl(36, 100%, 80%);*/
-        background-color: #b9e488; 
-        /*color: hsl(213.5,81.7%,50.4%);*/
+
+        background-color: #b9e488;
+
+        color: hsl(213.5,81.7%,50.4%);
         text-align: center;
     }
 .auction-dashboard-item .auction-headline h1 {
