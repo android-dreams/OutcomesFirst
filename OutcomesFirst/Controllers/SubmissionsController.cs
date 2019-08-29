@@ -21,19 +21,19 @@ namespace OutcomesFirst.Controllers
             _context = context;
         }
 
-        // GET: Submissions
-        public async Task<IActionResult> Index()
+
+       
+            // GET: Submissions
+        public async Task<IActionResult> Index(int? pageNumber)
         {
+            int pageSize = 10;
+
             var servicedata = _context.Submission
                 .Include(s => s.SubmissionReferral)
                 .Include(s => s.SubmissionService);
-            
 
-
-
-            return View(await servicedata.ToListAsync());
-           
-
+            return View(await PaginatedList<Submission>.CreateAsync(servicedata, pageNumber ?? 1, pageSize));
+          
         }
 
         // GET: Submissions/Details/5
@@ -75,6 +75,7 @@ namespace OutcomesFirst.Controllers
                 .OrderBy(s => s.ServiceName)
                 .ToList();
 
+            var regions = _context.Region.ToList();
 
             //Creating the ViewModel
             SubmissionIndexData submissionIndexData = new SubmissionIndexData()
@@ -88,7 +89,8 @@ namespace OutcomesFirst.Controllers
                 //   MVDateReceived = referral.ReferralReceivedDate,
 
                 Submission = submission,
-                Services = servicesList
+                Services = servicesList,
+                regions = regions
 
             };
 

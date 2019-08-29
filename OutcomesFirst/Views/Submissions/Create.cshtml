@@ -10,57 +10,59 @@
 <hr />
 
 <body>
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <div class="inline">
-                 ID                         Gender                                 Age            Local Authority
-                 Date Received
-                </div>
-                <div class="inline">
-                    <input asp-for="MVReferralId" class="form-control-static" asp-items="ViewBag.MVReferralId" readonly></>
-                    <input asp-for="MVReferralName" class="form-control-static" asp-items="ViewBag.MVReferralName" readonly></>
-                </div>
+        <div class="inline">
+            ID                         Gender                                 Age            Local Authority
+            Date Received
+        </div>
+        <div class="inline">
+            <input asp-for="MVReferralId" class="form-control-static" asp-items="ViewBag.MVReferralId" readonly></>
+            <input asp-for="MVReferralName" class="form-control-static" asp-items="ViewBag.MVReferralName" readonly></>
+        </div>
 
-                <div class="form-group">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                               <th>
-                                    Services
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
+        <div class="form-group">
+            @foreach (var region in Model.regions)
+            {
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header" style="background-color:#b9e488">
+                            <h4 class="card-title">
+                                <span style="font-size: 1em;">
+                                    <i class="fas fa-globe small"></i>
+                                </span>
+                                @Html.DisplayFor(modelItem => region.RegionName)
+                            </h4>
+                        </div>
+                     
+                        <div class="card-body">
                             @foreach (var item in Model.Services)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ServiceName)
+                                @if (item.ServiceRegionId == region.RegionId)
+                                {
+                                    <div class="form-group">
+                                        <div class="row">
+                                            @item.ServiceName
+                                            <div class="col-md-2">
+                                                <input asp-for="MVIsChecked" name="Submission.IsChecked" type="checkbox" value="@item.ServiceId" /><br />
 
-                                    </td>
-                                    <td>
-                                        <input asp-for="MVIsChecked" name="Submission.IsChecked" type="checkbox" value="@item.ServiceId" /> <br />
-                                        @* <input asp-for="Referral.ReferralName" name="submissionIndexData.Submission.IsChecked" type="checkbox" value="@item.ServiceId" /> <br />*@
-                                        @*<input asp-for="Submission.IsChecked" class="checkbox"  asp-items="@item.ServiceId">*@
-
-
-                                    </td>
-                                </tr>
+                                                <span asp-validation-for="MVIsChecked" class="text-danger small"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
                             }
-                        </tbody>
-                    </table>
-                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </div>
                 </div>
-
-            </form>
+            }
         </div>
-    </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+
+    </form>
     <div>
         <a asp-action="Index">Back to List</a>
     </div>
