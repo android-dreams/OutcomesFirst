@@ -24,8 +24,6 @@
 
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
-    <Content Remove="Views\Referrals\SubmissionsByReferral.cshtml" />
-    <Content Remove="Views\Submissions\SubmissionsByReferral.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,9 +56,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Update="Views\RegionalManagers\Delete.cshtml">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Views\Submissions\Create.cshtml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Update="wwwroot\css\stylesold - Copy.min.css">

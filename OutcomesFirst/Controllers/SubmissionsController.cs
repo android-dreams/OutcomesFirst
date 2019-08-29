@@ -8,19 +8,17 @@ using OutcomesFirst.Models;
 using OutcomesFirst.Data;
 using OutcomesFirst.ViewModels;
 using System;
-using AutoMapper;
+
 
 namespace OutcomesFirst.Controllers
 {
     public class SubmissionsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IMapper _mapper;
 
-        public SubmissionsController(ApplicationDbContext context, IMapper mapper)
+        public SubmissionsController(ApplicationDbContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         // GET: Submissions
@@ -29,10 +27,33 @@ namespace OutcomesFirst.Controllers
             var servicedata = _context.Submission
                 .Include(s => s.SubmissionReferral)
                 .Include(s => s.SubmissionService);
-           
+            
+
+
+
             return View(await servicedata.ToListAsync());
            
 
+        }
+
+        // GET: Submissions/Details/5
+        public  ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var submission =  _context.Submission
+                .Include(s => s.SubmissionServiceId)
+                .FirstOrDefaultAsync(m => m.SubmissionId == id);
+            if (submission == null)
+            {
+                return NotFound();
+            }
+
+            return View(submission);
+           
         }
 
 
@@ -40,48 +61,40 @@ namespace OutcomesFirst.Controllers
         //public IActionResult Create(int id)
         public ViewResult Create(int id)
         {
+
+            ViewBag.Title = "Submission Page";
+            ViewBag.Header = "Add Submission Details";
+
+
             var referral = _context.Referral
                 .Where(i => i.ReferralId == id).Single();
 
-            var regions = _context.Region
+            var submission = new Submission();
+
+            var servicesList = _context.Service
+                .OrderBy(s => s.ServiceName)
                 .ToList();
 
-            var services = _context.Service
-              .Include(s => s.ServiceRegion)
-              .OrderBy(s => s.ServiceName)
-              .ToArray();
 
+            //Creating the ViewModel
+            SubmissionIndexData submissionIndexData = new SubmissionIndexData()
+            {
 
-            SubmissionViewModel viewModel = new SubmissionViewModel();
+                MVReferralId = referral.ReferralId,
+                MVReferralName = referral.ReferralName,
+                //  MVGender = referral.ReferralGender.GenderName,
+                //  MVAge = 10,
+                //   MVLocalAuthority = referral.ReferralLocalAuthority.LocalAuthorityName,
+                //   MVDateReceived = referral.ReferralReceivedDate,
 
-            List<ServiceViewModel> serviceVM = _mapper.Map<Service[], List<ServiceViewModel>>(services);
+                Submission = submission,
+                Services = servicesList
 
-            _mapper.Map(serviceVM, services);
+            };
 
-            viewModel.SubmissionReferralId = id;
+            ViewData["Services.ServiceId"] = new SelectList(servicesList, "ServiceId", "ServiceName");
 
-            viewModel.regions = regions;
-            viewModel.services = serviceVM;
-
-            ////Creating the ViewModel
-            //SubmissionIndexData submissionIndexData = new SubmissionIndexData()
-            //{
-
-            //    MVReferralId = referral.ReferralId,
-            //    MVReferralName = referral.ReferralName,
-            //    //  MVGender = referral.ReferralGender.GenderName,
-            //    //  MVAge = 10,
-            //    //   MVLocalAuthority = referral.ReferralLocalAuthority.LocalAuthorityName,
-            //    //   MVDateReceived = referral.ReferralReceivedDate,
-
-            //    Submission = submission,
-            //    Services = servicesList
-
-            //};
-
-            //ViewData["Services.ServiceId"] = new SelectList(servicesList, "ServiceId", "ServiceName");
-
-            return View(viewModel);
+            return View(submissionIndexData);
 
         }
 
@@ -90,38 +103,33 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(SubmissionViewModel viewModel)
-        {
 
+        public IActionResult Create(Submission submission, SubmissionIndexData submissionIndexData)
+        {
             if (ModelState.IsValid)
             {
-                int count = viewModel.services.Count;
+                //int count = submissionIndexData.Submission.IsChecked.Count;
+                int count = submissionIndexData.Submission.IsChecked.Count;
+               // string result = string.Join(",", submissionIndexData.Submission.IsChecked);
+                string result = string.Join(",", submissionIndexData.Submission.IsChecked);
+                var subrefid = submissionIndexData.MVReferralId;
 
-                for (int i = 0; i < viewModel.services.Count; i++)
+
+                for (int i = 0; i < count; i++)
                 {
-                    if (viewModel.services[i].IsChecked == true)
+                    var submissions = new Submission[]
                     {
-                        Submission model = new Submission();
-
-                        _mapper.Map(viewModel, model);
-                        _context.Submission.Add(model);
-
-
+                       new Submission {SubmissionReferralId= subrefid,SubmissionServiceId = Int32.Parse(submissionIndexData.Submission.IsChecked[i])}
+                     };
+                    foreach (Submission s in submissions)
+                    {
+                        _context.Submission.Add(s);
                     }
-                    //var submissions = new Submission[]
-                    //{
-                    //   new Submission {SubmissionReferralId= subrefid,SubmissionServiceId = Int32.Parse(submissionIndexData.Submission.IsChecked[i])}
-                    // };
-                    //foreach (Submission s in submissions)
-                    //{
-                    //    _context.Submission.Add(s);
-                    //}
-
+                   
                 }
                 _context.SaveChanges();
 
                 return RedirectToAction("Index", "Referrals");
-
 
             }
 
@@ -129,7 +137,7 @@ namespace OutcomesFirst.Controllers
             {
                 return RedirectToAction("Index", "Referrals");
             }
-
+            
         }
 
 
