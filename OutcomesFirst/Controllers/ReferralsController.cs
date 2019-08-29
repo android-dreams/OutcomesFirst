@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using System.Collections.Generic;
 
 //using OutcomesFirst.ViewModels;
 
@@ -29,6 +30,8 @@ namespace OutcomesFirst.Controllers
         {
             int pageSize = 10;
 
+
+
             var outcomesFirstContext = _context.Referral
               .Include(s => s.Submissions)
               .Include(r => r.ReferralGender)
@@ -38,7 +41,7 @@ namespace OutcomesFirst.Controllers
               .Where(r => r.ReferralStatusId != 1 & r.ReferralStatusId != 2)
               .OrderBy(o => o.ReferralStatus.StatusId);
 
-
+            
             return View(await PaginatedList<Referral>.CreateAsync(outcomesFirstContext.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 

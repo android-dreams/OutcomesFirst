@@ -25,11 +25,11 @@
         <div class="row">
             @foreach (var region in Model.regions)
             {
-                <div class="col-md-5">
+                <div class="col-sm-5">
                     <div class="card">
                         <div class="card-header" style="background-color:#b9e488">
                             <h4 class="card-title">
-                                <span style="font-size: 1em;">
+                                <span style="font-size: 1em; color:#1a75e8;">
                                     <i class="fas fa-globe small"></i>
                                 </span>
                                 @Html.DisplayFor(modelItem => region.RegionName)
@@ -43,8 +43,10 @@
                                 {
                                     <div class="form-group">
                                         <div class="row">
-                                            @item.ServiceName
-                                            <div class="col-md-2">
+                                            <div class="col-sm-4">
+                                                @item.ServiceName
+                                            </div>
+                                            <div class="col-sm-2">
                                                 <input asp-for="MVIsChecked" name="Submission.IsChecked" type="checkbox" value="@item.ServiceId" /><br />
 
                                                 <span asp-validation-for="MVIsChecked" class="text-danger small"></span>
