@@ -8,49 +8,43 @@ using OutcomesFirst.Models;
 using OutcomesFirst.Data;
 using OutcomesFirst.ViewModels;
 using System;
-using AutoMapper;
+
 
 namespace OutcomesFirst.Controllers
 {
     public class SubmissionsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IMapper _mapper;
 
-        public SubmissionsController(ApplicationDbContext context, IMapper mapper)
+        public SubmissionsController(ApplicationDbContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
-        // GET: Submissions
+
+       
+            // GET: Submissions
         public async Task<IActionResult> Index(int? pageNumber)
         {
             int pageSize = 10;
+
             var servicedata = _context.Submission
                 .Include(s => s.SubmissionReferral)
-
-                .Include(s => s.SubmissionService)
-                .Include(s => s.SubmissionStatus)
-                .OrderBy(s => s.SubmissionReferral.ReferralName).ThenBy (s => s.SubmissionStatus.StatusPriority);
-
-
-
+                .Include(s => s.SubmissionService);
 
             return View(await PaginatedList<Submission>.CreateAsync(servicedata, pageNumber ?? 1, pageSize));
-
-
+          
         }
 
         // GET: Submissions/Details/5
-        public ActionResult Details(int? id)
+        public  ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var submission = _context.Submission
+            var submission =  _context.Submission
                 .Include(s => s.SubmissionServiceId)
                 .FirstOrDefaultAsync(m => m.SubmissionId == id);
             if (submission == null)
@@ -59,7 +53,7 @@ namespace OutcomesFirst.Controllers
             }
 
             return View(submission);
-
+           
         }
 
 
@@ -67,50 +61,42 @@ namespace OutcomesFirst.Controllers
         //public IActionResult Create(int id)
         public ViewResult Create(int id)
         {
+
+            ViewBag.Title = "Submission Page";
+            ViewBag.Header = "Add Submission Details";
+
+
             var referral = _context.Referral
                 .Where(i => i.ReferralId == id).Single();
 
-            var regions = _context.Region
+            var submission = new Submission();
+
+            var servicesList = _context.Service
+                .OrderBy(s => s.ServiceName)
                 .ToList();
 
-            var services = _context.Service
-              .Include(s => s.ServiceRegion)
-              .OrderBy(s => s.ServiceName)
-              .ToArray();
+            var regions = _context.Region.ToList();
 
+            //Creating the ViewModel
+            SubmissionIndexData submissionIndexData = new SubmissionIndexData()
+            {
 
-            SubmissionViewModel viewModel = new SubmissionViewModel();
+                MVReferralId = referral.ReferralId,
+                MVReferralName = referral.ReferralName,
+                //  MVGender = referral.ReferralGender.GenderName,
+                //  MVAge = 10,
+                //   MVLocalAuthority = referral.ReferralLocalAuthority.LocalAuthorityName,
+                //   MVDateReceived = referral.ReferralReceivedDate,
 
+                Submission = submission,
+                Services = servicesList,
+                regions = regions
 
-            IList<ServiceViewModel> serviceVM = _mapper.Map<Service[], List<ServiceViewModel>>(services);
+            };
 
+            ViewData["Services.ServiceId"] = new SelectList(servicesList, "ServiceId", "ServiceName");
 
-            _mapper.Map(serviceVM, services);
-
-            viewModel.SubmissionReferralId = id;
-
-            viewModel.regions = regions;
-            viewModel.services = serviceVM;
-
-            ////Creating the ViewModel
-            //SubmissionIndexData submissionIndexData = new SubmissionIndexData()
-            //{
-
-            //    MVReferralId = referral.ReferralId,
-            //    MVReferralName = referral.ReferralName,
-            //    //  MVGender = referral.ReferralGender.GenderName,
-            //    //  MVAge = 10,
-            //    //   MVLocalAuthority = referral.ReferralLocalAuthority.LocalAuthorityName,
-            //    //   MVDateReceived = referral.ReferralReceivedDate,
-
-            //    Submission = submission,
-            //    Services = servicesList
-
-            //};
-
-            //ViewData["Services.ServiceId"] = new SelectList(servicesList, "ServiceId", "ServiceName");
-
-            return View(viewModel);
+            return View(submissionIndexData);
 
         }
 
@@ -119,43 +105,33 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(SubmissionViewModel viewModel)
-        {
 
+        public IActionResult Create(Submission submission, SubmissionIndexData submissionIndexData)
+        {
             if (ModelState.IsValid)
             {
+                //int count = submissionIndexData.Submission.IsChecked.Count;
+                int count = submissionIndexData.Submission.IsChecked.Count;
+               // string result = string.Join(",", submissionIndexData.Submission.IsChecked);
+                string result = string.Join(",", submissionIndexData.Submission.IsChecked);
+                var subrefid = submissionIndexData.MVReferralId;
 
-                int count = viewModel.services.Count;
 
-
-                for (int i = 0; i < viewModel.services.Count; i++)
+                for (int i = 0; i < count; i++)
                 {
-                    if (viewModel.services[i].IsChecked == true)
+                    var submissions = new Submission[]
                     {
-
-                       new Submission {SubmissionReferralId= subrefid,SubmissionServiceId = Int32.Parse(submissionIndexData.Submission.IsChecked[i]),SubmissionStatusId=8}
+                       new Submission {SubmissionReferralId= subrefid,SubmissionServiceId = Int32.Parse(submissionIndexData.Submission.IsChecked[i])}
                      };
                     foreach (Submission s in submissions)
                     {
                         _context.Submission.Add(s);
                     }
-
-                        Submission model = new Submission();
-
-                        _mapper.Map(viewModel, model);
-                        _context.Submission.Add(model);
-
-
-                    }
-
-
+                   
                 }
                 _context.SaveChanges();
 
-
-
                 return RedirectToAction("Index", "Referrals");
-
 
             }
 
@@ -163,119 +139,77 @@ namespace OutcomesFirst.Controllers
             {
                 return RedirectToAction("Index", "Referrals");
             }
-
+            
         }
 
 
 
         // GET: Submissions/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
+           public async Task<IActionResult> Edit(int? id)
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
 
-            var submission = await _context.Submission
-            .Include(r => r.SubmissionReferral)
-            .Include(r => r.SubmissionStatus)
-            .Include(r => r.SubmissionService)
-             .FirstOrDefaultAsync(r => r.SubmissionId == id);
+                var submission = await _context.Submission
+                .Include(r => r.SubmissionReferral)
+                .Include(r => r.SubmissionStatus)
+                .Include(r => r.SubmissionService)
+                 .FirstOrDefaultAsync(r => r.SubmissionId == id);
 
             if (submission == null)
-            {
-                return NotFound();
-            }
+                {
+                    return NotFound();
+                }
 
-
+           
             ViewData["SubmissionReferralId"] = new SelectList(_context.Referral, "ReferralId", "ReferralName", submission.SubmissionReferralId);
             ViewData["SubmissionStatusId"] = new SelectList(_context.Status, "StatusId", "StatusName", submission.SubmissionStatusId);
             ViewData["SubmissionServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName", submission.SubmissionServiceId);
-
+          
             return View(submission);
         }
 
-
+    
 
         // POST: Submissions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Submission submission)
+    public async Task<IActionResult> Edit(int id, [Bind("SubmissionId,SubmissionName")] Submission submission)
+    {
+        if (id != submission.SubmissionId)
         {
-            if (id != submission.SubmissionId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                //get referal
-                var referral = _context.Referral
-                        .Where(r => r.ReferralId == submission.SubmissionReferralId).FirstOrDefault();
-
-                submission.SubmissionReferral = referral;
-
-                var service = _context.Service
-                        .Where(r => r.ServiceId == submission.SubmissionServiceId).FirstOrDefault();
-
-                submission.SubmissionService = service;
-
-                if (submission.SubmissionStatusId == 1)
-                {
-
-                    Placement model = new Placement();
-                    model.PlacementRefId = referral.ReferralName;
-                    model.PlacementServiceId = submission.SubmissionServiceId;
-                    model.PlacementType = referral.ReferralType;
-                    model.PlacementGenderId = referral.ReferralGenderId;
-                    model.PlacementLocalAuthorityId = referral.ReferralLocalAuthorityId;
-
-                    _context.Update(model);
-                }
-
-
-                _context.Update(submission);
-                await _context.SaveChangesAsync();
-
-                var allsubmissions = _context.Submission.Where(s => s.SubmissionReferralId == referral.ReferralId);
-
-
-
-                int? highest = 99;
-                //int subid = 6;
-                   
-                foreach (Submission s in allsubmissions)
-                {
-                   
-                    //var substat = _context.Status.Where(r => r.StatusId == s.SubmissionStatusId);
-
-                    if (s.SubmissionStatusId < highest)
-                    {
-
-                        highest = s.SubmissionStatusId;
-                        //subid = s.SubmissionStatus.StatusId;
-
-                    }
-                }
-
-                
-                referral.ReferralStatusId = (int)highest;
-                _context.Update(referral);
-                await _context.SaveChangesAsync();
-
-            }
-
-
-
-            return RedirectToAction("Index", "Submissions");
+            return NotFound();
         }
 
-
-        // GET: Submissions/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _context.Update(submission);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SubmissionExists(submission.SubmissionId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        return View(submission);
+    }
+    // GET: Submissions/Delete/5
+    public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
