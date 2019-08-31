@@ -12,65 +12,52 @@
 <body>
     <form asp-action="Create">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-        <div class="inline">
-            ID                         Gender                                 Age            Local Authority
-            Date Received
-        </div>
-        <div class="inline">
-            <input asp-for="MVReferralId" class="form-control-static" asp-items="ViewBag.MVReferralId" readonly></>
-            <input asp-for="MVReferralName" class="form-control-static" asp-items="ViewBag.MVReferralName" readonly></>
-        </div>
+        <input asp-for="MVReferralId " class="form-control-static" asp-items="ViewBag.MVReferralId" hidden />
+        <input asp-for="MVReferralName " class="form-control-static" asp-items="ViewBag.MVReferralName" hidden />
         <div class="row">
-            <div class="card">
-                <div class="card-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2">
-                                Referral:
-                            </div>
-                            <div class="col-md-2">
+            <div class="col-md-12">
+                @*<div class="card">
+                <div class="card-body">*@
+                <div class="form-group">
+                    <div class="row col-md-12">
+
+                        <div class="col-md-2">
+                            Referral
+                            <div class="col-md-10">
                                 @Model.MVReferralName
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                Gender
-                            </div>
-                            <div class="col-md-2">
+                        <div class="col-md-2">
+                            Gender
+                            <div class="col-md-12">
                                 @Model.MVGender
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                Age:
-                            </div>
-                            <div class="col-md-2">
+                        <div class="col-md-2">
+                            Age
+                            <div class="col-md-12">
                                 @Model.MVAge
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                Local Authority:
-                            </div>
-                            <div class="col-md-2">
+                        <div class="col-md-2">
+                            Local Authority
+                            <div class="col-md-12">
                                 @Model.MVLocalAuthority
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                Date Received:
-                            </div>
-                            <div class="col-md-2">
+                        @*<div class="col-md-1"></div>*@
+                        <div class="col-md-3">
+                            Date Received
+                            <div class="col-md-12">
                                 @Model.MVDateReceived
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
+        @*</div>
+        </div>*@
         <div class="row">
             @foreach (var region in Model.regions)
             {
@@ -92,7 +79,9 @@
                                 {
                                     <div class="form-group">
                                         <div class="row">
-                                            @item.ServiceName
+                                            <div class="col-md-8">
+                                                @item.ServiceName
+                                            </div>
                                             <div class="col-md-2">
                                                 <input asp-for="MVIsChecked" name="Submission.IsChecked" type="checkbox" value="@item.ServiceId" /><br />
 
