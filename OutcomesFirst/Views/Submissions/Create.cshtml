@@ -21,7 +21,56 @@
             <input asp-for="MVReferralId" class="form-control-static" asp-items="ViewBag.MVReferralId" readonly></>
             <input asp-for="MVReferralName" class="form-control-static" asp-items="ViewBag.MVReferralName" readonly></>
         </div>
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                Referral:
+                            </div>
+                            <div class="col-md-2">
+                                @Model.MVReferralName
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                Gender
+                            </div>
+                            <div class="col-md-2">
+                                @Model.MVGender
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                Age:
+                            </div>
+                            <div class="col-md-2">
+                                @Model.MVAge
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                Local Authority:
+                            </div>
+                            <div class="col-md-2">
+                                @Model.MVLocalAuthority
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                Date Received:
+                            </div>
+                            <div class="col-md-2">
+                                @Model.MVDateReceived
+                            </div>
+                        </div>
 
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <div class="row">
             @foreach (var region in Model.regions)
             {
