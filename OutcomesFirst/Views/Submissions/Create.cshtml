@@ -4,24 +4,14 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>Services</h4>
+<h3>Submit to Services</h3>
 <hr />
 
 <body>
     <form asp-action="Create">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="inline">
-            ID                         Gender                                 Age            Local Authority
-            Date Received
-        </div>
-        <div class="inline">
-            <input asp-for="MVReferralId" class="form-control-static" asp-items="ViewBag.MVReferralId" readonly></>
-            <input asp-for="MVReferralName" class="form-control-static" asp-items="ViewBag.MVReferralName" readonly></>
-        </div>
-        <div class="row">
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
@@ -70,7 +60,6 @@
 
                 </div>
             </div>
-        </div>
         <div class="row">
             @foreach (var region in Model.regions)
             {

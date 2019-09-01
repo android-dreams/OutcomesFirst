@@ -174,10 +174,10 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">
-                                <input type="radio" name="ReferralSuitableColor" id="ReferralSuitableColor" value="red" required> Not Suitable
+                                <input type="radio" name="ReferralSuitableColor" id="ReferralSuitableColorRed" value="red" required> Not Suitable
                             </div>
                             <div class="col-md-3">
-                                <input type="radio" name="ReferralSuitableColor" id="ReferralSuitableColor" value="green">  Suitable
+                                <input type="radio" name="ReferralSuitableColor" id="ReferralSuitableColorGreen" value="green">  Suitable
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -227,6 +227,12 @@
                             <input type="submit" value="Create" class="btn btn-success" />
                         </p>
                     </div>
+                    <div  class="col-md-6">
+                        <div id="submittoservice" class="hidden">
+                            <input type="submit" value="Create" class="btn btn-success" />
+                        </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
@@ -243,12 +249,35 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
  <script type="text/javascript">
-        $(document).ready(function () {
-            $('input[type="radio"]').click(function () {
-                var inputValue = $(this).attr("value");
-                var targetBox = $("." + inputValue);
-                $(".box").not(targetBox).hide();
-                $(targetBox).show();
-            });
-        });
+     $(document).ready(function () {
+         $('input[type="radio"]').click(function () {
+             var inputValue = $(this).attr("value");
+             var targetBox = $("." + inputValue);
+             $(".box").not(targetBox).hide();
+             $(targetBox).show(); 
+             if (document.getElementById("ReferralSuitableColorRed").checked == true) {
+
+                 $('#submittoservice').removeClass('hidden');
+             }
+             else {
+                 $('#submittoservice').addClass('hidden');
+             }
+             $("ReferralSuitableColorGreen").click(function () {
+
+                 if (document.getElementById("ReferralSuitableColorGreen").checked == true) {
+
+                     $('#submittoservice').removeClass('hidden');
+                 }
+                 else {
+                     $('#submittoservice').addClass('hidden');
+                 }
+             });
+         });
+    
+     
+
+
+
+     });
+
     </script>
