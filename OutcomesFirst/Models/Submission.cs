@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace OutcomesFirst.Models
 
@@ -18,6 +19,10 @@ namespace OutcomesFirst.Models
 
         [Display(Name = "Status")]
         public int? SubmissionStatusId { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name="Start Date")]
+        public DateTime?  SubmissionPlacementStartDate { get; set; }
 
         [NotMapped]
         public List<string> IsChecked { get; set; }
