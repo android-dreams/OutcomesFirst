@@ -73,6 +73,8 @@ namespace OutcomesFirst.Controllers
 
 
             var referral = _context.Referral
+                .Include(s => s.ReferralGender)
+                .Include(s => s.ReferralLocalAuthority)
                 .Where(i => i.ReferralId == id).Single();
 
             var submission = new Submission();
@@ -84,15 +86,15 @@ namespace OutcomesFirst.Controllers
             var regions = _context.Region.ToList();
 
             //Creating the ViewModel
-            SubmissionIndexData submissionIndexData = new SubmissionIndexData()
+          SubmissionIndexData submissionIndexData = new SubmissionIndexData()
             {
 
                 MVReferralId = referral.ReferralId,
                 MVReferralName = referral.ReferralName,
-                //  MVGender = referral.ReferralGender.GenderName,
-                //  MVAge = 10,
-                //   MVLocalAuthority = referral.ReferralLocalAuthority.LocalAuthorityName,
-                //   MVDateReceived = referral.ReferralReceivedDate,
+                MVGender = referral.ReferralGender.GenderName,
+                MVAge = referral.ReferralAge,
+                MVLocalAuthority = referral.ReferralLocalAuthority.LocalAuthorityName,
+                MVDateReceived = referral.ReferralReceivedDate,
 
                 Submission = submission,
                 Services = servicesList,
@@ -116,49 +118,66 @@ namespace OutcomesFirst.Controllers
         {
             if (ModelState.IsValid)
             {
-
-
-                //int count = submissionIndexData.Submission.IsChecked.Count;
-                int count = submissionIndexData.Submission.IsChecked.Count;
-                // string result = string.Join(",", submissionIndexData.Submission.IsChecked);
-                string result = string.Join(",", submissionIndexData.Submission.IsChecked);
-                var subrefid = submissionIndexData.MVReferralId;
-
-
-                for (int i = 0; i < count; i++)
+                try
                 {
-                    var submissions = new Submission[]
+
+                    //int count = submissionIndexData.Submission.IsChecked.Count;
+                    if (submissionIndexData.Submission.IsChecked.Count > 0)
                     {
-                       new Submission {SubmissionReferralId= subrefid,SubmissionServiceId = Int32.Parse(submissionIndexData.Submission.IsChecked[i])}
-                     };
-                    foreach (Submission s in submissions)
-                    {
-                        //set initial status of submission to 'Under Consideration by Service //
-                        s.SubmissionStatusId = 8;
-                        _context.Submission.Add(s);
+                        int count = submissionIndexData.Submission.IsChecked.Count;
+                        // string result = string.Join(",", submissionIndexData.Submission.IsChecked);
+                        string result = string.Join(",", submissionIndexData.Submission.IsChecked);
+                        var subrefid = submissionIndexData.MVReferralId;
+
+
+                        for (int i = 0; i < count; i++)
+                        {
+                            var submissions = new Submission[]
+                            {
+                               new Submission {SubmissionReferralId= subrefid,SubmissionServiceId = Int32.Parse(submissionIndexData.Submission.IsChecked[i])}
+                             };
+                            foreach (Submission s in submissions)
+                            {
+                                //set initial status of submission to 'Under Consideration by Service //
+                                s.SubmissionStatusId = 8;
+                                _context.Submission.Add(s);
+                            }
+
+                        }
+                        _context.SaveChanges();
+
+                        return RedirectToAction("Index", "Referrals");
                     }
 
+                    else
+                    {
+                        return RedirectToAction("Index", "Referrals");
+                    }
                 }
-                _context.SaveChanges();
+                catch
+                {
 
-                return RedirectToAction("Index", "Referrals");
-
+                }
             }
 
             else
             {
                 return RedirectToAction("Index", "Referrals");
             }
-
+            return RedirectToAction("Index", "Referrals");
         }
 
         public ViewResult AddNew(int id)
         {
             
             var referral = _context.Referral
+                .Include(s => s.ReferralGender)
+                .Include(s => s.ReferralLocalAuthority)
                 .Where(i => i.ReferralId == id).Single();
 
-        
+
+
+           
 
             //var existingSubmissions = _context.Submission
             //    .OrderBy(s => s.SubmissionService.ServiceName)
@@ -186,13 +205,17 @@ namespace OutcomesFirst.Controllers
                 }           
             }
 
-            var regions = _context.Region.ToList();
+            var regions = _context.Region.OrderBy(s => s.RegionName).ToList();
 
             //Creating the ViewModel
             SubmissionsAddViewModel viewModel = new SubmissionsAddViewModel()
             {
                 MVReferralId = referral.ReferralId,
                 MVReferralName = referral.ReferralName,
+                MVGender = referral.ReferralGender.GenderName,
+                MVAge = referral.ReferralAge,
+                MVLocalAuthority = referral.ReferralLocalAuthority.LocalAuthorityName,
+                MVDateReceived = referral.ReferralReceivedDate,
 
                 ServicesVM = servicesVMList,
                 regions = regions
