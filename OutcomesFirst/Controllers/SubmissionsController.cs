@@ -152,6 +152,101 @@ namespace OutcomesFirst.Controllers
 
         }
 
+        public ViewResult AddNew(int id)
+        {
+            
+            var referral = _context.Referral
+                .Where(i => i.ReferralId == id).Single();
+
+        
+
+            //var existingSubmissions = _context.Submission
+            //    .OrderBy(s => s.SubmissionService.ServiceName)
+            //    .ToList();
+
+            var servicesList = _context.Service
+                .OrderBy(s => s.ServiceName)
+                .ToList();
+
+            List<ServiceViewModel> servicesVMList = new List<ServiceViewModel>();
+
+           
+
+            foreach (var item in servicesList)
+            {
+                var existingSubmission = (from a in _context.Submission
+                          .Where(s => s.SubmissionServiceId == item.ServiceId)
+                                           select new { a.SubmissionServiceId }).FirstOrDefault();
+               
+                if (existingSubmission == null)
+                {
+                    ServiceViewModel serviceVM = new ServiceViewModel();
+                    _mapper.Map(item, serviceVM);
+                    servicesVMList.Add(serviceVM);
+                }           
+            }
+
+            var regions = _context.Region.ToList();
+
+            //Creating the ViewModel
+            SubmissionsAddViewModel viewModel = new SubmissionsAddViewModel()
+            {
+                MVReferralId = referral.ReferralId,
+                MVReferralName = referral.ReferralName,
+
+                ServicesVM = servicesVMList,
+                regions = regions
+            };
+
+            ViewData["Services.ServiceId"] = new SelectList(servicesList, "ServiceId", "ServiceName");
+
+            return View(viewModel);
+
+        }
+
+        // POST: Submissions/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public IActionResult AddNew(Submission submission, SubmissionIndexData submissionIndexData)
+        {
+            if (ModelState.IsValid)
+            {
+
+                int count = submissionIndexData.Submission.IsChecked.Count;
+                string result = string.Join(",", submissionIndexData.Submission.IsChecked);
+                var subrefid = submissionIndexData.MVReferralId;
+
+
+                for (int i = 0; i < count; i++)
+                {
+                    var submissions = new Submission[]
+                    {
+                       new Submission {SubmissionReferralId= subrefid,SubmissionServiceId = Int32.Parse(submissionIndexData.Submission.IsChecked[i])}
+                     };
+                    foreach (Submission s in submissions)
+                    {
+                        //set initial status of submission to 'Under Consideration by Service //
+                        s.SubmissionStatusId = 8;
+                        _context.Submission.Add(s);
+                    }
+
+                }
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "Referrals");
+
+            }
+
+            else
+            {
+                return RedirectToAction("Index", "Referrals");
+            }
+
+        }
+
 
 
         // GET: Submissions/Edit/5

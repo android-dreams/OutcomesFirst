@@ -39,7 +39,7 @@
         {
             @if (DateTime.Now > item.ReferralReceivedDate.AddHours(2) && item.Submissions.Count() == 0)
             {
-                <tr style="background-color:red">
+                <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.ReferralName)
                     </td>

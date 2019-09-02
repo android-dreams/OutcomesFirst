@@ -190,8 +190,10 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,  ReferralViewModel viewModel)
+        public async Task<IActionResult> Edit(string submit, int id,  ReferralViewModel viewModel)
         {
+            string frombutton = submit;
+
             if (id != viewModel.ReferralId)
             {
                 return NotFound();
@@ -222,10 +224,13 @@ namespace OutcomesFirst.Controllers
 
                 }
 
-                if (viewModel.ReferralSuitable == true)
+                if (viewModel.ReferralStatusId == 8)
                 {
-                    // referral.ReferralSuitable = true;
-                    viewModel.ReferralStatusId = 8;
+                    if (submit == "Submit to Another Service")
+                    {
+                        return RedirectToAction("AddNew", "Submissions", new { @id=viewModel.ReferralId});
+
+                    }
                     return RedirectToAction("Index", "Referrals");
 
                 }
@@ -337,7 +342,7 @@ namespace OutcomesFirst.Controllers
                 }
             }
 
-            //return View(referral);
+           
             return RedirectToAction(nameof(Index));
 
         }

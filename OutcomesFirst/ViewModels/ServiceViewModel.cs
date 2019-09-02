@@ -1,11 +1,14 @@
-﻿using OutcomesFirst.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc;
+using OutcomesFirst.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace OutcomesFirst.ViewModels
+namespace OutcomesFirst.Models
 {
     public class ServiceViewModel
     {
@@ -31,7 +34,7 @@ namespace OutcomesFirst.ViewModels
 
         [Display(Name = "Region")]
         public int? ServiceRegionId { get; set; }
-
+     
         [Display(Name = "Contact")]
         public string ServiceContact { get; set; }
 
@@ -41,7 +44,13 @@ namespace OutcomesFirst.ViewModels
         [Display(Name = "Number of Places")]
         public int ServicePlaces { get; set; }
 
+       
+        public virtual Region ServiceRegion { get; set; }
 
-        public virtual Region Region { get; set; }
+        public bool IsChecked { get; set; }
+
     }
 }
+
+
+

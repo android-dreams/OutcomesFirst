@@ -46,6 +46,7 @@ namespace OutcomesFirst.Models
 
        
         public virtual Region ServiceRegion { get; set; }
+
     }
 }
 
