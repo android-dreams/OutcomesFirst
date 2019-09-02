@@ -15,8 +15,8 @@ namespace OutcomesFirst
             CreateMap<Referral, ReferralViewModel>();
             CreateMap<ReferralViewModel, Referral>();
 
-            CreateMap<Submission, SubmissionViewModel>();
-            CreateMap<SubmissionViewModel, Submission>();
+            CreateMap<Submission, SubmissionIndexData>();
+            CreateMap<SubmissionIndexData, Submission>();
 
             CreateMap<ArchiveReferral, ArchiveReferralViewModel>();
             CreateMap<ArchiveReferralViewModel, ArchiveReferral>();
@@ -45,9 +45,8 @@ namespace OutcomesFirst
             CreateMap<Placement, PlacementViewModel>();
             CreateMap<PlacementViewModel, Placement>();
 
-            CreateMap<Submission, SubmissionViewModel>();
-            CreateMap<SubmissionViewModel, Submission>();
-
+            CreateMap<Service, ServiceViewModel>();
+            CreateMap<ServiceViewModel, Service>();
 
         }
 

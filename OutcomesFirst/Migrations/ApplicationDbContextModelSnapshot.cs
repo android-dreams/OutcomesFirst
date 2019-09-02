@@ -543,7 +543,7 @@ namespace OutcomesFirst.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool?>("SubmissionArchived");
+                    b.Property<DateTime?>("SubmissionPlacementStartDate");
 
                     b.Property<int>("SubmissionReferralId");
 

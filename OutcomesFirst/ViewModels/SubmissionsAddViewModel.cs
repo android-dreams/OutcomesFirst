@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OutcomesFirst.ViewModels
 {
-    public class SubmissionIndexData
+    public class SubmissionsAddViewModel
     {
         public string Title { get; set; }
         public string Header { get; set; }
@@ -32,7 +32,7 @@ namespace OutcomesFirst.ViewModels
         public Submission Submission { get; set; }
 
         public virtual ICollection<Region> regions { get; set; }
-        public virtual ICollection<Service> Services { get; set; }
+        public virtual ICollection<ServiceViewModel> ServicesVM { get; set; }
 
 
 

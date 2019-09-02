@@ -1,11 +1,10 @@
-﻿@model OutcomesFirst.ViewModels.SubmissionIndexData
+﻿@model OutcomesFirst.ViewModels.SubmissionsAddViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-
-<h3>Submit to SServices</h3>
+<h3>Submit to Services</h3>
 <hr />
 
 <body>
@@ -72,7 +71,7 @@
                         </div>
 
                         <div class="card-body">
-                            @foreach (var item in Model.Services)
+                            @foreach (var item in Model.ServicesVM)
                             {
                                 @if (item.ServiceRegionId == region.RegionId)
                                 {

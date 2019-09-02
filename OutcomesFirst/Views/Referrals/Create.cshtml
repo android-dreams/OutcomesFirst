@@ -61,9 +61,9 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header" style="background-color:#b9e488">
-                            <h4 class="card-title android-card-title">
-                                <span style="font-size: 1em;">
-                                    <i class="fas fa-user small android-img"></i>
+                            <h4 class="card-title">
+                                <span style="font-size: 1em; color:#1a75e8;">
+                                    <i class="fas fa-user small"></i>
                                 </span>
                                 Personal Details
                             </h4>
@@ -114,7 +114,7 @@
                         <div class="card-header" style="background-color:#b9e488">
                             <h4 class="card-title">
                                 <span style="font-size: 1em; color:#1a75e8;">
-                                    <i class="fas fa-user small"></i>
+                                    <i class="fas fa-map-pin small"></i>
                                 </span>
                                 Placement Details
                             </h4>
@@ -164,7 +164,7 @@
                 <div class="card-header" style="background-color:#b9e488">
                     <h4 class="card-title">
                         <span style="font-size: 1em; color:#1a75e8;">
-                            <i class="fas fa-question"></i>
+                            <i class="fas fa-question small"></i>
                         </span>
                         Decision
                     </h4>
@@ -174,10 +174,10 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">
-                                <input type="radio" name="ReferralSuitableColor" id="ReferralSuitableColor" value="red" required> Not Suitable
+                                <input type="radio" name="ReferralSuitableColor" id="ReferralSuitableColorRed" value="red" required> Not Suitable
                             </div>
                             <div class="col-md-3">
-                                <input type="radio" name="ReferralSuitableColor" id="ReferralSuitableColor" value="green">  Suitable
+                                <input type="radio" name="ReferralSuitableColor" id="ReferralSuitableColorGreen" value="green">  Suitable
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -224,7 +224,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <p>
-                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <input type="submit" value="Create" class="btn btn-success" />
                         </p>
                     </div>
                 </div>
@@ -243,12 +243,35 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
  <script type="text/javascript">
-        $(document).ready(function () {
-            $('input[type="radio"]').click(function () {
-                var inputValue = $(this).attr("value");
-                var targetBox = $("." + inputValue);
-                $(".box").not(targetBox).hide();
-                $(targetBox).show();
-            });
-        });
+     $(document).ready(function () {
+         $('input[type="radio"]').click(function () {
+             var inputValue = $(this).attr("value");
+             var targetBox = $("." + inputValue);
+             $(".box").not(targetBox).hide();
+             $(targetBox).show(); 
+             if (document.getElementById("ReferralSuitableColorRed").checked == true) {
+
+                 $('#submittoservice').removeClass('hidden');
+             }
+             else {
+                 $('#submittoservice').addClass('hidden');
+             }
+             $("ReferralSuitableColorGreen").click(function () {
+
+                 if (document.getElementById("ReferralSuitableColorGreen").checked == true) {
+
+                     $('#submittoservice').removeClass('hidden');
+                 }
+                 else {
+                     $('#submittoservice').addClass('hidden');
+                 }
+             });
+         });
+    
+     
+
+
+
+     });
+
     </script>
