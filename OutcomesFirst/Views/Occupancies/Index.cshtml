@@ -41,6 +41,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OccupancyId)
+            </td>
 
             <td>
                 @Html.DisplayFor(modelItem => item.OccupancyFirstName)
@@ -51,7 +54,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.OccupancyGender.GenderName)
             </td>
-           
+
             <td>
                 @Html.DisplayFor(modelItem => item.OccupancyType)
             </td>
