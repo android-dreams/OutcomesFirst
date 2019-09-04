@@ -41,7 +41,8 @@ namespace OutcomesFirst.Controllers
               .Where(r => r.ReferralStatusId != 1 & r.ReferralStatusId != 2)
               .OrderBy(o => o.ReferralStatus.StatusId);
 
-            
+
+
             return View(await PaginatedList<Referral>.CreateAsync(outcomesFirstContext.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
