@@ -224,22 +224,16 @@ namespace OutcomesFirst.Controllers
 
                 }
 
-                if (viewModel.ReferralStatusId == 8)
+             
+                if (submit == "Submit to Another Service")
                 {
-                    if (submit == "Submit to Another Service")
-                    {
-                        return RedirectToAction("AddNew", "Submissions", new { @id=viewModel.ReferralId});
-
-                    }
-                    return RedirectToAction("Index", "Referrals");
+                    return RedirectToAction("AddNew", "Submissions", new { @id=viewModel.ReferralId});
 
                 }
-                else
-                {
-                    return RedirectToAction("Index", "Referrals");
 
 
-                }
+
+                return RedirectToAction("Index", "Referrals");
 
             }
 

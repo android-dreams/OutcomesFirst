@@ -73,11 +73,14 @@ namespace OutcomesFirst.Controllers
 
 
             var referral = _context.Referral
+                .Include(s => s.ReferralGender)
+                .Include(s => s.ReferralLocalAuthority)
                 .Where(i => i.ReferralId == id).Single();
 
             var submission = new Submission();
 
             var servicesList = _context.Service
+
                 .OrderBy(s => s.ServiceName)
                 .ToList();
 
@@ -89,10 +92,10 @@ namespace OutcomesFirst.Controllers
 
                 MVReferralId = referral.ReferralId,
                 MVReferralName = referral.ReferralName,
-                //  MVGender = referral.ReferralGender.GenderName,
-                //  MVAge = 10,
-                //   MVLocalAuthority = referral.ReferralLocalAuthority.LocalAuthorityName,
-                //   MVDateReceived = referral.ReferralReceivedDate,
+                MVGender = referral.ReferralGender.GenderName,
+                MVAge = referral.ReferralAge,
+                MVLocalAuthority = referral.ReferralLocalAuthority.LocalAuthorityName,
+                MVDateReceived = referral.ReferralReceivedDate,
 
                 Submission = submission,
                 Services = servicesList,
@@ -117,30 +120,34 @@ namespace OutcomesFirst.Controllers
             if (ModelState.IsValid)
             {
 
-
+               
                 //int count = submissionIndexData.Submission.IsChecked.Count;
-                int count = submissionIndexData.Submission.IsChecked.Count;
-                // string result = string.Join(",", submissionIndexData.Submission.IsChecked);
-                string result = string.Join(",", submissionIndexData.Submission.IsChecked);
-                var subrefid = submissionIndexData.MVReferralId;
+                if (submissionIndexData.Submission != null )
+                { 
+                    int count = submissionIndexData.Submission.IsChecked.Count;
 
 
-                for (int i = 0; i < count; i++)
-                {
-                    var submissions = new Submission[]
+                    // string result = string.Join(",", submissionIndexData.Submission.IsChecked);
+                    string result = string.Join(",", submissionIndexData.Submission.IsChecked);
+                    var subrefid = submissionIndexData.MVReferralId;
+
+
+                    for (int i = 0; i < count; i++)
                     {
+                        var submissions = new Submission[]
+                        {
                        new Submission {SubmissionReferralId= subrefid,SubmissionServiceId = Int32.Parse(submissionIndexData.Submission.IsChecked[i])}
-                     };
-                    foreach (Submission s in submissions)
-                    {
-                        //set initial status of submission to 'Under Consideration by Service //
-                        s.SubmissionStatusId = 8;
-                        _context.Submission.Add(s);
+                         };
+                        foreach (Submission s in submissions)
+                        {
+                            //set initial status of submission to 'Under Consideration by Service //
+                            s.SubmissionStatusId = 8;
+                            _context.Submission.Add(s);
+                        }
+
                     }
-
+                    _context.SaveChanges();
                 }
-                _context.SaveChanges();
-
                 return RedirectToAction("Index", "Referrals");
 
             }
@@ -154,15 +161,18 @@ namespace OutcomesFirst.Controllers
 
         public ViewResult AddNew(int id)
         {
-            
+
             var referral = _context.Referral
+                .Include(s => s.ReferralGender)
+                .Include(s => s.ReferralLocalAuthority)
                 .Where(i => i.ReferralId == id).Single();
 
-        
+
 
             //var existingSubmissions = _context.Submission
             //    .OrderBy(s => s.SubmissionService.ServiceName)
             //    .ToList();
+
 
             var servicesList = _context.Service
                 .OrderBy(s => s.ServiceName)
@@ -170,20 +180,21 @@ namespace OutcomesFirst.Controllers
 
             List<ServiceViewModel> servicesVMList = new List<ServiceViewModel>();
 
-           
 
             foreach (var item in servicesList)
             {
                 var existingSubmission = (from a in _context.Submission
                           .Where(s => s.SubmissionServiceId == item.ServiceId)
-                                           select new { a.SubmissionServiceId }).FirstOrDefault();
-               
+                                          select new { a.SubmissionServiceId }).FirstOrDefault();
+
                 if (existingSubmission == null)
                 {
                     ServiceViewModel serviceVM = new ServiceViewModel();
                     _mapper.Map(item, serviceVM);
+
+
                     servicesVMList.Add(serviceVM);
-                }           
+                }
             }
 
             var regions = _context.Region.ToList();
@@ -193,6 +204,10 @@ namespace OutcomesFirst.Controllers
             {
                 MVReferralId = referral.ReferralId,
                 MVReferralName = referral.ReferralName,
+                MVGender = referral.ReferralGender.GenderName,
+                MVAge = referral.ReferralAge,
+                MVLocalAuthority = referral.ReferralLocalAuthority.LocalAuthorityName,
+                MVDateReceived = referral.ReferralReceivedDate,
 
                 ServicesVM = servicesVMList,
                 regions = regions
@@ -215,27 +230,29 @@ namespace OutcomesFirst.Controllers
             if (ModelState.IsValid)
             {
 
-                int count = submissionIndexData.Submission.IsChecked.Count;
-                string result = string.Join(",", submissionIndexData.Submission.IsChecked);
-                var subrefid = submissionIndexData.MVReferralId;
-
-
-                for (int i = 0; i < count; i++)
+                if (submissionIndexData.Submission != null)
                 {
-                    var submissions = new Submission[]
+                    int count = submissionIndexData.Submission.IsChecked.Count;
+                    string result = string.Join(",", submissionIndexData.Submission.IsChecked);
+                    var subrefid = submissionIndexData.MVReferralId;
+
+
+                    for (int i = 0; i < count; i++)
                     {
+                        var submissions = new Submission[]
+                        {
                        new Submission {SubmissionReferralId= subrefid,SubmissionServiceId = Int32.Parse(submissionIndexData.Submission.IsChecked[i])}
-                     };
-                    foreach (Submission s in submissions)
-                    {
-                        //set initial status of submission to 'Under Consideration by Service //
-                        s.SubmissionStatusId = 8;
-                        _context.Submission.Add(s);
+                         };
+                        foreach (Submission s in submissions)
+                        {
+                            //set initial status of submission to 'Under Consideration by Service //
+                            s.SubmissionStatusId = 8;
+                            _context.Submission.Add(s);
+                        }
+
                     }
-
+                    _context.SaveChanges();
                 }
-                _context.SaveChanges();
-
                 return RedirectToAction("Index", "Referrals");
 
             }
@@ -336,7 +353,7 @@ namespace OutcomesFirst.Controllers
                         {
                             throw;
                         }
-                        
+
                     }
                     _context.SaveChanges();
                 }
@@ -351,6 +368,31 @@ namespace OutcomesFirst.Controllers
                     {
                         throw;
                     }
+
+                    // Update the referral with the highest status (actually the lowest)
+                    var allsubmissions = _context.Submission.Where(s => s.SubmissionReferralId == referral.ReferralId);
+
+                    int? highest = 99;
+                    //int subid = 6;
+
+                    foreach (Submission s in allsubmissions)
+                    {
+
+                        //var substat = _context.Status.Where(r => r.StatusId == s.SubmissionStatusId);
+
+                        if (s.SubmissionStatusId < highest)
+                        {
+
+                            highest = s.SubmissionStatusId;
+                            //subid = s.SubmissionStatus.StatusId;
+
+                        }
+                    }
+
+
+                    referral.ReferralStatusId = (int)highest;
+                    _context.Update(referral);
+                    _context.SaveChanges();
 
                 }
 
