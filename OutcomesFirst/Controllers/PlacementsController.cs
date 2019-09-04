@@ -80,6 +80,11 @@ namespace OutcomesFirst
                 return NotFound();
             }
 
+            ViewData["PlacementGenderId"] = new SelectList(_context.Gender, "GenderId", "GenderName");
+            ViewData["PlacementLocalAuthorityId"] = new SelectList(_context.LocalAuthority, "LocalAuthorityId", "LocalAuthorityName");
+            ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName");
+            ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonName");
+
             return View(placement);
         }
 
