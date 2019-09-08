@@ -18,6 +18,10 @@
                     Service
                 </th>
                 <th>
+                    ID
+                </th>
+
+                <th>
                     First Name
                 </th>
                 <th>
@@ -44,6 +48,9 @@
 
                 <td>
                     @Html.DisplayFor(modelItem => item.PlacementService.ServiceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlacementRefId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PlacementFirstName)

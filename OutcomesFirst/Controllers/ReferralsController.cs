@@ -41,7 +41,8 @@ namespace OutcomesFirst.Controllers
               .Where(r => r.ReferralStatusId != 1 & r.ReferralStatusId != 2)
               .OrderBy(o => o.ReferralStatus.StatusId);
 
-            
+
+
             return View(await PaginatedList<Referral>.CreateAsync(outcomesFirstContext.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
@@ -224,22 +225,16 @@ namespace OutcomesFirst.Controllers
 
                 }
 
-                if (viewModel.ReferralStatusId == 8)
+             
+                if (submit == "Submit to Another Service")
                 {
-                    if (submit == "Submit to Another Service")
-                    {
-                        return RedirectToAction("AddNew", "Submissions", new { @id=viewModel.ReferralId});
-
-                    }
-                    return RedirectToAction("Index", "Referrals");
+                    return RedirectToAction("AddNew", "Submissions", new { @id=viewModel.ReferralId});
 
                 }
-                else
-                {
-                    return RedirectToAction("Index", "Referrals");
 
 
-                }
+
+                return RedirectToAction("Index", "Referrals");
 
             }
 
