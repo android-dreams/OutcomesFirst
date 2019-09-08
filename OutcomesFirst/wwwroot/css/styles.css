@@ -1,20 +1,170 @@
-﻿.container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+﻿/* Font-awesome radio and checkbox styles*/
+input[type=radio].with-font,
+input[type=checkbox].with-font {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
 }
 
-.android-card-header {
-    background-color: darkred;
+    input[type=radio].with-font ~ label:before,
+    input[type=checkbox].with-font ~ label:before {
+        font-family: FontAwesome;
+        display: inline-block;
+        content: "\f1db";
+        /* fa-circle-thin */
+        letter-spacing: 10px;
+        font-size: 1.5em;
+        color: #535353;
+        width: 1.4em;
+        /* reduce bounce */
+    }
+
+    input[type=radio].with-font:checked ~ label:before,
+    input[type=checkbox].with-font:checked ~ label:before {
+        content: "\f00c";
+        /* fa-check */
+        font-size: 1.5em;
+        color: hsl(210, 100%, 17%);
+        letter-spacing: 5px;
+        font-weight:900;
+    }
+
+    input[type=checkbox].with-font ~ label:before {
+        content: "\f096";
+        /* fa-square-o */
+    }
+
+    input[type=checkbox].with-font:checked ~ label:before {
+        content: "\f046";
+        /* fa-check-square-o */
+        color: hsl(350, 82%, 43%);
+    }
+/*** custom checkboxes ***/
+input[type=checkbox] {
+    display: none;
+    /* hide the default checkbox UI */
 }
 
+    input[type=checkbox] + label:before,
+    input[type=checkbox] + input[type=hidden] + label:before {
+        font-family: FontAwesome;
+        display: inline-block;
+        font-size: 1.5em;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    input[type=checkbox] + label:before,
+    input[type=checkbox] + input[type=hidden] + label:before {
+        content: "\f096";
+        /* unchecked icon */
+    }
+
+    input[type=checkbox] + label:before,
+    input[type=checkbox] + input[type=hidden] + label:before {
+        letter-spacing: 0.3em;
+        /* space between checkbox and label */
+    }
+
+    input[type=checkbox]:checked + label:before,
+    input[type=checkbox]:checked + input[type=hidden] + label:before {
+        content: "\f046";
+        /* checked icon */
+        color: hsl(350, 82%, 43%);
+    }
+
+    input[type=checkbox] + label.yellow,
+    input[type=checkbox] + input[type=hidden] + label.yellow {
+        color: #535353 !important;
+    }
+
+        input[type=checkbox] + label.yellow:before,
+        input[type=checkbox] + input[type=hidden] + label.yellow:before {
+            color: hsl(36, 72%, 52%) !important;
+        }
+
+    input[type=checkbox] + label.blue,
+    input[type=checkbox] + input[type=hidden] + label.blue {
+        color: #535353 !important;
+    }
+
+        input[type=checkbox] + label.blue:before,
+        input[type=checkbox] + input[type=hidden] + label.blue:before {
+            color: hsl(211, 66%, 34%) !important;
+        }
+
+    input[type=checkbox] + label.disabled,
+    input[type=checkbox] + input[type=hidden] + label.disabled {
+        cursor: not-allowed !important;
+    }
+
+        input[type=checkbox] + label.disabled:before,
+        input[type=checkbox] + input[type=hidden] + label.disabled:before {
+            cursor: not-allowed !important;
+        }
+
+    input[type=checkbox]:checked + label:before,
+    input[type=checkbox]:checked + input[type=hidden] + label:before {
+        letter-spacing: 0.155em;
+        /* allow space for check mark */
+    }
+
+    input[type=checkbox]:disabled + label:before,
+    input[type=checkbox]:disabled + input[type=hidden] + label:before {
+        color: #ccc !important;
+        cursor: not-allowed !important;
+    }
+/*** custom checkboxes END ***/
+/*** custom radio buttons ***/
+input[type=radio] {
+    display: none;
+    /* hide the default checkbox UI */
+}
+
+    input[type=radio] + label:before,
+    input[type=radio] + input[type=hidden] + label:before {
+        /*font-family: FontAwesome;*/
+        display: inline-block;
+        font-size: 1.5em;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    input[type=radio] + label:before,
+    input[type=radio] + input[type=hidden] + label:before {
+        content: "\f10c";
+        /* unchecked icon */
+    }
+
+    input[type=radio] + label:before,
+    input[type=radio] + input[type=hidden] + label:before {
+        letter-spacing: 0.2em;
+        /* space between checkbox and label */
+    }
+
+    input[type=radio]:checked + label:before,
+    input[type=radio]:checked + input[type=hidden] + label:before {
+        content: "\f192";
+        /* checked icon */
+    }
+
+    input[type=radio]:checked + label:before,
+    input[type=radio]:checked + input[type=hidden] + label:before {
+        letter-spacing: 0.2em;
+        /* allow space for check mark */
+    }
+
+    input[type=radio]:disabled + label:before,
+    input[type=radio]:disabled + input[type=hidden] + label:before {
+        color: #ccc !important;
+        cursor: not-allowed !important;
+    }
+/*** custom radio buttons END ***/
 .auction-dashboard-item {
   width: 150px;
   display: inline-block;
@@ -576,173 +726,6 @@
   width: 100%;
   border: 0;
 }
-/*/*** custom checkboxes ***/
-/*input[type=checkbox] {
-    display: none;
-    /* hide the default checkbox UI */
-/*}*/
 
-    /*input[type=checkbox] + label:before,
-    input[type=checkbox] + input[type=hidden] + label:before {
-        font-family: FontAwesome;
-        display: inline-block;
-        font-size: 1.5em;
-        font-weight: normal;
-        cursor: pointer;
-    }
 
-    input[type=checkbox] + label:before,
-    input[type=checkbox] + input[type=hidden] + label:before {
-        content: "\f096";
-        /* unchecked icon */
-    /*}
 
-    input[type=checkbox] + label:before,
-    input[type=checkbox] + input[type=hidden] + label:before {
-        letter-spacing: 0.3em;*/
-        /* space between checkbox and label */
-    /*}
-
-    input[type=checkbox]:checked + label:before,
-    input[type=checkbox]:checked + input[type=hidden] + label:before {
-        content: "\f046";
-        /* checked icon */
-        /*color: hsl(350, 82%, 43%);
-    }
-
-    input[type=checkbox] + label.yellow,
-    input[type=checkbox] + input[type=hidden] + label.yellow {
-        color: #535353 !important;
-    }
-
-        input[type=checkbox] + label.yellow:before,
-        input[type=checkbox] + input[type=hidden] + label.yellow:before {
-            color: hsl(36, 72%, 52%) !important;
-        }
-
-    input[type=checkbox] + label.blue,
-    input[type=checkbox] + input[type=hidden] + label.blue {
-        color: #535353 !important;
-    }
-
-        input[type=checkbox] + label.blue:before,
-        input[type=checkbox] + input[type=hidden] + label.blue:before {
-            color: hsl(211, 66%, 34%) !important;
-        }
-
-    input[type=checkbox] + label.disabled,
-    input[type=checkbox] + input[type=hidden] + label.disabled {
-        cursor: not-allowed !important;
-    }
-
-        input[type=checkbox] + label.disabled:before,
-        input[type=checkbox] + input[type=hidden] + label.disabled:before {
-            cursor: not-allowed !important;
-        }
-
-    input[type=checkbox]:checked + label:before,
-    input[type=checkbox]:checked + input[type=hidden] + label:before {
-        letter-spacing: 0.155em;*/
-        /* allow space for check mark */
-    /*}
-
-    input[type=checkbox]:disabled + label:before,
-    input[type=checkbox]:disabled + input[type=hidden] + label:before {
-        color: #ccc !important;
-        cursor: not-allowed !important;
-    }*/
-/*** custom checkboxes END ***/
-/*** custom radio buttons ***/
-/*input[type=radio] {
-    display: none;
-    /* hide the default checkbox UI */
-/*}*/
-
-    /*input[type=radio] + label:before,
-    input[type=radio] + input[type=hidden] + label:before {
-        font-family: FontAwesome;
-        display: inline-block;
-        font-size: 1.5em;
-        font-weight: normal;
-        cursor: pointer;
-    }
-
-    input[type=radio] + label:before,
-    input[type=radio] + input[type=hidden] + label:before {
-        content: "\f10c";*/
-        /* unchecked icon */
-    /*}
-
-    input[type=radio] + label:before,
-    input[type=radio] + input[type=hidden] + label:before {
-        letter-spacing: 0.2em;*/
-        /* space between checkbox and label */
-    /*}
-
-    input[type=radio]:checked + label:before,
-    input[type=radio]:checked + input[type=hidden] + label:before {
-        content: "\f192";*/
-        /* checked icon */
-    /*}
-
-    input[type=radio]:checked + label:before,
-    input[type=radio]:checked + input[type=hidden] + label:before {
-        letter-spacing: 0.2em;*/
-        /* allow space for check mark */
-    /*}
-
-    input[type=radio]:disabled + label:before,
-    input[type=radio]:disabled + input[type=hidden] + label:before {
-        color: #ccc !important;
-        cursor: not-allowed !important;
-    }*/
-/*** custom radio buttons END ***/
-/* Hide the browser's default radio button */
-/*.container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-}*/
-
-/* Create a custom radio button */
-/*.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 50%;
-}*/
-
-/* On mouse-over, add a grey background color */
-/*.container:hover input ~ .checkmark {
-    background-color: #ccc;
-}*/
-
-/* When the radio button is checked, add a blue background */
-/*.container input:checked ~ .checkmark {
-    background-color: #2196F3;
-}*/
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-/*.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}*/
-
-/* Show the indicator (dot/circle) when checked */
-/*.container input:checked ~ .checkmark:after {
-    display: block;
-}*/
-
-/* Style the indicator (dot/circle) */
-/*.container .checkmark:after {
-    top: 9px;
-    left: 9px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: white;
-}*/

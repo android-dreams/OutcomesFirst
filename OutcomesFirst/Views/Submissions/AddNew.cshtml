@@ -77,13 +77,13 @@
                                 {
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 @item.ServiceName
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-6">
 
-                                                <input asp-for="MVIsChecked" name="Submission.IsChecked" type="checkbox" value="@item.ServiceId" /><br />
-
+                                                <input asp-for="MVIsChecked" id="@item.ServiceId"class="with-font" name="Submission.IsChecked" type="checkbox" value="@item.ServiceId" />
+                                                <label for="@item.ServiceId"></label><br />
                                                 <span asp-validation-for="MVIsChecked" class="text-danger small"></span>
                                             </div>
                                         </div>
