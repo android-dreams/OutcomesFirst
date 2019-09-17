@@ -40,7 +40,7 @@ namespace OutcomesFirst
         }
 
 
-        // GET: Occupancy Details - Occupancy shows Placements By Service so the main table is Placements
+        // GET: Placement Details - Placement shows Placements By Service so the main table is Placements
         public async Task<IActionResult> OccupancyIndex()
         {
             var applicationDbContext = _context.Placement
@@ -220,7 +220,7 @@ namespace OutcomesFirst
             return View(placement);
         }
 
-        // POST: Occupancy/Edit/5
+        // POST: Placement/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]

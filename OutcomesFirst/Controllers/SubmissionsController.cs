@@ -10,7 +10,6 @@ using OutcomesFirst.ViewModels;
 using System;
 using AutoMapper;
 
-
 namespace OutcomesFirst.Controllers
 {
     public class SubmissionsController : Controller
@@ -25,22 +24,195 @@ namespace OutcomesFirst.Controllers
         }
 
 
-
         // GET: Submissions
-        public async Task<IActionResult> Index(int? pageNumber)
+        public async Task<IActionResult> Index(int? pageNumber, string searchString, string svcSearch, string statusSearch)
         {
+            int searchType = 0;
             int pageSize = 10;
 
-            //only show submissions that are not placed and not Archive
-            var servicedata = _context.Submission
-                .Include(s => s.SubmissionReferral)
-                .Include(s => s.SubmissionService)
-                .Include(s => s.SubmissionStatus)
-                .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2);
+            var svcList = new List<string>();
 
-            return View(await PaginatedList<Submission>.CreateAsync(servicedata, pageNumber ?? 1, pageSize));
+            var svcQry = _context.Service
+                 .OrderBy(x => x.ServiceName)
+                 .Select(x => x.ServiceName).ToList();
+
+            var statusQry = _context.Status
+                 .Where(x => x.StatusId != 1)
+                 .Where(x => x.StatusId != 2)
+                .OrderBy(x => x.StatusPriority)
+                .Select(x => x.StatusName).ToList();
+
+
+            ViewBag.svcSearch = new SelectList(svcQry);
+            ViewBag.statusSearch = new SelectList(statusQry);
+
+
+            if (!String.IsNullOrEmpty(svcSearch))               /*  if service entered */
+            {
+                if (!String.IsNullOrEmpty(searchString))        /* then if  Name entered */
+                {
+                    if (!String.IsNullOrEmpty(statusSearch))    /*  then if status entered*/
+                    {
+                        searchType = 1;                         /*filter on Service and Name  and status*/
+                    }
+                    else
+                    {
+                        searchType = 2;                         /*filter on Service and Name */
+                    }
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(statusSearch))
+                    {
+                        searchType = 3;                          /* filter on Service and status only */
+                    }
+                    else
+                    {
+                        searchType = 4;                        /* filter on Service  only */
+                    }
+                }
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(searchString))     /*  then if name entered*/
+                {
+                    if (!String.IsNullOrEmpty(statusSearch)) /* and status entered*/
+                    {
+                        searchType = 5;                    /* filter on Name and status only */
+                    }
+                    else
+                    {
+                        searchType = 6;                 /* filter on Name  only */
+                    }
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(statusSearch)) /* and status entered*/
+                    {
+                        searchType = 7;     /*status only */
+                    }
+                    else
+                    {
+                        searchType = 8; /* no filter */
+                    }
+                }
+
+
+            }
+
+            switch (searchType)
+            {
+
+ /*  search  on Service and Name and Status*/
+                case 1:
+                    var servicedata1 = _context.Submission
+                   .Include(s => s.SubmissionReferral)
+                   .Include(s => s.SubmissionService)
+                   .Include(s => s.SubmissionStatus)
+                   .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
+                   .Where(s => s.SubmissionReferral.ReferralName.Contains(searchString))
+                   .Where(s => s.SubmissionService.ServiceName == svcSearch)
+                   .Where(s => s.SubmissionStatus.StatusName == statusSearch)
+                   .OrderBy(o => o.SubmissionStatus.StatusName);
+                    return View(await PaginatedList<Submission>.CreateAsync(servicedata1.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                /* search on Service  and Name */
+                case 2:
+
+                    var servicedata2 = _context.Submission
+                  .Include(s => s.SubmissionReferral)
+                  .Include(s => s.SubmissionService)
+                  .Include(s => s.SubmissionStatus)
+                  .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
+                   .Where(s => s.SubmissionReferral.ReferralName.Contains(searchString))
+                  .Where(s => s.SubmissionService.ServiceName == svcSearch)
+                  .OrderBy(o => o.SubmissionStatus.StatusName);
+                    return View(await PaginatedList<Submission>.CreateAsync(servicedata2.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+
+                case 3:
+                    /* search Service & Status */
+
+                    var servicedata3 = _context.Submission
+                  .Include(s => s.SubmissionReferral)
+                  .Include(s => s.SubmissionService)
+                  .Include(s => s.SubmissionStatus)
+                  .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
+                  .Where(s => s.SubmissionStatus.StatusName == statusSearch)
+                  .Where(s => s.SubmissionService.ServiceName == svcSearch)
+                  .OrderBy(o => o.SubmissionStatus.StatusName);
+                    return View(await PaginatedList<Submission>.CreateAsync(servicedata3.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+
+                case 4:
+                    /* search Name  only */
+
+                    var servicedata4 = _context.Submission
+                   .Include(s => s.SubmissionReferral)
+                   .Include(s => s.SubmissionService)
+                   .Include(s => s.SubmissionStatus)
+                   .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
+                    .Where(s => s.SubmissionService.ServiceName == svcSearch)
+                    .OrderBy(o => o.SubmissionStatus.StatusName);
+                    return View(await PaginatedList<Submission>.CreateAsync(servicedata4.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 5: /*Name and Status */
+
+                    var servicedata5 = _context.Submission
+                   .Include(s => s.SubmissionReferral)
+                   .Include(s => s.SubmissionService)
+                   .Include(s => s.SubmissionStatus)
+                   .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
+                   .Where(s => s.SubmissionReferral.ReferralName.Contains(searchString))
+                   .Where(s => s.SubmissionStatus.StatusName == statusSearch)
+                   .OrderBy(o => o.SubmissionStatus.StatusName);
+                    return View(await PaginatedList<Submission>.CreateAsync(servicedata5.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 6:
+                    /* Name only */
+
+                    var servicedata6 = _context.Submission
+                   .Include(s => s.SubmissionReferral)
+                   .Include(s => s.SubmissionService)
+                   .Include(s => s.SubmissionStatus)
+                   .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
+                   .Where(s => s.SubmissionReferral.ReferralName.Contains(searchString))
+                   .OrderBy(o => o.SubmissionStatus.StatusName);
+                    return View(await PaginatedList<Submission>.CreateAsync(servicedata6.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+
+                case 7:
+                    /* Status only */
+
+                    var servicedata7 = _context.Submission
+                   .Include(s => s.SubmissionReferral)
+                   .Include(s => s.SubmissionService)
+                   .Include(s => s.SubmissionStatus)
+                   .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
+                   .Where(s => s.SubmissionStatus.StatusName == statusSearch)
+                   .OrderBy(o => o.SubmissionStatus.StatusName);
+                    return View(await PaginatedList<Submission>.CreateAsync(servicedata7.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+              
+                default:
+                    /*  No filter */
+                    var servicedata0 = _context.Submission
+                    .Include(s => s.SubmissionReferral)
+                    .Include(s => s.SubmissionService)
+                    .Include(s => s.SubmissionStatus)
+                    .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
+                    .OrderBy(o => o.SubmissionStatus.StatusName);
+                    return View(await PaginatedList<Submission>.CreateAsync(servicedata0.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+
+
+            }
 
         }
+
+
+
+
 
         // GET: Submissions/Details/5
         public ActionResult Details(int? id)
@@ -120,10 +292,10 @@ namespace OutcomesFirst.Controllers
             if (ModelState.IsValid)
             {
 
-               
+
                 //int count = submissionIndexData.Submission.IsChecked.Count;
-                if (submissionIndexData.Submission != null )
-                { 
+                if (submissionIndexData.Submission != null)
+                {
                     int count = submissionIndexData.Submission.IsChecked.Count;
 
 
