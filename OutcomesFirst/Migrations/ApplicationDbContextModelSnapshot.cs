@@ -15,7 +15,7 @@ namespace OutcomesFirst.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -231,6 +231,8 @@ namespace OutcomesFirst.Migrations
 
                     b.Property<int>("ArchiveReferralType");
 
+                    b.Property<int>("OriginalReferralId");
+
                     b.HasKey("ArchiveReferralId");
 
                     b.HasIndex("ArchiveReferralArchiveReasonId");
@@ -285,65 +287,6 @@ namespace OutcomesFirst.Migrations
                     b.HasIndex("LocalAuthorityRegionId");
 
                     b.ToTable("LocalAuthority");
-                });
-
-            modelBuilder.Entity("OutcomesFirst.Models.Occupancy", b =>
-                {
-                    b.Property<int>("OccupancyId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("OccupancyAgeAtLeaving");
-
-                    b.Property<DateTime>("OccupancyDOB");
-
-                    b.Property<DateTime>("OccupancyDateStartedWithGroup");
-
-                    b.Property<string>("OccupancyFirstName");
-
-                    b.Property<string>("OccupancyFramework");
-
-                    b.Property<int>("OccupancyGenderId");
-
-                    b.Property<string>("OccupancyLastName");
-
-                    b.Property<DateTime?>("OccupancyLeaveDate");
-
-                    b.Property<string>("OccupancyLeaverType");
-
-                    b.Property<int?>("OccupancyLengthOfStayWithGroup");
-
-                    b.Property<int?>("OccupancyLengthOfStayWithPlacement");
-
-                    b.Property<int>("OccupancyLocalAuthorityId");
-
-                    b.Property<string>("OccupancyNotes");
-
-                    b.Property<DateTime?>("OccupancyPlacementStartDate");
-
-                    b.Property<int?>("OccupancyReasonForLeavingID");
-
-                    b.Property<string>("OccupancyRefId");
-
-                    b.Property<int>("OccupancyServiceId");
-
-                    b.Property<bool?>("OccupancyServiceTransition");
-
-                    b.Property<string>("OccupancyType")
-                        .IsRequired()
-                        .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 1)));
-
-                    b.Property<int?>("OccupancyWeeklyFee");
-
-                    b.HasKey("OccupancyId");
-
-                    b.HasIndex("OccupancyGenderId");
-
-                    b.HasIndex("OccupancyLocalAuthorityId");
-
-                    b.HasIndex("OccupancyServiceId");
-
-                    b.ToTable("Occupancy");
                 });
 
             modelBuilder.Entity("OutcomesFirst.Models.Placement", b =>
@@ -633,24 +576,6 @@ namespace OutcomesFirst.Migrations
                     b.HasOne("OutcomesFirst.Models.Region", "LocalAuthorityRegion")
                         .WithMany()
                         .HasForeignKey("LocalAuthorityRegionId");
-                });
-
-            modelBuilder.Entity("OutcomesFirst.Models.Occupancy", b =>
-                {
-                    b.HasOne("OutcomesFirst.Models.Gender", "OccupancyGender")
-                        .WithMany()
-                        .HasForeignKey("OccupancyGenderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("OutcomesFirst.Models.LocalAuthority", "OccupancyLocalAuthority")
-                        .WithMany()
-                        .HasForeignKey("OccupancyLocalAuthorityId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("OutcomesFirst.Models.Service", "OccupancyService")
-                        .WithMany()
-                        .HasForeignKey("OccupancyServiceId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("OutcomesFirst.Models.Placement", b =>

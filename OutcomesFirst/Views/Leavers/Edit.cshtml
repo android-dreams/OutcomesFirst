@@ -1,4 +1,4 @@
-﻿@model OutcomesFirst.Models.Occupancy
+﻿@model OutcomesFirst.Models.Placement
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,115 +6,115 @@
 
 <h1>Edit</h1>
 
-<h4>Occupancy</h4>
+<h4>Placement</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="OccupancyId" />
+            <input type="hidden" asp-for="PlacementId" />
             <div class="form-group">
-                <label asp-for="OccupancyRefId" class="control-label"></label>
-                <input asp-for="OccupancyRefId" class="form-control" />
-                <span asp-validation-for="OccupancyRefId" class="text-danger"></span>
+                <label asp-for="PlacementRefId" class="control-label"></label>
+                <input asp-for="PlacementRefId" class="form-control" />
+                <span asp-validation-for="PlacementRefId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyFirstName" class="control-label"></label>
-                <input asp-for="OccupancyFirstName" class="form-control" />
-                <span asp-validation-for="OccupancyFirstName" class="text-danger"></span>
+                <label asp-for="PlacementFirstName" class="control-label"></label>
+                <input asp-for="PlacementFirstName" class="form-control" />
+                <span asp-validation-for="PlacementFirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyLastName" class="control-label"></label>
-                <input asp-for="OccupancyLastName" class="form-control" />
-                <span asp-validation-for="OccupancyLastName" class="text-danger"></span>
+                <label asp-for="PlacementLastName" class="control-label"></label>
+                <input asp-for="PlacementLastName" class="form-control" />
+                <span asp-validation-for="PlacementLastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyGenderId" class="control-label"></label>
-                <select asp-for="OccupancyGenderId" class="form-control" asp-items="ViewBag.OccupancyGenderId"></select>
-                <span asp-validation-for="OccupancyGenderId" class="text-danger"></span>
+                <label asp-for="PlacementGenderId" class="control-label"></label>
+                <select asp-for="PlacementGenderId" class="form-control" asp-items="ViewBag.PlacementGenderId"></select>
+                <span asp-validation-for="PlacementGenderId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyType" class="control-label"></label>
-                <input asp-for="OccupancyType" class="form-control" />
-                <span asp-validation-for="OccupancyType" class="text-danger"></span>
+                <label asp-for="PlacementType" class="control-label"></label>
+                <input asp-for="PlacementType" class="form-control" />
+                <span asp-validation-for="PlacementType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyServiceTransition" class="control-label"></label>
-                <input asp-for="OccupancyServiceTransition" class="form-control" />
-                <span asp-validation-for="OccupancyServiceTransition" class="text-danger"></span>
+                <label asp-for="PlacementServiceTransition" class="control-label"></label>
+                <input asp-for="PlacementServiceTransition" class="form-control" />
+                <span asp-validation-for="PlacementServiceTransition" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyServiceId" class="control-label"></label>
-                <select asp-for="OccupancyServiceId" class="form-control" asp-items="ViewBag.OccupancyServiceId"></select>
-                <span asp-validation-for="OccupancyServiceId" class="text-danger"></span>
+                <label asp-for="PlacementServiceId" class="control-label"></label>
+                <select asp-for="PlacementServiceId" class="form-control" asp-items="ViewBag.PlacementServiceId"></select>
+                <span asp-validation-for="PlacementServiceId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyDateStartedWithGroup" class="control-label"></label>
-                <input asp-for="OccupancyDateStartedWithGroup" class="form-control" />
-                <span asp-validation-for="OccupancyDateStartedWithGroup" class="text-danger"></span>
+                <label asp-for="PlacementDateStartedWithGroup" class="control-label"></label>
+                <input asp-for="PlacementDateStartedWithGroup" class="form-control" />
+                <span asp-validation-for="PlacementDateStartedWithGroup" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyPlacementStartDate" class="control-label"></label>
-                <input asp-for="OccupancyPlacementStartDate" class="form-control" />
-                <span asp-validation-for="OccupancyPlacementStartDate" class="text-danger"></span>
+                <label asp-for="PlacementPlacementStartDate" class="control-label"></label>
+                <input asp-for="PlacementPlacementStartDate" class="form-control" />
+                <span asp-validation-for="PlacementPlacementStartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyDOB" class="control-label"></label>
-                <input asp-for="OccupancyDOB" class="form-control" />
-                <span asp-validation-for="OccupancyDOB" class="text-danger"></span>
+                <label asp-for="PlacementDOB" class="control-label"></label>
+                <input asp-for="PlacementDOB" class="form-control" />
+                <span asp-validation-for="PlacementDOB" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyAgeAtLeaving" class="control-label"></label>
-                <input asp-for="OccupancyAgeAtLeaving" class="form-control" />
-                <span asp-validation-for="OccupancyAgeAtLeaving" class="text-danger"></span>
+                <label asp-for="PlacementAgeAtLeaving" class="control-label"></label>
+                <input asp-for="PlacementAgeAtLeaving" class="form-control" />
+                <span asp-validation-for="PlacementAgeAtLeaving" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyLocalAuthorityId" class="control-label"></label>
-                <select asp-for="OccupancyLocalAuthorityId" class="form-control" asp-items="ViewBag.OccupancyLocalAuthorityId"></select>
-                <span asp-validation-for="OccupancyLocalAuthorityId" class="text-danger"></span>
+                <label asp-for="PlacementLocalAuthorityId" class="control-label"></label>
+                <select asp-for="PlacementLocalAuthorityId" class="form-control" asp-items="ViewBag.PlacementLocalAuthorityId"></select>
+                <span asp-validation-for="PlacementLocalAuthorityId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyFramework" class="control-label"></label>
-                <input asp-for="OccupancyFramework" class="form-control" />
-                <span asp-validation-for="OccupancyFramework" class="text-danger"></span>
+                <label asp-for="PlacementFramework" class="control-label"></label>
+                <input asp-for="PlacementFramework" class="form-control" />
+                <span asp-validation-for="PlacementFramework" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyWeeklyFee" class="control-label"></label>
-                <input asp-for="OccupancyWeeklyFee" class="form-control" />
-                <span asp-validation-for="OccupancyWeeklyFee" class="text-danger"></span>
+                <label asp-for="PlacementWeeklyFee" class="control-label"></label>
+                <input asp-for="PlacementWeeklyFee" class="form-control" />
+                <span asp-validation-for="PlacementWeeklyFee" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyLengthOfStayWithGroup" class="control-label"></label>
-                <input asp-for="OccupancyLengthOfStayWithGroup" class="form-control" />
-                <span asp-validation-for="OccupancyLengthOfStayWithGroup" class="text-danger"></span>
+                <label asp-for="PlacementLengthOfStayWithGroup" class="control-label"></label>
+                <input asp-for="PlacementLengthOfStayWithGroup" class="form-control" />
+                <span asp-validation-for="PlacementLengthOfStayWithGroup" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyLengthOfStayWithPlacement" class="control-label"></label>
-                <input asp-for="OccupancyLengthOfStayWithPlacement" class="form-control" />
-                <span asp-validation-for="OccupancyLengthOfStayWithPlacement" class="text-danger"></span>
+                <label asp-for="PlacementLengthOfStayWithPlacement" class="control-label"></label>
+                <input asp-for="PlacementLengthOfStayWithPlacement" class="form-control" />
+                <span asp-validation-for="PlacementLengthOfStayWithPlacement" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyNotes" class="control-label"></label>
-                <input asp-for="OccupancyNotes" class="form-control" />
-                <span asp-validation-for="OccupancyNotes" class="text-danger"></span>
+                <label asp-for="PlacementNotes" class="control-label"></label>
+                <input asp-for="PlacementNotes" class="form-control" />
+                <span asp-validation-for="PlacementNotes" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyLeaveDate" class="control-label"></label>
-                <input asp-for="OccupancyLeaveDate" class="form-control" />
-                <span asp-validation-for="OccupancyLeaveDate" class="text-danger"></span>
+                <label asp-for="PlacementLeaveDate" class="control-label"></label>
+                <input asp-for="PlacementLeaveDate" class="form-control" />
+                <span asp-validation-for="PlacementLeaveDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyLeaverType" class="control-label"></label>
-                <input asp-for="OccupancyLeaverType" class="form-control" />
-                <span asp-validation-for="OccupancyLeaverType" class="text-danger"></span>
+                <label asp-for="PlacementLeaverType" class="control-label"></label>
+                <input asp-for="PlacementLeaverType" class="form-control" />
+                <span asp-validation-for="PlacementLeaverType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OccupancyReasonForLeavingID" class="control-label"></label>
-                <input asp-for="OccupancyReasonForLeavingID" class="form-control" />
-                <span asp-validation-for="OccupancyReasonForLeavingID" class="text-danger"></span>
+                <label asp-for="PlacementLeavingReasonId" class="control-label"></label>
+                <input asp-for="PlacementLeavingReasonId" class="form-control" />
+                <span asp-validation-for="PlacementLeavingReasonId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" style="background-color:#0987b9"  class="btn btn-primary" />
             </div>
         </form>
     </div>

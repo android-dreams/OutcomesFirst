@@ -7,130 +7,83 @@
 <p>
     <h3>Referrals</h3>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-               @* @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IDSortParam })*@
-            </th>
-            <th>
-                Gender
-            </th>
+<p>
 
-            <th>
-                Age
-            </th>
-            <th>
-                Local Authority
-            </th>
-            <th>
-                Received Date
-            </th>
-            <th>
-                Status
-            </th>
-            <th>
-                Submissions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            @if (DateTime.Now > item.ReferralReceivedDate.AddHours(2) && item.Submissions.Count() == 0)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReferralName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReferralGender.GenderName)
-                    </td>
+    @using (Html.BeginForm("Index", "Referral", FormMethod.Get))
+    {
+<p>
+    <div class="widercontainer">
+        <div class="col-md-12">
+            <div class="row form-horizontal">
+                <div class="col-md-1">
+                    ID @Html.TextBox("IDSearch", ViewBag.CurrentFilter as string, new { style = "width:90px" })
+                </div>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReferralAge)
-                    </td>
-                    <td>
+                <div class="col-md-1"></div>
+                <div class="col-md-1">
+                    Gender @Html.DropDownList("genderSearch", "All")&nbsp;
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Local Authority  @Html.DropDownList("laSearch", "All")
+                </div>
 
-                        @Html.DisplayFor(modelItem => item.ReferralLocalAuthority.LocalAuthorityName)
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    Status  @Html.DropDownList("statusSearch", "All")
+                </div>
 
-                    </td>
+            </div>
+            </div>
+           
+            <div class="col-md-3">
+                <input type="submit" value="Filter" />
+                @*<button class="buttonload">
+                        <i class="fa fa-spinner fa-spin"></i>Loading
+                    </button>*@
+            </div>
+        </div>
+      
+  
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReferralReceivedDate)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReferralStatus.StatusName)
-                    </td>
-                    <td>
-                        @{
-                            var count = 0;
-                            if (item.Submissions != null)
-                            {
-                                count = item.Submissions.Count();
-                            }
-                        }
-                        @Html.DisplayFor(modelItem => count)
-                    </td>
+</p>
+}
+    </p>
 
 
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.ReferralId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ReferralId">Delete</a>
-                    </td>
-                </tr>
-            }
-            else
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Gender
+                </th>
+
+                <th>
+                    Age
+                </th>
+                <th>
+                    Local Authority
+                </th>
+                <th>
+                    Received Date
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Submissions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
                 @if (DateTime.Now > item.ReferralReceivedDate.AddHours(2) && item.Submissions.Count() == 0)
                 {
-                    <tr style="color:red">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReferralName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReferralGender.GenderName)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReferralAge)
-                        </td>
-                        <td>
-
-                            @Html.DisplayFor(modelItem => item.ReferralLocalAuthority.LocalAuthorityName)
-
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReferralReceivedDate)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReferralStatus.StatusName)
-                        </td>
-                        <td>
-                            @{
-                    var count = 0;
-                    if (item.Submissions != null)
-                    {
-                        count = item.Submissions.Count();
-                    }
-                            }
-                            @Html.DisplayFor(modelItem => count)
-                        </td>
-
-
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.ReferralId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ReferralId">Delete</a>
-                        </td>
-                    </tr>
-                    }
-                    else
-                    {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.ReferralName)
@@ -157,15 +110,14 @@
                         </td>
                         <td>
                             @{
-                    var count = 0;
-                    if (item.Submissions != null)
-                    {
-                        count = item.Submissions.Count();
-                    }
+                                var count = 0;
+                                if (item.Submissions != null)
+                                {
+                                    count = item.Submissions.Count();
+                                }
                             }
                             @Html.DisplayFor(modelItem => count)
                         </td>
-
 
 
                         <td>
@@ -174,34 +126,128 @@
                             <a asp-action="Delete" asp-route-id="@item.ReferralId">Delete</a>
                         </td>
                     </tr>
+                }
+                else
+                {
+                    @if (DateTime.Now > item.ReferralReceivedDate.AddHours(2) && item.Submissions.Count() == 0)
+                    {
+                        <tr style="color:red">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReferralName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReferralGender.GenderName)
+                            </td>
 
-                        }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReferralAge)
+                            </td>
+                            <td>
+
+                                @Html.DisplayFor(modelItem => item.ReferralLocalAuthority.LocalAuthorityName)
+
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReferralReceivedDate)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReferralStatus.StatusName)
+                            </td>
+                            <td>
+                                @{
+                                    var count = 0;
+                                    if (item.Submissions != null)
+                                    {
+                                        count = item.Submissions.Count();
+                                    }
+                                }
+                                @Html.DisplayFor(modelItem => count)
+                            </td>
+
+
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.ReferralId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.ReferralId">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReferralName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReferralGender.GenderName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReferralAge)
+                            </td>
+                            <td>
+
+                                @Html.DisplayFor(modelItem => item.ReferralLocalAuthority.LocalAuthorityName)
+
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReferralReceivedDate)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReferralStatus.StatusName)
+                            </td>
+                            <td>
+                                @{
+                                    var count = 0;
+                                    if (item.Submissions != null)
+                                    {
+                                        count = item.Submissions.Count();
+                                    }
+                                }
+                                @Html.DisplayFor(modelItem => count)
+                            </td>
+
+
+
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.ReferralId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.ReferralId">Delete</a>
+                            </td>
+                        </tr>
 
                     }
+
+                }
             }
 
         </tbody>
-</table>
+    </table>
+    </div>
 
-@{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
 
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex - 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-default @prevDisabled">
-    Previous
-</a>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex + 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-default @nextDisabled">
-    Next
-</a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
 
 
 

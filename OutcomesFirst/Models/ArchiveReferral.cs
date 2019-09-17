@@ -13,6 +13,9 @@ namespace OutcomesFirst.Models
     {
         public int ArchiveReferralId { get; set; }
 
+        [Display(Name="ReferralId")]
+        public int OriginalReferralId { get; set; }
+
         [Display(Name = "ID")]
         public string ArchiveReferralName { get; set; }
 

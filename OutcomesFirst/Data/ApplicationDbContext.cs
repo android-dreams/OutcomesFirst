@@ -22,11 +22,9 @@ namespace OutcomesFirst.Data
         public DbSet<OutcomesFirst.Models.Status> Status { get; set; }
         public DbSet<OutcomesFirst.Models.Service> Service { get; set; }
         public DbSet<OutcomesFirst.Models.Submission> Submission { get; set; }
-        public DbSet<OutcomesFirst.Models.Occupancy> Occupancy { get; set; }
+        public DbSet<OutcomesFirst.Models.Placement> Placement { get; set; }
         public DbSet<OutcomesFirst.Models.RegionalManager> RegionalManager { get; set; }
         public DbSet<OutcomesFirst.Models.LeavingReason> LeavingReason { get; set; }
-
-        public DbSet<OutcomesFirst.Models.Placement> Placement { get; set; }
 
         internal object Where(Func<object, bool> p)
         {

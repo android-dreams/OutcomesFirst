@@ -13,7 +13,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="OccupancyDataset">
+    <DataSet Name="PlacementDataset">
       <Query>
         <DataSourceName>DataSource1</DataSourceName>
         <CommandType>StoredProcedure</CommandType>
@@ -21,60 +21,60 @@
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
-        <Field Name="OccupancyFirstName">
-          <DataField>OccupancyFirstName</DataField>
+        <Field Name="PlacementFirstName">
+          <DataField>PlacementFirstName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OccupancyLastName">
-          <DataField>OccupancyLastName</DataField>
+        <Field Name="PlacementLastName">
+          <DataField>PlacementLastName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OccupancyGenderId">
-          <DataField>OccupancyGenderId</DataField>
+        <Field Name="PlacementGenderId">
+          <DataField>PlacementGenderId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="OccupancyType">
-          <DataField>OccupancyType</DataField>
+        <Field Name="PlacementType">
+          <DataField>PlacementType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OccupancyDateStartedWithGroup">
-          <DataField>OccupancyDateStartedWithGroup</DataField>
+        <Field Name="PlacementDateStartedWithGroup">
+          <DataField>PlacementDateStartedWithGroup</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="OccupancyServiceTransition">
-          <DataField>OccupancyServiceTransition</DataField>
+        <Field Name="PlacementServiceTransition">
+          <DataField>PlacementServiceTransition</DataField>
           <rd:TypeName>System.Boolean</rd:TypeName>
         </Field>
-        <Field Name="OccupancyPlacementStartDate">
-          <DataField>OccupancyPlacementStartDate</DataField>
+        <Field Name="PlacementPlacementStartDate">
+          <DataField>PlacementPlacementStartDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="OccupancyDOB">
-          <DataField>OccupancyDOB</DataField>
+        <Field Name="PlacementDOB">
+          <DataField>PlacementDOB</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="OccupancyLocalAuthorityId">
-          <DataField>OccupancyLocalAuthorityId</DataField>
+        <Field Name="PlacementLocalAuthorityId">
+          <DataField>PlacementLocalAuthorityId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="OccupancyFramework">
-          <DataField>OccupancyFramework</DataField>
+        <Field Name="PlacementFramework">
+          <DataField>PlacementFramework</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OccupancyLengthOfStayWithPlacement">
-          <DataField>OccupancyLengthOfStayWithPlacement</DataField>
+        <Field Name="PlacementLengthOfStayWithPlacement">
+          <DataField>PlacementLengthOfStayWithPlacement</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="OccupancyWeeklyFee">
-          <DataField>OccupancyWeeklyFee</DataField>
+        <Field Name="PlacementWeeklyFee">
+          <DataField>PlacementWeeklyFee</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="OccupancyLengthOfStayWithGroup">
-          <DataField>OccupancyLengthOfStayWithGroup</DataField>
+        <Field Name="PlacementLengthOfStayWithGroup">
+          <DataField>PlacementLengthOfStayWithGroup</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="OccupancyNotes">
-          <DataField>OccupancyNotes</DataField>
+        <Field Name="PlacementNotes">
+          <DataField>PlacementNotes</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ServiceName">
@@ -107,76 +107,76 @@
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
-        <Field Name="OccupancyFirstName">
-          <DataField>OccupancyFirstName</DataField>
+        <Field Name="PlacementFirstName">
+          <DataField>PlacementFirstName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OccupancyLastName">
-          <DataField>OccupancyLastName</DataField>
+        <Field Name="PlacementLastName">
+          <DataField>PlacementLastName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OccupancyGenderId">
-          <DataField>OccupancyGenderId</DataField>
+        <Field Name="PlacementGenderId">
+          <DataField>PlacementGenderId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="OccupancyType">
-          <DataField>OccupancyType</DataField>
+        <Field Name="PlacementType">
+          <DataField>PlacementType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OccupancyDateStartedWithGroup">
-          <DataField>OccupancyDateStartedWithGroup</DataField>
+        <Field Name="PlacementDateStartedWithGroup">
+          <DataField>PlacementDateStartedWithGroup</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="OccupancyPlacementStartDate">
-          <DataField>OccupancyPlacementStartDate</DataField>
+        <Field Name="PlacementPlacementStartDate">
+          <DataField>PlacementPlacementStartDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="OccupancyDOB">
-          <DataField>OccupancyDOB</DataField>
+        <Field Name="PlacementDOB">
+          <DataField>PlacementDOB</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="OccupancyServiceTransition">
-          <DataField>OccupancyServiceTransition</DataField>
+        <Field Name="PlacementServiceTransition">
+          <DataField>PlacementServiceTransition</DataField>
           <rd:TypeName>System.Boolean</rd:TypeName>
         </Field>
-        <Field Name="OccupancyLocalAuthorityId">
-          <DataField>OccupancyLocalAuthorityId</DataField>
+        <Field Name="PlacementLocalAuthorityId">
+          <DataField>PlacementLocalAuthorityId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="OccupancyFramework">
-          <DataField>OccupancyFramework</DataField>
+        <Field Name="PlacementFramework">
+          <DataField>PlacementFramework</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OccupancyLengthOfStayWithPlacement">
-          <DataField>OccupancyLengthOfStayWithPlacement</DataField>
+        <Field Name="PlacementLengthOfStayWithPlacement">
+          <DataField>PlacementLengthOfStayWithPlacement</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="OccupancyLeaveDate">
-          <DataField>OccupancyLeaveDate</DataField>
+        <Field Name="PlacementLeaveDate">
+          <DataField>PlacementLeaveDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="OccupancyWeeklyFee">
-          <DataField>OccupancyWeeklyFee</DataField>
+        <Field Name="PlacementWeeklyFee">
+          <DataField>PlacementWeeklyFee</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="OccupancyNotes">
-          <DataField>OccupancyNotes</DataField>
+        <Field Name="PlacementNotes">
+          <DataField>PlacementNotes</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OccupancyLeaverType">
-          <DataField>OccupancyLeaverType</DataField>
+        <Field Name="PlacementLeaverType">
+          <DataField>PlacementLeaverType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OccupancyLengthOfStayWithGroup">
-          <DataField>OccupancyLengthOfStayWithGroup</DataField>
+        <Field Name="PlacementLengthOfStayWithGroup">
+          <DataField>PlacementLengthOfStayWithGroup</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="ServiceName">
           <DataField>ServiceName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OccupancyReasonForLeavingID">
-          <DataField>OccupancyReasonForLeavingID</DataField>
+        <Field Name="PlacementReasonForLeavingID">
+          <DataField>PlacementReasonForLeavingID</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="ServicePlaces">
@@ -209,7 +209,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>          Occupancy and Leavers Report</Value>
+                    <Value>          Placement and Leavers Report</Value>
                     <Style>
                       <FontFamily>Segoe UI</FontFamily>
                       <FontSize>20pt</FontSize>
@@ -235,7 +235,7 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Tablix Name="Occupancy">
+          <Tablix Name="Placement">
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
@@ -624,7 +624,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Occupancy Framework</Value>
+                                  <Value>Placement Framework</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -659,7 +659,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Occupancy Weekly Fee</Value>
+                                  <Value>Placement Weekly Fee</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2225,14 +2225,14 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyFirstName">
+                        <Textbox Name="PlacementFirstName">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyFirstName.Value</Value>
+                                  <Value>=Fields!PlacementFirstName.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2242,7 +2242,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyFirstName</rd:DefaultName>
+                          <rd:DefaultName>PlacementFirstName</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2258,14 +2258,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyLastName">
+                        <Textbox Name="PlacementLastName">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyLastName.Value</Value>
+                                  <Value>=Fields!PlacementLastName.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2275,7 +2275,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyLastName</rd:DefaultName>
+                          <rd:DefaultName>PlacementLastName</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2324,14 +2324,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyType1">
+                        <Textbox Name="PlacementType1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyType.Value</Value>
+                                  <Value>=Fields!PlacementType.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2341,7 +2341,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyType1</rd:DefaultName>
+                          <rd:DefaultName>PlacementType1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2357,14 +2357,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyServiceTransition">
+                        <Textbox Name="PlacementServiceTransition">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyServiceTransition.Value</Value>
+                                  <Value>=Fields!PlacementServiceTransition.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2374,7 +2374,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyServiceTransition</rd:DefaultName>
+                          <rd:DefaultName>PlacementServiceTransition</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2390,14 +2390,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyDateStartedWithGroup">
+                        <Textbox Name="PlacementDateStartedWithGroup">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatDateTime(Fields!OccupancyDateStartedWithGroup.Value,DateFormat.ShortDate)</Value>
+                                  <Value>=FormatDateTime(Fields!PlacementDateStartedWithGroup.Value,DateFormat.ShortDate)</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2407,7 +2407,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyDateStartedWithGroup</rd:DefaultName>
+                          <rd:DefaultName>PlacementDateStartedWithGroup</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2423,14 +2423,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyPlacementStartDate1">
+                        <Textbox Name="PlacementPlacementStartDate1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatDateTime(Fields!OccupancyPlacementStartDate.Value,DateFormat.ShortDate)</Value>
+                                  <Value>=FormatDateTime(Fields!PlacementPlacementStartDate.Value,DateFormat.ShortDate)</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2440,7 +2440,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyPlacementStartDate1</rd:DefaultName>
+                          <rd:DefaultName>PlacementPlacementStartDate1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2456,14 +2456,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyDOB">
+                        <Textbox Name="PlacementDOB">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatDateTime(First(Fields!OccupancyDOB.Value, "OccupancyDataset"),DateFormat.ShortDate)</Value>
+                                  <Value>=FormatDateTime(First(Fields!PlacementDOB.Value, "PlacementDataset"),DateFormat.ShortDate)</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2473,7 +2473,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyDOB</rd:DefaultName>
+                          <rd:DefaultName>PlacementDOB</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2522,14 +2522,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyFramework">
+                        <Textbox Name="PlacementFramework">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyFramework.Value</Value>
+                                  <Value>=Fields!PlacementFramework.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2539,7 +2539,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyFramework</rd:DefaultName>
+                          <rd:DefaultName>PlacementFramework</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2555,14 +2555,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyWeeklyFee">
+                        <Textbox Name="PlacementWeeklyFee">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyWeeklyFee.Value</Value>
+                                  <Value>=Fields!PlacementWeeklyFee.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2572,7 +2572,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyWeeklyFee</rd:DefaultName>
+                          <rd:DefaultName>PlacementWeeklyFee</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2588,14 +2588,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyLengthOfStayWithGroup">
+                        <Textbox Name="PlacementLengthOfStayWithGroup">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyLengthOfStayWithGroup.Value</Value>
+                                  <Value>=Fields!PlacementLengthOfStayWithGroup.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2605,7 +2605,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyLengthOfStayWithGroup</rd:DefaultName>
+                          <rd:DefaultName>PlacementLengthOfStayWithGroup</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2621,14 +2621,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyLengthOfStayWithPlacement">
+                        <Textbox Name="PlacementLengthOfStayWithPlacement">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyLengthOfStayWithPlacement.Value</Value>
+                                  <Value>=Fields!PlacementLengthOfStayWithPlacement.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2638,7 +2638,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyLengthOfStayWithPlacement</rd:DefaultName>
+                          <rd:DefaultName>PlacementLengthOfStayWithPlacement</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2864,7 +2864,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ServicePlaces.Value-Count(Fields!OccupancyFirstName.Value)</Value>
+                                  <Value>=Fields!ServicePlaces.Value-Count(Fields!PlacementFirstName.Value)</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -3757,7 +3757,7 @@
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedColumnHeaders>true</FixedColumnHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
-            <DataSetName>OccupancyDataset</DataSetName>
+            <DataSetName>PlacementDataset</DataSetName>
             <PageBreak>
               <BreakLocation>End</BreakLocation>
             </PageBreak>
@@ -3779,7 +3779,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Occupancy</Value>
+                    <Value>Placement</Value>
                     <Style>
                       <FontSize>14pt</FontSize>
                       <Color>Orange</Color>
@@ -4237,7 +4237,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Occupancy Framework</Value>
+                                  <Value>Placement Framework</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4272,7 +4272,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Occupancy Weekly Fee</Value>
+                                  <Value>Placement Weekly Fee</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4412,7 +4412,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Occupancy Leave Date</Value>
+                                  <Value>Placement Leave Date</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4448,7 +4448,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Occupancy Leaver Type</Value>
+                                  <Value>Placement Leaver Type</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4516,14 +4516,14 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyFirstName2">
+                        <Textbox Name="PlacementFirstName2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyFirstName.Value</Value>
+                                  <Value>=Fields!PlacementFirstName.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4533,7 +4533,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyFirstName</rd:DefaultName>
+                          <rd:DefaultName>PlacementFirstName</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4549,14 +4549,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyLastName2">
+                        <Textbox Name="PlacementLastName2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyLastName.Value</Value>
+                                  <Value>=Fields!PlacementLastName.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4566,7 +4566,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyLastName</rd:DefaultName>
+                          <rd:DefaultName>PlacementLastName</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4615,14 +4615,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyType2">
+                        <Textbox Name="PlacementType2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyType.Value</Value>
+                                  <Value>=Fields!PlacementType.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4632,7 +4632,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyType1</rd:DefaultName>
+                          <rd:DefaultName>PlacementType1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4648,14 +4648,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyServiceTransition2">
+                        <Textbox Name="PlacementServiceTransition2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyServiceTransition.Value</Value>
+                                  <Value>=Fields!PlacementServiceTransition.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4665,7 +4665,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyServiceTransition</rd:DefaultName>
+                          <rd:DefaultName>PlacementServiceTransition</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4681,14 +4681,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyDateStartedWithGroup2">
+                        <Textbox Name="PlacementDateStartedWithGroup2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatDateTime(Fields!OccupancyDateStartedWithGroup.Value, DateFormat.ShortDate)</Value>
+                                  <Value>=FormatDateTime(Fields!PlacementDateStartedWithGroup.Value, DateFormat.ShortDate)</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4698,7 +4698,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyDateStartedWithGroup</rd:DefaultName>
+                          <rd:DefaultName>PlacementDateStartedWithGroup</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4714,14 +4714,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyPlacementStartDate2">
+                        <Textbox Name="PlacementPlacementStartDate2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatDateTime(Fields!OccupancyPlacementStartDate.Value, DateFormat.ShortDate)</Value>
+                                  <Value>=FormatDateTime(Fields!PlacementPlacementStartDate.Value, DateFormat.ShortDate)</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4732,7 +4732,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyPlacementStartDate1</rd:DefaultName>
+                          <rd:DefaultName>PlacementPlacementStartDate1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4748,14 +4748,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyDOB2">
+                        <Textbox Name="PlacementDOB2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatDateTime(First(Fields!OccupancyDOB.Value, "LeaversDataset"), DateFormat.ShortDate)</Value>
+                                  <Value>=FormatDateTime(First(Fields!PlacementDOB.Value, "LeaversDataset"), DateFormat.ShortDate)</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4765,7 +4765,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyDOB</rd:DefaultName>
+                          <rd:DefaultName>PlacementDOB</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4814,14 +4814,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyFramework2">
+                        <Textbox Name="PlacementFramework2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyFramework.Value</Value>
+                                  <Value>=Fields!PlacementFramework.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4831,7 +4831,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyFramework</rd:DefaultName>
+                          <rd:DefaultName>PlacementFramework</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4847,14 +4847,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyWeeklyFee1">
+                        <Textbox Name="PlacementWeeklyFee1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyWeeklyFee.Value</Value>
+                                  <Value>=Fields!PlacementWeeklyFee.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4864,7 +4864,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyWeeklyFee1</rd:DefaultName>
+                          <rd:DefaultName>PlacementWeeklyFee1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4880,14 +4880,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyLengthOfStayWithGroup2">
+                        <Textbox Name="PlacementLengthOfStayWithGroup2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyLengthOfStayWithGroup.Value</Value>
+                                  <Value>=Fields!PlacementLengthOfStayWithGroup.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4897,7 +4897,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyLengthOfStayWithGroup</rd:DefaultName>
+                          <rd:DefaultName>PlacementLengthOfStayWithGroup</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4913,14 +4913,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyLengthOfStayWithPlacement2">
+                        <Textbox Name="PlacementLengthOfStayWithPlacement2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyLengthOfStayWithPlacement.Value</Value>
+                                  <Value>=Fields!PlacementLengthOfStayWithPlacement.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4930,7 +4930,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyLengthOfStayWithPlacement</rd:DefaultName>
+                          <rd:DefaultName>PlacementLengthOfStayWithPlacement</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4979,14 +4979,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyLeaveDate">
+                        <Textbox Name="PlacementLeaveDate">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyLeaveDate.Value</Value>
+                                  <Value>=Fields!PlacementLeaveDate.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -4997,7 +4997,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyLeaveDate</rd:DefaultName>
+                          <rd:DefaultName>PlacementLeaveDate</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -5013,14 +5013,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OccupancyLeaverType">
+                        <Textbox Name="PlacementLeaverType">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OccupancyLeaverType.Value</Value>
+                                  <Value>=Fields!PlacementLeaverType.Value</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -5030,7 +5030,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OccupancyLeaverType</rd:DefaultName>
+                          <rd:DefaultName>PlacementLeaverType</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
