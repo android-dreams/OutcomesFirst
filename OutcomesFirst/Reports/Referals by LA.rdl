@@ -16,21 +16,16 @@
     <DataSet Name="Data">
       <Query>
         <DataSourceName>DataSource1</DataSourceName>
-        <QueryParameters>
-          <QueryParameter Name="@Year">
-            <Value>=Parameters!Year.Value</Value>
-          </QueryParameter>
-        </QueryParameters>
         <CommandText>SELECT d.Month,
        case when [ReferralReceivedDate] is NULL then 0 else count(*) end As Count,
        [ReferralReceivedDate],
 	   la.LocalAuthorityName,
 	   reg.RegionName
   FROM [OutcomesFirst].[dbo].[Dates] d
-  left outer join Referral rr on d.Date = rr.ReferralReceivedDate
+  left outer join Referral rr on cast(d.Date as Date) = cast(rr.ReferralReceivedDate as date)
   left outer join [dbo].[LocalAuthority] la on rr.ReferralLocalAuthorityId = la.LocalAuthorityId
   left outer join [dbo].[Region] reg on la.LocalAuthorityRegionId = reg.RegionId
-  where year = @Year
+  where year = 2019
   Group by Month,[ReferralReceivedDate],la.LocalAuthorityName,reg.RegionName
   union
   SELECT 1 as Month,

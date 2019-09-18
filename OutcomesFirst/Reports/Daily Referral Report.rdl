@@ -6,10 +6,10 @@
     <DataSource Name="DataSource1">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=MATT-PC;Initial Catalog=OutcomesFirst</ConnectString>
-        <Prompt>Enter a user name and password to access the data source:</Prompt>
+        <ConnectString>Data Source=DESKTOP-22RJOAG\SQLEXPRESS;Initial Catalog=OutcomesFirst</ConnectString>
+        <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
-      <rd:SecurityType>DataBase</rd:SecurityType>
+      <rd:SecurityType>Integrated</rd:SecurityType>
       <rd:DataSourceID>568d7ec5-5532-4fcb-8756-16ea95e5856a</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -17,6 +17,11 @@
     <DataSet Name="DataSet1">
       <Query>
         <DataSourceName>DataSource1</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Date">
+            <Value>=Parameters!Date.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>SELECT r.ReferralId
       ,ReferralName
 	  ,ReferralAge
@@ -26,72 +31,14 @@
 	  ,ReferralComments
 	  ,s.ServiceName
 	  ,stat.StatusName
-  FROM OutcomesFirst.dbo.Referral r
-  left outer join Gender g on g.GenderId = r.ReferralGenderId
-  left outer join LocalAuthority l on l.LocalAuthorityId = r.ReferralLocalAuthorityId
-  left outer join Submission sub on sub.SubmissionReferralId = r.ReferralId
-  left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
-  left outer join Status stat on stat.StatusId = r.ReferralStatusId</CommandText>
-        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
-      </Query>
-      <Fields>
-        <Field Name="ReferralId">
-          <DataField>ReferralId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="ReferralName">
-          <DataField>ReferralName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ReferralAge">
-          <DataField>ReferralAge</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="GenderName">
-          <DataField>GenderName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ReferralType">
-          <DataField>ReferralType</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="LocalAuthorityName">
-          <DataField>LocalAuthorityName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ReferralComments">
-          <DataField>ReferralComments</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ServiceName">
-          <DataField>ServiceName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="StatusName">
-          <DataField>StatusName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-    </DataSet>
-    <DataSet Name="DataSet2">
-      <Query>
-        <DataSourceName>DataSource1</DataSourceName>
-        <CommandText>SELECT r.ReferralId
-      ,ReferralName
-	  ,ReferralAge
-      ,g.GenderName
-	  ,ReferralType
-	  ,l.LocalAuthorityName
-	  ,ReferralComments
-	  ,s.ServiceName
-	  ,stat.StatusName
+          ,ReferralReceivedDate
   FROM OutcomesFirst.dbo.Referral r
   left outer join Gender g on g.GenderId = r.ReferralGenderId
   left outer join LocalAuthority l on l.LocalAuthorityId = r.ReferralLocalAuthorityId
   left outer join Submission sub on sub.SubmissionReferralId = r.ReferralId
   left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
   left outer join Status stat on stat.StatusId = r.ReferralStatusId
-  Where StatusName = 'Offered'</CommandText>
+  where cast(ReferralReceivedDate as date) = @Date</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -113,7 +60,7 @@
         </Field>
         <Field Name="ReferralType">
           <DataField>ReferralType</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="LocalAuthorityName">
           <DataField>LocalAuthorityName</DataField>
@@ -131,11 +78,90 @@
           <DataField>StatusName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ReferralReceivedDate">
+          <DataField>ReferralReceivedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="DataSet2">
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Date">
+            <Value>=Parameters!Date.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT r.ReferralId
+      ,ReferralName
+	  ,ReferralAge
+      ,g.GenderName
+	  ,ReferralType
+	  ,l.LocalAuthorityName
+	  ,ReferralComments
+	  ,s.ServiceName
+	  ,stat.StatusName
+          ,ReferralReceivedDate
+  FROM OutcomesFirst.dbo.Referral r
+  left outer join Gender g on g.GenderId = r.ReferralGenderId
+  left outer join LocalAuthority l on l.LocalAuthorityId = r.ReferralLocalAuthorityId
+  left outer join Submission sub on sub.SubmissionReferralId = r.ReferralId
+  left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
+  left outer join Status stat on stat.StatusId = r.ReferralStatusId
+  Where StatusName = 'Offered' and cast(ReferralReceivedDate as date) = @Date</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="ReferralId">
+          <DataField>ReferralId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ReferralName">
+          <DataField>ReferralName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReferralAge">
+          <DataField>ReferralAge</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="GenderName">
+          <DataField>GenderName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReferralType">
+          <DataField>ReferralType</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="LocalAuthorityName">
+          <DataField>LocalAuthorityName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReferralComments">
+          <DataField>ReferralComments</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ServiceName">
+          <DataField>ServiceName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StatusName">
+          <DataField>StatusName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReferralReceivedDate">
+          <DataField>ReferralReceivedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
     <DataSet Name="DataSet3">
       <Query>
         <DataSourceName>DataSource1</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Date">
+            <Value>=Parameters!Date.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>/****** Script for SelectTopNRows command from SSMS  ******/
 SELECT ArchiveReferralId
       ,a.ArchiveReferralName
@@ -146,12 +172,14 @@ SELECT ArchiveReferralId
 	  ,archiveReferralComments
 	  ,s.ServiceName
 	  ,stat.StatusName
+          ,ArchiveReferralReceivedDate
   FROM [OutcomesFirst].[dbo].[ArchiveReferral] a
   left outer join Gender g on g.GenderId = a.ArchiveReferralId
   left outer join LocalAuthority l on l.LocalAuthorityId = a.ArchiveReferralLocalAuthorityId
   left outer join Submission sub on sub.SubmissionReferralId = a.ArchiveReferralId
   left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
-  left outer join Status stat on stat.StatusId = a.ArchiveReferralStatusId</CommandText>
+  left outer join Status stat on stat.StatusId = a.ArchiveReferralStatusId
+  Where cast (ArchiveReferralReceivedDate as date) = @Date</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -190,6 +218,41 @@ SELECT ArchiveReferralId
         <Field Name="StatusName">
           <DataField>StatusName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ArchiveReferralReceivedDate">
+          <DataField>ArchiveReferralReceivedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="DataSet4">
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Date">
+            <Value>=Parameters!Date.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT [SubmissionId],
+	   SubmissionReferralId,
+	   r.ReferralReceivedDate
+  FROM [OutcomesFirst].[dbo].[Submission] s
+  inner join Referral r on r.ReferralId = s.SubmissionReferralId
+where cast(ReferralReceivedDate as date) = @Date</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="SubmissionId">
+          <DataField>SubmissionId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="SubmissionReferralId">
+          <DataField>SubmissionReferralId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ReferralReceivedDate">
+          <DataField>ReferralReceivedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -593,7 +656,7 @@ SELECT ArchiveReferralId
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Count(Fields!ServiceName.Value, "DataSet1")/CountDistinct(Fields!ReferralId.Value, "DataSet1")</Value>
+                    <Value>=CountDistinct(Fields!SubmissionReferralId.Value, "DataSet4")/CountDistinct(Fields!ReferralId.Value, "DataSet1")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                       <Format>0%</Format>
@@ -2174,10 +2237,28 @@ SELECT ArchiveReferralId
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Date">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=Today()</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Enter Date</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
       <NumberOfRows>2</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Date</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <EmbeddedImages>

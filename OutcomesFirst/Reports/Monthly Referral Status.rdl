@@ -5,7 +5,7 @@
     <DataSource Name="DataSource1">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=MATT-PC;Initial Catalog=OutcomesFirst</ConnectString>
+        <ConnectString>Data Source=DESKTOP-22RJOAG\SQLEXPRESS;Initial Catalog=OutcomesFirst</ConnectString>
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
       <rd:SecurityType>Integrated</rd:SecurityType>
@@ -37,8 +37,8 @@
           <DataField>StatusName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OffersActivityReportOrder">
-          <DataField>OffersActivityReportOrder</DataField>
+        <Field Name="StatusOffersActivityReportOrder">
+          <DataField>StatusOffersActivityReportOrder</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
@@ -290,7 +290,7 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!OffersActivityReportOrder.Value</Value>
+                      <Value>=Fields!ServiceName.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixMembers>
@@ -572,13 +572,14 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!ArchiveReportOrder.Value</Value>
+                      <Value>=Fields!ArchiveReasonName.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
                     <Size>6mm</Size>
                     <CellContents>
                       <Textbox Name="StatusName2">
+                        <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
@@ -613,7 +614,7 @@
                     <TablixMember />
                   </TablixMembers>
                   <Visibility>
-                    <Hidden>=iif(Fields!ArchiveReasonName.Value = "" or Fields!ArchiveReportOrder.Value = 0,True,False)</Hidden>
+                    <Hidden>=iif(Fields!ArchiveReasonName.Value = "" ,True,False)</Hidden>
                   </Visibility>
                 </TablixMember>
               </TablixMembers>
@@ -702,7 +703,7 @@
             <DataSetName>MonthlyArchiveStatusData</DataSetName>
             <SortExpressions>
               <SortExpression>
-                <Value>=Fields!ArchiveReportOrder.Value</Value>
+                <Value>=Fields!ServiceName.Value</Value>
               </SortExpression>
             </SortExpressions>
             <Top>15.37589mm</Top>
@@ -847,13 +848,14 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!OffersActivityReportOrder.Value</Value>
+                      <Value>=Fields!StatusName.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
                     <Size>6mm</Size>
                     <CellContents>
                       <Textbox Name="StatusName3">
+                        <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
