@@ -21,44 +21,66 @@
                     <a href="@(Url.Action("Create", "Referrals"))">
                         <div title="Click to view details" class="auction-dashboard-item">
                             <div class="auction-headline">
-                                <h1>0</h1>
-                                <div class="subtitle">New Referral</div>
+                               
+                                <div class="subtitle">
+                                    <h5>New Referral</h5>
+                                </div>
                             </div>
                         </div>
                     </a>
                     <a href="@(Url.Action("Status", "Referrals"))">
                         <div title="Click to view details" class="auction-dashboard-item">
                             <div class="auction-headline">
-                                <h1></h1>
-                                <div class="subtitle">Awaiting Response From Service</div>
+
+                                <div class="subtitle">
+                                    <h5>
+                                        Awaiting Response From Service
+                                    </h5>
+
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="@(Url.Action("Index", "Referrals"))">
+                        <div title="Click to view details" class="auction-dashboard-item">
+                            <div class="auction-headline subtitle">
+
+                                <div class="subtitle">
+                                    <h5>
+                                        Live Referrals
+                                    </h5>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </a>
+
+
+                    <a href="@(Url.Action("OccupancyIndex", "Placements"))">
+                        <div title="Click to view details" class="auction-dashboard-item">
+                            <div class="auction-headline">
+
+                                <div class="subtitle">
+                                    <h5>
+                                        Occupancy
+
+                                    </h5>
+                                </div>
                             </div>
                         </div>
                     </a>
                     <a href="@(Url.Action("Index", "ArchiveReferrals"))">
                         <div title="Click to view details" class="auction-dashboard-item">
                             <div class="auction-headline">
-                                <h1></h1>
-                                <div class="subtitle">Archive</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="@(Url.Action("OccupancyIndex", "Placements"))">
-                        <div title="Click to view details" class="auction-dashboard-item">
-                            <div class="auction-headline">
-                                <h1></h1>
-                                <div class="subtitle">Occupancy</div>
+
+                                <div class="subtitle">
+                                    <h5>Archive</h5>
+                                </div>
                             </div>
                         </div>
                     </a>
 
-                    <a href="@(Url.Action("Index", "Referrals"))">
-                        <div title="Click to view details" class="auction-dashboard-item">
-                            <div class="auction-headline">
-                                <h1></h1>
-                                <div class="subtitle">Live Referrals</div>
-                            </div>
-                        </div>
-                    </a>
 
                 </div>
             }

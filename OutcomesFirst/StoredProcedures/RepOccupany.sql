@@ -20,8 +20,8 @@ GO
 -- =============================================
 
 
-ALTER PROCEDURE Rep_Occupancy
---exec Rep_Occupancy 
+ALTER PROCEDURE Rep_Placement
+--exec Rep_Placement 
 	-- Add the parameters for the stored procedure here
 	--<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
 	--<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
