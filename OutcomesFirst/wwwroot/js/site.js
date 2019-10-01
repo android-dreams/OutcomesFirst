@@ -32,3 +32,60 @@ function changeColour(value) {
     }
     document.body.style.backgroundColor = color;
 }
+
+
+function CalcAgeOnLeaving(birth, leavingdate) {
+         
+   
+
+    var nowyear = leavingdate.getFullYear();
+    var nowmonth = leavingdate.getMonth();
+    var nowday = leavingdate.getDate();
+
+    var birthyear = birth.getFullYear();
+    var birthmonth = birth.getMonth();
+    var birthday = birth.getDate();
+
+    var age = nowyear - birthyear;
+    var age_month = nowmonth - birthmonth;
+    var age_day = nowday - birthday;
+
+    if (age_month < 0 || (age_month === 0 && age_day < 0)) {
+        age = parseInt(age) - 1;
+    }
+    alert(age);
+
+    alert(age);
+    if ((age === 18 && age_month <= 0 && age_day <= 0) || age < 18) {
+        alert("You are " + age)
+    }
+    else {
+        alert("You have crossed your 18th birthday !");
+    }
+}
+
+function myFunction(birthdate,leavingdate) {
+
+    alert("In myFunction");
+
+    alert("Birthdate is " + birthdate);
+
+   
+    var nowyear = leavingdate.getFullYear();
+    //var nowmonth = leavingdate.getMonth();
+    //var nowday = leavingdate.getDate();
+
+
+    alert("Year is " + nowyear);
+    //alert("Month is " + nowmonth);
+    //alert("Day is " + nowday);
+
+
+
+
+
+
+   // alert(birthdate + "dates" + leavingdate);
+}
+
+

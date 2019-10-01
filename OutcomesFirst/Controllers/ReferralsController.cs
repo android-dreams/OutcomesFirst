@@ -773,10 +773,10 @@ namespace OutcomesFirst.Controllers
             //    viewModel.DOBYear = i;
             //}
 
-            viewModel.localAuthorities = _context.LocalAuthority.ToList();
-            viewModel.genders = _context.Gender.ToList();
-            viewModel.statuses = _context.Status.ToList();
-            viewModel.archiveReasons = _context.ArchiveReason.ToList();
+            viewModel.LocalAuthorities = _context.LocalAuthority.ToList();
+            viewModel.Genders = _context.Gender.ToList();
+            viewModel.Statuses = _context.Status.ToList();
+            viewModel.ArchiveReasons = _context.ArchiveReason.ToList();
         }
 
 

@@ -33,7 +33,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.1" />
-    <PackageReference Include="BuildBundlerMinifier" Version="2.9.406" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.0.415" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.5.0" />
     <PackageReference Include="jQuery.Validation" Version="1.17.0" />
     <PackageReference Include="jQuery.Validation.Unobtrusive.Native.MVC3" Version="1.1.1" />

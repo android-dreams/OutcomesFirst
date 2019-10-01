@@ -33,10 +33,12 @@
           asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
           crossorigin="anonymous"
           integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
-    <script src="~/lib/jquery/dist/jquery.js"></script>
+   
 
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js"></script>
+   
 
     @*</environment>*@
     <!--Load an icon library to show a hamburger menu (bars) on small screens-->
@@ -85,7 +87,7 @@
       
         <ul class="navbar-nav">
 
-            <li class="nav-item active">
+            <li class="top-nav float-right nav-item active">
                 <a class="nav-link" href="/Home/Index">Home <span class="sr-only">(current)</span></a>
             </li>
             @if (SignInManager.IsSignedIn(User))
@@ -131,12 +133,13 @@
 
             }
         </ul>
-        <nav class=" top-nav pull-right">
+      
+        <nav class="navbar-nav ml-md-auto ">
             @if (SignInManager.IsSignedIn(User))
             {
                 <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity.Name!</a>
 
-                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout">
+                <form class="form-inline" asp-area="Identity"  asp-page="/Account/Logout">
                     <button type="submit" class="nav-link btn btn-nlink topnav btn-lg fas-far-user-times"><i class="fas fa-user-times"></i>Logout</button>
                 </form>
             }
