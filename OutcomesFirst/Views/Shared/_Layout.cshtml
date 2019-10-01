@@ -49,45 +49,20 @@
 </head>
 <body>
 
-    @*<nav class="topnav">
-            <a class="active" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-fw fa-home"></i>Home</a>
-            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+   
 
-            @if (SignInManager.IsSignedIn(User))
-            {
+    <div style="width:100%">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            @*<a class="navbar-brand" href="#">
+            </a>*@
+            <img src="~/images/Hillcrest.jpg" />
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <nav class="topnav float-right">
-                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+            <ul class="navbar-nav">
 
-                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout">
-                        <button type="submit" class="nav-link btn btn-nlink topnav btn-lg fas-far-user-times"><i class="fas fa-user-times"></i>Logout</button>
-                    </form>
-                </nav>
-            }
-            else
-            {
-                <nav class="nav-item float-right">
-                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
-
-                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Login"><i class="fa fa-fw fa-user"></i>Login</a>
-                </nav>
-            }
-
-            <a href="javascript:void(0);" class="icon" onclick="myFunction()"></a>
-        </nav>*@
-
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        @*<a class="navbar-brand" href="#">
-        </a>*@
-        <img src="~/images/Hillcrest.jpg" />
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <ul class="navbar-nav">
-
-            <li class="top-nav float-right nav-item active">
+            <li class="nav-item active">
                 <a class="nav-link" href="/Home/Index">Home <span class="sr-only">(current)</span></a>
             </li>
             @if (SignInManager.IsSignedIn(User))
@@ -133,13 +108,12 @@
 
             }
         </ul>
-      
-        <nav class="navbar-nav ml-md-auto ">
+        <nav class=" top-nav pull-right">
             @if (SignInManager.IsSignedIn(User))
             {
                 <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity.Name!</a>
 
-                <form class="form-inline" asp-area="Identity"  asp-page="/Account/Logout">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout">
                     <button type="submit" class="nav-link btn btn-nlink topnav btn-lg fas-far-user-times"><i class="fas fa-user-times"></i>Logout</button>
                 </form>
             }
@@ -147,11 +121,11 @@
             {
                 @*<a class="nav-link float-right" asp-area="Identity" asp-page="/Account/Register">Register</a>*@
 
-                <a class="nav-link float-right" asp-area="Identity" asp-page="/Account/Login"><i class="fa fa-fw fa-user"></i>Login</a>
-            }
+                    <a class="nav-link float-right" asp-area="Identity" asp-page="/Account/Login"><i class="fa fa-fw fa-user"></i>Login</a>
+                }
+            </nav>
         </nav>
-    </nav>        
-
+    </div>
     <div class="container">
         <div>
             @RenderBody()
@@ -163,7 +137,7 @@
         @RenderBody()
         <hr />
     *@
-    <footer>
+    <footer class="pull-right">
         <div>&copy:2019 -Android Dreams</div>
     </footer>
 
