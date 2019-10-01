@@ -108,7 +108,7 @@
 
             }
         </ul>
-        <nav class=" top-nav pull-right">
+        <nav class=" top-nav navbar-nav ml-md-auto">
             @if (SignInManager.IsSignedIn(User))
             {
                 <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity.Name!</a>
