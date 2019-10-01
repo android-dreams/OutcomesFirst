@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Create";
     IEnumerable<SelectListItem> localAuthorities = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
-             .Concat(Model.localAuthorities
+             .Concat(Model.LocalAuthorities
              .OrderBy(x => x.LocalAuthorityName)
              .Select(t => new SelectListItem
              {
@@ -12,7 +12,7 @@
              })); ;
 
     IEnumerable<SelectListItem> genders = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
-             .Concat(Model.genders
+             .Concat(Model.Genders
              .OrderBy(x => x.GenderName)
              .Select(t => new SelectListItem
              {
@@ -28,7 +28,7 @@
 
 
     IEnumerable<SelectListItem> archivereasons = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
-             .Concat(Model.archiveReasons
+             .Concat(Model.ArchiveReasons
              .OrderBy(x => x.ArchiveReasonName)
              .Select(t => new SelectListItem
              {

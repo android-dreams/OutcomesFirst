@@ -816,3 +816,9 @@ input[type=radio] {
     display: inline-block;
     width: 15px;
 }
+@media (min-width: 576px) {
+    .container {
+        max-width: 100%;
+
+    }
+}

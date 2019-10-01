@@ -11,31 +11,31 @@
 
     @using (Html.BeginForm("Index", "Referral", FormMethod.Get))
     {
-<p>
-    <div class="widercontainer">
-        <div class="col-md-12">
-            <div class="row form-horizontal">
-                <div class="col-md-1">
-                    ID @Html.TextBox("IDSearch", ViewBag.CurrentFilter as string, new { style = "width:90px" })
-                </div>
+    <p>
+        <div class="widercontainer">
+            <div class="col-md-12">
+                <div class="row form-horizontal">
+                    <div class="col-md-1">
+                        ID @Html.TextBox("IDSearch", ViewBag.CurrentFilter as string, new { style = "width:90px" })
+                    </div>
 
-                <div class="col-md-1"></div>
-                <div class="col-md-1">
-                    Gender @Html.DropDownList("genderSearch", "All")&nbsp;
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    Local Authority  @Html.DropDownList("laSearch", "All")
-                </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1">
+                        Gender @Html.DropDownList("genderSearch", "All")&nbsp;
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        Local Authority  @Html.DropDownList("laSearch", "All")
+                    </div>
 
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    Status  @Html.DropDownList("statusSearch", "All")
-                </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        Status  @Html.DropDownList("statusSearch", "All")
+                    </div>
 
+                </div>
             </div>
-            </div>
-           
+
             <div class="col-md-3">
                 <input type="submit" value="Filter" />
                 @*<button class="buttonload">
@@ -43,12 +43,10 @@
                     </button>*@
             </div>
         </div>
-      
-  
 
-</p>
-}
     </p>
+}
+
 
 
 
@@ -227,7 +225,7 @@
 
         </tbody>
     </table>
-    </div>
+
 
     @{
         var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";

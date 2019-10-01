@@ -94,11 +94,13 @@ namespace OutcomesFirst.ViewModels
         [Display(Name = "Reason for Leaving")]
         public int? PlacementLeavingReasonId { get; set; }
 
+        public Service PlacementService {get ; set;}
 
-
-        public List<LocalAuthority> localAuthorities { get; set; }
-        public List<LeavingReason> leavingReasons { get; set; }
-        public List<Gender> genders { get; set; }
+        public List<LocalAuthority> PlacementLocalAuthorities { get; set; }
+        public List<LeavingReason> PlacementLeavingReasons { get; set; }
+        public List<Gender> PlacementGenders { get; set; }
+        
+        public List<Service> PlacementServices { get; set; }
 
         public List<int> years { get; set; }
         public List<int> months { get; set; }
