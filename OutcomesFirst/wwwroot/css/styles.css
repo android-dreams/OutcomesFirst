@@ -1,8 +1,170 @@
-﻿
-.android-card-header {
-    background-color: darkred;
+﻿/* Font-awesome radio and checkbox styles*/
+input[type=radio].with-font,
+input[type=checkbox].with-font {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
 }
 
+    input[type=radio].with-font ~ label:before,
+    input[type=checkbox].with-font ~ label:before {
+        font-family: FontAwesome;
+        display: inline-block;
+        content: "\f1db";
+        /* fa-circle-thin */
+        letter-spacing: 10px;
+        font-size: 1.5em;
+        color: #535353;
+        width: 1.4em;
+        /* reduce bounce */
+    }
+
+    input[type=radio].with-font:checked ~ label:before,
+    input[type=checkbox].with-font:checked ~ label:before {
+        content: "\f00c";
+        /* fa-check */
+        font-size: 1.5em;
+        color: hsl(210, 100%, 17%);
+        letter-spacing: 5px;
+        font-weight:900;
+    }
+
+    input[type=checkbox].with-font ~ label:before {
+        content: "\f096";
+        /* fa-square-o */
+    }
+
+    input[type=checkbox].with-font:checked ~ label:before {
+        content: "\f046";
+        /* fa-check-square-o */
+        color: hsl(350, 82%, 43%);
+    }
+/*** custom checkboxes ***/
+input[type=checkbox] {
+    display: none;
+    /* hide the default checkbox UI */
+}
+
+    input[type=checkbox] + label:before,
+    input[type=checkbox] + input[type=hidden] + label:before {
+        font-family: FontAwesome;
+        display: inline-block;
+        font-size: 1.5em;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    input[type=checkbox] + label:before,
+    input[type=checkbox] + input[type=hidden] + label:before {
+        content: "\f096";
+        /* unchecked icon */
+    }
+
+    input[type=checkbox] + label:before,
+    input[type=checkbox] + input[type=hidden] + label:before {
+        letter-spacing: 0.3em;
+        /* space between checkbox and label */
+    }
+
+    input[type=checkbox]:checked + label:before,
+    input[type=checkbox]:checked + input[type=hidden] + label:before {
+        content: "\f046";
+        /* checked icon */
+        color: hsl(350, 82%, 43%);
+    }
+
+    input[type=checkbox] + label.yellow,
+    input[type=checkbox] + input[type=hidden] + label.yellow {
+        color: #535353 !important;
+    }
+
+        input[type=checkbox] + label.yellow:before,
+        input[type=checkbox] + input[type=hidden] + label.yellow:before {
+            color: hsl(36, 72%, 52%) !important;
+        }
+
+    input[type=checkbox] + label.blue,
+    input[type=checkbox] + input[type=hidden] + label.blue {
+        color: #535353 !important;
+    }
+
+        input[type=checkbox] + label.blue:before,
+        input[type=checkbox] + input[type=hidden] + label.blue:before {
+            color: hsl(211, 66%, 34%) !important;
+        }
+
+    input[type=checkbox] + label.disabled,
+    input[type=checkbox] + input[type=hidden] + label.disabled {
+        cursor: not-allowed !important;
+    }
+
+        input[type=checkbox] + label.disabled:before,
+        input[type=checkbox] + input[type=hidden] + label.disabled:before {
+            cursor: not-allowed !important;
+        }
+
+    input[type=checkbox]:checked + label:before,
+    input[type=checkbox]:checked + input[type=hidden] + label:before {
+        letter-spacing: 0.155em;
+        /* allow space for check mark */
+    }
+
+    input[type=checkbox]:disabled + label:before,
+    input[type=checkbox]:disabled + input[type=hidden] + label:before {
+        color: #ccc !important;
+        cursor: not-allowed !important;
+    }
+/*** custom checkboxes END ***/
+/*** custom radio buttons ***/
+input[type=radio] {
+    display: none;
+    /* hide the default checkbox UI */
+}
+
+    input[type=radio] + label:before,
+    input[type=radio] + input[type=hidden] + label:before {
+        /*font-family: FontAwesome;*/
+        display: inline-block;
+        font-size: 1.5em;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    input[type=radio] + label:before,
+    input[type=radio] + input[type=hidden] + label:before {
+        content: "\f10c";
+        /* unchecked icon */
+    }
+
+    input[type=radio] + label:before,
+    input[type=radio] + input[type=hidden] + label:before {
+        letter-spacing: 0.2em;
+        /* space between checkbox and label */
+    }
+
+    input[type=radio]:checked + label:before,
+    input[type=radio]:checked + input[type=hidden] + label:before {
+        content: "\f192";
+        /* checked icon */
+    }
+
+    input[type=radio]:checked + label:before,
+    input[type=radio]:checked + input[type=hidden] + label:before {
+        letter-spacing: 0.2em;
+        /* allow space for check mark */
+    }
+
+    input[type=radio]:disabled + label:before,
+    input[type=radio]:disabled + input[type=hidden] + label:before {
+        color: #ccc !important;
+        cursor: not-allowed !important;
+    }
+/*** custom radio buttons END ***/
 .auction-dashboard-item {
   width: 150px;
   display: inline-block;
@@ -14,7 +176,7 @@
 }
     .auction-dashboard-item .auction-headline {
         position: relative;
-        height: 100px;
+        height: 125px;
         border: 1px solid #999;
         /*background-color: hsl(36, 100%, 80%);*/
 
@@ -563,4 +725,94 @@
   height: 100%;
   width: 100%;
   border: 0;
+}
+
+/* Style buttons */
+.buttonload {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px /* Set a font size */
+}
+
+
+#loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+
+    to {
+        bottom: 0px;
+        opacity: 1
+    }
+}
+
+@keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+
+#myDiv {
+    display: none;
+    text-align: center;
+}
+
+.class1 {
+    display: inline-block;
+    width: 15px;
 }

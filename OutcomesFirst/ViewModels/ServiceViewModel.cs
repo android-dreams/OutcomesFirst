@@ -14,7 +14,13 @@ namespace OutcomesFirst.Models
     {
         public int ServiceId { get; set; }
 
-        [Display(Name = "Service")]
+        public int MVReferralId { get; set; }
+        public string MVReferralName { get; set; }
+        public string MVGender { get; set; }
+        public int MVAge { get; set; }
+        public string MVLocalAuthority { get; set; }
+        public DateTime MVDateReceived { get; set; }
+
         public string ServiceName { get; set; }
 
         [Display(Name = "Address")]

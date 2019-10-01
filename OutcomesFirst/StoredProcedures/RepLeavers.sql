@@ -30,26 +30,26 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT o.OccupancyFirstName,
-	o.OccupancyLastName,
-	o.OccupancyGenderId,
-	o.OccupancyType,
-	o.OccupancyDateStartedWithGroup,
-	o.OccupancyPlacementStartDate,
-	o.OccupancyDOB,
-	o.OccupancyLocalAuthorityId,
-	o.OccupancyFramework,
-	o.OccupancyLengthOfStayWithPlacement,
-	o.OccupancyNotes
-	OccupancyLengthOfStayWithGroup,
+	SELECT o.PlacementFirstName,
+	o.PlacementLastName,
+	o.PlacementGenderId,
+	o.PlacementType,
+	o.PlacementDateStartedWithGroup,
+	o.PlacementPlacementStartDate,
+	o.PlacementDOB,
+	o.PlacementLocalAuthorityId,
+	o.PlacementFramework,
+	o.PlacementLengthOfStayWithPlacement,
+	o.PlacementNotes
+	PlacementLengthOfStayWithGroup,
 	serv.ServiceName,
 	serv.ServicePlaces
-	 from Occupancy o
-	  inner join Service serv on o.OccupancyServiceId = serv.ServiceId
-	  inner join Gender g on o.OccupancyGenderId = g.GenderId
-	  inner join LocalAuthority LA on o.OccupancyLocalAuthorityId = LA.LocalAuthorityId
-	  inner join LeavingReason LR on o.OccupancyReasonForLeavingID = LR.LeavingReasonId
-	  where o.OccupancyLeaveDate != null
+	 from Placement o
+	  inner join Service serv on o.PlacementServiceId = serv.ServiceId
+	  inner join Gender g on o.PlacementGenderId = g.GenderId
+	  inner join LocalAuthority LA on o.PlacementLocalAuthorityId = LA.LocalAuthorityId
+	  inner join LeavingReason LR on o.PlacementReasonForLeavingID = LR.LeavingReasonId
+	  where o.PlacementLeaveDate != null
 
 END
 GO

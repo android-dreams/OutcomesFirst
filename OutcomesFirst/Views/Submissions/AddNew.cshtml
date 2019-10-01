@@ -13,49 +13,39 @@
         <input asp-for="MVReferralId " class="form-control-static" asp-items="ViewBag.MVReferralId" hidden />
         <input asp-for="MVReferralName " class="form-control-static" asp-items="ViewBag.MVReferralName" hidden />
         <div class="row">
-            <div class="col-md-12">
-                @*<div class="card">
-                <div class="card-body">*@
-                <div class="form-group">
-                    <div class="row col-md-12">
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-header" style="background-color:#b9e488">
 
-                        <div class="col-md-2">
-                            Referral
-                            <div class="col-md-10">
-                                @Model.MVReferralName
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            Gender
-                            <div class="col-md-12">
-                                @Model.MVGender
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            Age
-                            <div class="col-md-12">
-                                @Model.MVAge
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            Local Authority
-                            <div class="col-md-12">
-                                @Model.MVLocalAuthority
-                            </div>
-                        </div>
-                        @*<div class="col-md-1"></div>*@
-                        <div class="col-md-3">
-                            Date Received
-                            <div class="col-md-12">
-                                @Model.MVDateReceived
+                            <div class="form-group">
+                                <h4>
+                                    <span style="font-size: 1em; color:#1a75e8;">
+                                        @if (@Model.MVGender == "Male")
+                                        {
+                                            <i class="fas fa-male lg"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-female big"></i>
+                                        }
+
+                                        &nbsp;
+                                        @Model.MVReferralName &nbsp;
+
+                                        @Model.MVGender &nbsp;
+
+                                        Age  @Model.MVAge &nbsp;
+                                        LA - @Model.MVLocalAuthority &nbsp;
+
+                                        Received @Model.MVDateReceived
+                                    </span>
+                                </h4>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        @*</div>
-        </div>*@
+        
         <div class="row">
             @foreach (var region in Model.regions)
             {
@@ -77,13 +67,13 @@
                                 {
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 @item.ServiceName
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-6">
 
-                                                <input asp-for="MVIsChecked" name="Submission.IsChecked" type="checkbox" value="@item.ServiceId" /><br />
-
+                                                <input asp-for="MVIsChecked" id="@item.ServiceId"class="with-font" name="Submission.IsChecked" type="checkbox" value="@item.ServiceId" />
+                                                <label for="@item.ServiceId"></label><br />
                                                 <span asp-validation-for="MVIsChecked" class="text-danger small"></span>
                                             </div>
                                         </div>
@@ -96,7 +86,7 @@
             }
         </div>
         <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
+            <input type="submit" value="Create" style="background-color:#0987b9"  class="btn btn-primary" />
         </div>
 
     </form>

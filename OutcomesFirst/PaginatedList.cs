@@ -49,10 +49,7 @@ namespace OutcomesFirst
            
         }
 
-        private static PaginatedList<T> NotFoundResult()
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }
     
