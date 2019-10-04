@@ -204,15 +204,8 @@ namespace OutcomesFirst.Controllers
                     .OrderBy(o => o.SubmissionStatus.StatusName);
                     return View(await PaginatedList<Submission>.CreateAsync(servicedata0.AsNoTracking(), pageNumber ?? 1, pageSize));
 
-
-
             }
-
         }
-
-
-
-
 
         // GET: Submissions/Details/5
         public ActionResult Details(int? id)
@@ -234,7 +227,6 @@ namespace OutcomesFirst.Controllers
 
         }
 
-
         // GET: Submissions/Create
         //public IActionResult Create(int id)
         public ViewResult Create(int id)
@@ -242,7 +234,6 @@ namespace OutcomesFirst.Controllers
 
             ViewBag.Title = "Submission Page";
             ViewBag.Header = "Add Submission Details";
-
 
             var referral = _context.Referral
                 .Include(s => s.ReferralGender)
@@ -256,7 +247,28 @@ namespace OutcomesFirst.Controllers
                 .OrderBy(s => s.ServiceName)
                 .ToList();
 
-            var regions = _context.Region.ToList();
+            
+
+            var regionsList = _context.Region.ToList();
+
+            List<Region> RegionsList = new List<Region>();
+
+            foreach (var item in regionsList)
+            {
+                var Regionexists = (from a in _context.Service
+                          .Where(s => s.ServiceRegionId == item.RegionId)
+                                    select new { a.ServiceRegionId }).FirstOrDefault();
+
+                if (Regionexists != null)
+                {
+                    RegionsList.Add(item);
+                }
+            }
+
+
+
+
+
 
             //Creating the ViewModel
             SubmissionIndexData submissionIndexData = new SubmissionIndexData()
@@ -271,7 +283,7 @@ namespace OutcomesFirst.Controllers
 
                 Submission = submission,
                 Services = servicesList,
-                regions = regions
+                regions = RegionsList
 
             };
 
@@ -352,11 +364,13 @@ namespace OutcomesFirst.Controllers
 
             List<ServiceViewModel> servicesVMList = new List<ServiceViewModel>();
 
+         
 
             foreach (var item in servicesList)
             {
                 var existingSubmission = (from a in _context.Submission
                           .Where(s => s.SubmissionServiceId == item.ServiceId)
+                          .Where(s => s.SubmissionReferralId == referral.ReferralId)
                                           select new { a.SubmissionServiceId }).FirstOrDefault();
 
                 if (existingSubmission == null)
@@ -369,7 +383,24 @@ namespace OutcomesFirst.Controllers
                 }
             }
 
-            var regions = _context.Region.ToList();
+            var regionsList = _context.Region.ToList();
+
+            List<Region> RegionsList = new List<Region>();
+          
+            foreach (var item in regionsList)
+                {
+                    var Regionexists = (from a in _context.Service
+                              .Where(s => s.ServiceRegionId == item.RegionId)
+                               select new { a.ServiceRegionId }).FirstOrDefault();
+
+                    if (Regionexists != null)
+                    {
+                          RegionsList.Add(item);
+                    }
+                }
+
+
+           
 
             //Creating the ViewModel
             SubmissionsAddViewModel viewModel = new SubmissionsAddViewModel()
@@ -382,7 +413,7 @@ namespace OutcomesFirst.Controllers
                 MVDateReceived = referral.ReferralReceivedDate,
 
                 ServicesVM = servicesVMList,
-                regions = regions
+                regions = RegionsList
             };
 
             ViewData["Services.ServiceId"] = new SelectList(servicesList, "ServiceId", "ServiceName");
