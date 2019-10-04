@@ -3,7 +3,7 @@
     ViewData["Title"] = "Edit";
 
     IEnumerable<SelectListItem> localAuthorities = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
-             .Concat(Model.localAuthorities
+             .Concat(Model.PlacementLocalAuthorities
              .OrderBy(x => x.LocalAuthorityName)
              .Select(t => new SelectListItem
              {
@@ -12,7 +12,7 @@
              })); ;
 
     IEnumerable<SelectListItem> leavingreasons = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
-           .Concat(Model.leavingReasons
+           .Concat(Model.PlacementLeavingReasons
            .OrderBy(x => x.LeavingReasonName)
            .Select(t => new SelectListItem
            {
@@ -21,7 +21,7 @@
            })); ;
 
     IEnumerable<SelectListItem> genders = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
-            .Concat(Model.genders
+            .Concat(Model.PlacementGenders
             .OrderBy(x => x.GenderName)
             .Select(t => new SelectListItem
             {
@@ -117,6 +117,8 @@
                                     <label asp-for="PlacementType" class="control-label"></label>
                                 </div>
                                 <div class="col-md-7">
+                                 
+                                    
                                     <input asp-for="PlacementType" class="form-control" />
                                     <span asp-validation-for="PlacementType" class="text-danger"></span>
 

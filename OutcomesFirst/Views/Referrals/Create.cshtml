@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Create";
     IEnumerable<SelectListItem> localAuthorities = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
-             .Concat(Model.localAuthorities
+             .Concat(Model.LocalAuthorities
              .OrderBy(x => x.LocalAuthorityName)
              .Select(t => new SelectListItem
              {
@@ -12,7 +12,7 @@
              })); ;
 
     IEnumerable<SelectListItem> genders = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
-             .Concat(Model.genders
+             .Concat(Model.Genders
              .OrderBy(x => x.GenderName)
              .Select(t => new SelectListItem
              {
@@ -28,7 +28,7 @@
 
 
     IEnumerable<SelectListItem> archivereasons = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
-             .Concat(Model.archiveReasons
+             .Concat(Model.ArchiveReasons
              .OrderBy(x => x.ArchiveReasonName)
              .Select(t => new SelectListItem
              {
@@ -174,12 +174,12 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">
-                                <input type="radio" class="with-font" name="ReferralSuitableColor" id="ReferralSuitableColorRed" value="red" required> Not Suitable
-                                <label for="ReferralSuitableColorRed"></label>
+                                <input type="radio" class="with-font" name="ReferralSuitableColor" id="rbNotSuitable" value="red" required> Not Suitable
+                                <label for="rbNotSuitable"></label>
                             </div>
                             <div class="col-md-3">
-                                <input type="radio" class="with-font"name="ReferralSuitableColor" id="ReferralSuitableColorGreen" value="green">  Suitable
-                               <label for="ReferralSuitableColorGreen"></label>
+                                <input type="radio" class="with-font"name="ReferralSuitableColor" id="rbSuitable" value="green">  Suitable
+                               <label for="rbSuitable"></label>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -251,16 +251,16 @@
              var targetBox = $("." + inputValue);
              $(".box").not(targetBox).hide();
              $(targetBox).show(); 
-             if (document.getElementById("ReferralSuitableColorRed").checked == true) {
+             if (document.getElementById("rbNotSuitable").checked == true) {
 
                  $('#submittoservice').removeClass('hidden');
              }
              else {
                  $('#submittoservice').addClass('hidden');
              }
-             $("ReferralSuitableColorGreen").click(function () {
+             $("rbSuitable").click(function () {
 
-                 if (document.getElementById("ReferralSuitableColorGreen").checked == true) {
+                 if (document.getElementById("rbSuitable").checked == true) {
 
                      $('#submittoservice').removeClass('hidden');
                  }
