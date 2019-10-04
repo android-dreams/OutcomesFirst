@@ -32,14 +32,10 @@ namespace OutcomesFirst.Controllers
             var archiveReasons = await _context.ArchiveReason.ToArrayAsync();
 
             IEnumerable<ArchiveReasonViewModel> archiveReasonVM = _mapper.Map<ArchiveReason[], IEnumerable<ArchiveReasonViewModel>>(archiveReasons);
-            //ICollection<ArchiveReasonViewModel> icollectionDest = _mapper.Map<ArchiveReason[], ICollection<ArchiveReasonViewModel>>(archiveReasons);
-            //IList<ArchiveReasonViewModel> ilistDest = _mapper.Map<ArchiveReason[], IList<ArchiveReasonViewModel>>(archiveReasons);
-            //List<ArchiveReasonViewModel> listDest = _mapper.Map<ArchiveReason[], List<ArchiveReasonViewModel>>(archiveReasons);
-            //ArchiveReasonViewModel[] arrayDest = _mapper.Map<ArchiveReason[], ArchiveReasonViewModel[]>(archiveReasons);
+
 
             return View(archiveReasonVM);
 
-            //return View(await _context.ArchiveReason.ToListAsync());
         }
 
         // GET: ArchiveReasons/Details/5

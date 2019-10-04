@@ -80,11 +80,13 @@ namespace OutcomesFirst.ViewModels
         [Range(1, 99, ErrorMessage = "Please select Referral Type")]
         public int ReferralType { get; set; }
 
-        public List<LocalAuthority> localAuthorities { get; set; }
-        public List<Gender> genders { get; set; }
-        public List<Status> statuses { get; set; }
-        public List<string> referralTypes { get; set; }
-        public List<ArchiveReason> archiveReasons { get; set; }
+        public List<LocalAuthority> LocalAuthorities { get; set; }
+        public List<Gender> Genders { get; set; }
+        public List<Status> Statuses { get; set; }
+        public List<string> ReferralTypes { get; set; }
+        public List<ArchiveReason> ArchiveReasons { get; set; }
+
+        public List<Service> Services { get; set; }
         public List<int> days { get; set; }
         public List<int> months { get; set; }
         public List<int> years { get; set; }

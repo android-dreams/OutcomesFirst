@@ -11,7 +11,7 @@ namespace OutcomesFirst.ViewModels
 
         public int LeavingReasonId { get; set; }
 
-        [Display(Name="Leaving Resaon")]
+        [Display(Name="Leaving Reason")]
         [Required]
         public string LeavingReasonName { get; set; }
 

@@ -2,6 +2,16 @@
 
 @{
     ViewData["Title"] = "Archive Reaasons";
+
+    IEnumerable<SelectListItem> decisionMaker
+        = new List<SelectListItem> {     
+                                        new SelectListItem{ Text="Our Decision", Value = "1" },
+                                        new SelectListItem{ Text="Local Authority Decision", Value = "2" },
+                                        new SelectListItem{ Text="Parent Decision/Other", Value = "3" },
+                                        new SelectListItem{ Text="Withdrawn", Value = "4" }
+        };
+
+
 }
 
 <h3>Archive Reasons</h3>
@@ -15,9 +25,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ArchiveReasonName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ArchiveDecisionBy)
-            </th>
+          
             <th></th>
         </tr>
     </thead>
@@ -27,9 +35,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ArchiveReasonName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArchiveDecisionBy)
-            </td>
+           
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ArchiveReasonId">Edit</a> |
                 <a asp-action="Delete" asp-route-id="@item.ArchiveReasonId">Delete</a>
