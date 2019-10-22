@@ -5,7 +5,7 @@
     <DataSource Name="DataSource1">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=MATT-PC;Initial Catalog=OutcomesFirst</ConnectString>
+        <ConnectString>Data Source=DESKTOP-22RJOAG\SQLEXPRESS;Initial Catalog=OutcomesFirst</ConnectString>
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
       <rd:SecurityType>Integrated</rd:SecurityType>
@@ -37,6 +37,10 @@
           <DataField>StatusName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="StatusOffersActivityReportOrder">
+          <DataField>StatusOffersActivityReportOrder</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
     <DataSet Name="MonthlyArchiveStatusData">
@@ -57,6 +61,10 @@
         <Field Name="ArchiveReasonName">
           <DataField>ArchiveReasonName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ArchiveReportOrder">
+          <DataField>ArchiveReportOrder</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="count">
           <DataField>count</DataField>
@@ -82,6 +90,10 @@
         <Field Name="StatusName">
           <DataField>StatusName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OffersActivityReportOrder">
+          <DataField>OffersActivityReportOrder</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="count">
           <DataField>count</DataField>
@@ -278,7 +290,7 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!StatusName.Value</Value>
+                      <Value>=Fields!ServiceName.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixMembers>
@@ -484,7 +496,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=iif(Fields!ArchiveReasonName.Value = ""  =  0,"",Fields!count.Value)</Value>
+                                  <Value>=iif(Fields!ArchiveReasonName.Value =  "","",(Fields!count.Value))</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -560,13 +572,14 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!ServiceName.Value</Value>
+                      <Value>=Fields!ArchiveReasonName.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
                     <Size>6mm</Size>
                     <CellContents>
                       <Textbox Name="StatusName2">
+                        <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
@@ -601,7 +614,7 @@
                     <TablixMember />
                   </TablixMembers>
                   <Visibility>
-                    <Hidden>=iif(Fields!ArchiveReasonName.Value = ""  = 0,True,False)</Hidden>
+                    <Hidden>=iif(Fields!ArchiveReasonName.Value = "" ,True,False)</Hidden>
                   </Visibility>
                 </TablixMember>
               </TablixMembers>
@@ -688,6 +701,11 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>MonthlyArchiveStatusData</DataSetName>
+            <SortExpressions>
+              <SortExpression>
+                <Value>=Fields!ServiceName.Value</Value>
+              </SortExpression>
+            </SortExpressions>
             <Top>15.37589mm</Top>
             <Left>86.06925mm</Left>
             <Height>18mm</Height>
@@ -837,6 +855,7 @@
                     <Size>6mm</Size>
                     <CellContents>
                       <Textbox Name="StatusName3">
+                        <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
