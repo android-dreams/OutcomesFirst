@@ -6,32 +6,39 @@
     <DataSource Name="DataSource1">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=MATT-PC;Initial Catalog=OutcomesFirst</ConnectString>
-        <Prompt>Enter a user name and password to access the data source:</Prompt>
+        <ConnectString>Data Source=MATT-PC\MSSQLSERVER01;Initial Catalog=OutcomesFirst</ConnectString>
+        <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
-      <rd:SecurityType>DataBase</rd:SecurityType>
+      <rd:SecurityType>Integrated</rd:SecurityType>
       <rd:DataSourceID>568d7ec5-5532-4fcb-8756-16ea95e5856a</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSet1">
+    <DataSet Name="AllReferrals">
       <Query>
         <DataSourceName>DataSource1</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Day">
+            <Value>=Parameters!Day.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>SELECT r.ReferralId
       ,ReferralName
 	  ,ReferralAge
+,ReferralReceivedDate
       ,g.GenderName
 	  ,ReferralType
 	  ,l.LocalAuthorityName
 	  ,ReferralComments
-	  ,s.ServiceName
+	 
 	  ,stat.StatusName
+
   FROM OutcomesFirst.dbo.Referral r
   left outer join Gender g on g.GenderId = r.ReferralGenderId
   left outer join LocalAuthority l on l.LocalAuthorityId = r.ReferralLocalAuthorityId
-  left outer join Submission sub on sub.SubmissionReferralId = r.ReferralId
-  left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
-  left outer join Status stat on stat.StatusId = r.ReferralStatusId</CommandText>
+ 
+  left outer join Status stat on stat.StatusId = r.ReferralStatusId
+where r.ReferralReceivedDate = @Day</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -47,13 +54,17 @@
           <DataField>ReferralAge</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="ReferralReceivedDate">
+          <DataField>ReferralReceivedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
         <Field Name="GenderName">
           <DataField>GenderName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ReferralType">
           <DataField>ReferralType</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="LocalAuthorityName">
           <DataField>LocalAuthorityName</DataField>
@@ -63,21 +74,26 @@
           <DataField>ReferralComments</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="ServiceName">
-          <DataField>ServiceName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="StatusName">
           <DataField>StatusName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="UniqueReferral">
+          <Value>=Fields!ReferralName.Value + CStr(Fields!ReferralReceivedDate.Value)</Value>
+        </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="DataSet2">
+    <DataSet Name="ReferralsWithOffers">
       <Query>
         <DataSourceName>DataSource1</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Day">
+            <Value>=Parameters!Day.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>SELECT r.ReferralId
       ,ReferralName
+,ReferralReceivedDate
 	  ,ReferralAge
       ,g.GenderName
 	  ,ReferralType
@@ -91,7 +107,7 @@
   left outer join Submission sub on sub.SubmissionReferralId = r.ReferralId
   left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
   left outer join Status stat on stat.StatusId = r.ReferralStatusId
-  Where StatusName = 'Offered'</CommandText>
+  Where StatusName = 'Offered' and r.ReferralReceivedDate = @Day</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -103,6 +119,10 @@
           <DataField>ReferralName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ReferralReceivedDate">
+          <DataField>ReferralReceivedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
         <Field Name="ReferralAge">
           <DataField>ReferralAge</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -113,7 +133,7 @@
         </Field>
         <Field Name="ReferralType">
           <DataField>ReferralType</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="LocalAuthorityName">
           <DataField>LocalAuthorityName</DataField>
@@ -133,15 +153,21 @@
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="DataSet3">
+    <DataSet Name="ArchivedReferrals">
       <Query>
         <DataSourceName>DataSource1</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Day">
+            <Value>=Parameters!Day.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>/****** Script for SelectTopNRows command from SSMS  ******/
 SELECT ArchiveReferralId
       ,a.ArchiveReferralName
-	  ,a.ArchiveReferralAge
+,ArchiveReferralReceivedDate
+	  ArchiveReferralAge
       ,g.GenderName
-	  ,'Referral Type' as Type
+	  ,'ReferralType' as Type
 	  ,l.LocalAuthorityName
 	  ,archiveReferralComments
 	  ,s.ServiceName
@@ -151,7 +177,8 @@ SELECT ArchiveReferralId
   left outer join LocalAuthority l on l.LocalAuthorityId = a.ArchiveReferralLocalAuthorityId
   left outer join Submission sub on sub.SubmissionReferralId = a.ArchiveReferralId
   left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
-  left outer join Status stat on stat.StatusId = a.ArchiveReferralStatusId</CommandText>
+  left outer join Status stat on stat.StatusId = a.ArchiveReferralStatusId
+where a.ArchiveReferralReceivedDate = @Day</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -165,7 +192,7 @@ SELECT ArchiveReferralId
         </Field>
         <Field Name="ArchiveReferralAge">
           <DataField>ArchiveReferralAge</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
         <Field Name="GenderName">
           <DataField>GenderName</DataField>
@@ -193,6 +220,104 @@ SELECT ArchiveReferralId
         </Field>
       </Fields>
     </DataSet>
+    <DataSet Name="OngoingReferrals">
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <CommandText>SELECT r.ReferralId
+      ,ReferralName
+,ReferralReceivedDate
+	  ,ReferralAge
+      ,g.GenderName
+	  ,ReferralType
+	  ,l.LocalAuthorityName
+	  ,ReferralComments
+	  ,s.ServiceName
+	  ,stat.StatusName
+,stat.StatusId
+  FROM OutcomesFirst.dbo.Referral r
+  left outer join Gender g on g.GenderId = r.ReferralGenderId
+  left outer join LocalAuthority l on l.LocalAuthorityId = r.ReferralLocalAuthorityId
+  left outer join Submission sub on sub.SubmissionReferralId = r.ReferralId
+  left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
+  left outer join Status stat on stat.StatusId = r.ReferralStatusId
+--where r.ReferralStatusId&gt; 2 and r.ReferralReceivedDate = @Day</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="ReferralId">
+          <DataField>ReferralId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ReferralName">
+          <DataField>ReferralName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReferralReceivedDate">
+          <DataField>ReferralReceivedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="ReferralAge">
+          <DataField>ReferralAge</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="GenderName">
+          <DataField>GenderName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReferralType">
+          <DataField>ReferralType</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="LocalAuthorityName">
+          <DataField>LocalAuthorityName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReferralComments">
+          <DataField>ReferralComments</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ServiceName">
+          <DataField>ServiceName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StatusName">
+          <DataField>StatusName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StatusId">
+          <DataField>StatusId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="DataSet5">
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Day">
+            <Value>=Parameters!Day.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT distinct r.ReferralId
+
+  FROM OutcomesFirst.dbo.Referral r
+  left outer join Gender g on g.GenderId = r.ReferralGenderId
+  left outer join LocalAuthority l on l.LocalAuthorityId = r.ReferralLocalAuthorityId
+  inner join Submission sub on sub.SubmissionReferralId = r.ReferralId
+  left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
+  left outer join Status stat on stat.StatusId = r.ReferralStatusId
+where r.ReferralReceivedDate = @Day
+
+  order by ReferralId</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="ReferralId">
+          <DataField>ReferralId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
   </DataSets>
   <ReportSections>
     <ReportSection>
@@ -216,7 +341,7 @@ SELECT ArchiveReferralId
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
             <Top>11.34533mm</Top>
-            <Left>5.25992mm</Left>
+            <Left>5.5245mm</Left>
             <Height>6mm</Height>
             <Width>62.57083mm</Width>
             <Style>
@@ -399,7 +524,7 @@ SELECT ArchiveReferralId
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Count(Fields!ReferralId.Value, "DataSet2")</Value>
+                    <Value>=Count(Fields!ReferralId.Value, "ReferralsWithOffers")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -431,7 +556,7 @@ SELECT ArchiveReferralId
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Count(Fields!ServiceName.Value, "DataSet1")</Value>
+                    <Value>=CountDistinct(Fields!ReferralId.Value, "DataSet5")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -441,7 +566,7 @@ SELECT ArchiveReferralId
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox35</rd:DefaultName>
-            <Top>17.34533mm</Top>
+            <Top>16.99255mm</Top>
             <Left>68.09533mm</Left>
             <Height>6mm</Height>
             <Width>12.56458mm</Width>
@@ -463,7 +588,7 @@ SELECT ArchiveReferralId
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=CountDistinct(Fields!ReferralId.Value, "DataSet1")</Value>
+                    <Value>=Count(Fields!ReferralId.Value, "AllReferrals")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -495,7 +620,7 @@ SELECT ArchiveReferralId
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=CountDistinct(Fields!ReferralId.Value, "DataSet2")</Value>
+                    <Value>=CountDistinct(Fields!ReferralId.Value, "ReferralsWithOffers")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -560,7 +685,7 @@ SELECT ArchiveReferralId
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Count(Fields!ReferralId.Value, "DataSet2")/CountDistinct(Fields!ReferralId.Value, "DataSet1")</Value>
+                    <Value>=Count(Fields!ReferralId.Value, "ReferralsWithOffers")/CountDistinct(Fields!ReferralId.Value, "AllReferrals")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                       <Format>0%</Format>
@@ -571,8 +696,8 @@ SELECT ArchiveReferralId
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox40</rd:DefaultName>
-            <Top>23.34533mm</Top>
-            <Left>80.65991mm</Left>
+            <Top>23.69811mm</Top>
+            <Left>80.39533mm</Left>
             <Height>6mm</Height>
             <Width>18.38542mm</Width>
             <ZIndex>11</ZIndex>
@@ -593,7 +718,7 @@ SELECT ArchiveReferralId
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Count(Fields!ServiceName.Value, "DataSet1")/CountDistinct(Fields!ReferralId.Value, "DataSet1")</Value>
+                    <Value>=Count(Fields!ReferralId.Value, "DataSet5")/Count(Fields!ReferralId.Value, "AllReferrals")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                       <Format>0%</Format>
@@ -604,7 +729,7 @@ SELECT ArchiveReferralId
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox40</rd:DefaultName>
-            <Top>17.34533mm</Top>
+            <Top>17.69811mm</Top>
             <Left>80.65991mm</Left>
             <Height>6mm</Height>
             <Width>18.38542mm</Width>
@@ -659,7 +784,7 @@ SELECT ArchiveReferralId
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=CountDistinct(Fields!ReferralId.Value, "DataSet2")/CountDistinct(Fields!ReferralId.Value, "DataSet1")</Value>
+                    <Value>=CountDistinct(Fields!ReferralId.Value, "ReferralsWithOffers")/CountDistinct(Fields!ReferralId.Value, "AllReferrals")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                       <Format>0%</Format>
@@ -708,6 +833,9 @@ SELECT ArchiveReferralId
                 </TablixColumn>
                 <TablixColumn>
                   <Width>32.67291mm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>25mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>30.55627mm</Width>
@@ -956,6 +1084,40 @@ SELECT ArchiveReferralId
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox5">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Offered?</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox5</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox62">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -1003,7 +1165,9 @@ SELECT ArchiveReferralId
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!ReferralName.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1033,7 +1197,10 @@ SELECT ArchiveReferralId
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!ReferralAge.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>n2</Format>
+                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1065,7 +1232,9 @@ SELECT ArchiveReferralId
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!GenderName.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1097,6 +1266,7 @@ SELECT ArchiveReferralId
                                   <Value>=Fields!ReferralType.Value</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
+                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1131,6 +1301,7 @@ SELECT ArchiveReferralId
                                   <Value>=Fields!LocalAuthorityName.Value</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
+                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1163,6 +1334,7 @@ SELECT ArchiveReferralId
                                   <Value>=Fields!ReferralComments.Value</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
+                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1195,6 +1367,7 @@ SELECT ArchiveReferralId
                                   <Value>=Fields!ServiceName.Value</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
+                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1202,6 +1375,39 @@ SELECT ArchiveReferralId
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>ServiceName</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox6">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=IIf((Fields!StatusId.Value=3 or Fields!StatusId.Value=4),"Y","In Progress")</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox6</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -1227,6 +1433,7 @@ SELECT ArchiveReferralId
                                   <Value>=Fields!StatusName.Value</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
+                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1261,6 +1468,7 @@ SELECT ArchiveReferralId
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -1273,11 +1481,16 @@ SELECT ArchiveReferralId
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>DataSet1</DataSetName>
+            <DataSetName>OngoingReferrals</DataSetName>
+            <SortExpressions>
+              <SortExpression>
+                <Value>=Fields!StatusId.Value</Value>
+              </SortExpression>
+            </SortExpressions>
             <Top>53.1495mm</Top>
             <Left>5.25993mm</Left>
             <Height>12mm</Height>
-            <Width>237.35049mm</Width>
+            <Width>262.35049mm</Width>
             <ZIndex>15</ZIndex>
             <Style>
               <Border>
@@ -1308,6 +1521,9 @@ SELECT ArchiveReferralId
                 </TablixColumn>
                 <TablixColumn>
                   <Width>32.67292mm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>25mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>30.55627mm</Width>
@@ -1362,6 +1578,7 @@ SELECT ArchiveReferralId
                                   <Value>Age</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1558,6 +1775,40 @@ SELECT ArchiveReferralId
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox9">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Offered?</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox80">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -1635,7 +1886,9 @@ SELECT ArchiveReferralId
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!ArchiveReferralAge.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>n2</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1817,6 +2070,38 @@ SELECT ArchiveReferralId
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox10">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=IIf((Fields!StatusId.Value=3 or Fields!StatusId.Value=4),"Y","N")</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox10</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="StatusName1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -1861,6 +2146,7 @@ SELECT ArchiveReferralId
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -1877,11 +2163,11 @@ SELECT ArchiveReferralId
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedColumnHeaders>true</FixedColumnHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
-            <DataSetName>DataSet3</DataSetName>
+            <DataSetName>ArchivedReferrals</DataSetName>
             <Top>74.31617mm</Top>
             <Left>5.25993mm</Left>
             <Height>12mm</Height>
-            <Width>237.35049mm</Width>
+            <Width>262.35049mm</Width>
             <ZIndex>16</ZIndex>
             <Style>
               <Border>
@@ -1963,7 +2249,7 @@ SELECT ArchiveReferralId
           </Border>
         </Style>
       </Body>
-      <Width>251.88334mm</Width>
+      <Width>272.76667mm</Width>
       <Page>
         <PageHeader>
           <Height>22.225mm</Height>
@@ -2008,7 +2294,7 @@ SELECT ArchiveReferralId
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>="Date :    " + Today()</Value>
+                      <Value>="Date :    " + Parameters!Day.Value</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
@@ -2174,10 +2460,28 @@ SELECT ArchiveReferralId
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Day">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=Today()</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Day</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
       <NumberOfRows>2</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Day</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <EmbeddedImages>

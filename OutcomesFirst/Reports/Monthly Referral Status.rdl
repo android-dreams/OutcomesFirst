@@ -37,10 +37,6 @@
           <DataField>StatusName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OffersActivityReportOrder">
-          <DataField>OffersActivityReportOrder</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
       </Fields>
     </DataSet>
     <DataSet Name="MonthlyArchiveStatusData">
@@ -61,10 +57,6 @@
         <Field Name="ArchiveReasonName">
           <DataField>ArchiveReasonName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ArchiveReportOrder">
-          <DataField>ArchiveReportOrder</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="count">
           <DataField>count</DataField>
@@ -90,10 +82,6 @@
         <Field Name="StatusName">
           <DataField>StatusName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="OffersActivityReportOrder">
-          <DataField>OffersActivityReportOrder</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="count">
           <DataField>count</DataField>
@@ -290,7 +278,7 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!OffersActivityReportOrder.Value</Value>
+                      <Value>=Fields!StatusName.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixMembers>
@@ -496,7 +484,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=iif(Fields!ArchiveReasonName.Value = "" or Fields!ArchiveReportOrder.Value =  0,"",Fields!count.Value)</Value>
+                                  <Value>=iif(Fields!ArchiveReasonName.Value = ""  =  0,"",Fields!count.Value)</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -572,7 +560,7 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!ArchiveReportOrder.Value</Value>
+                      <Value>=Fields!ServiceName.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
@@ -613,7 +601,7 @@
                     <TablixMember />
                   </TablixMembers>
                   <Visibility>
-                    <Hidden>=iif(Fields!ArchiveReasonName.Value = "" or Fields!ArchiveReportOrder.Value = 0,True,False)</Hidden>
+                    <Hidden>=iif(Fields!ArchiveReasonName.Value = ""  = 0,True,False)</Hidden>
                   </Visibility>
                 </TablixMember>
               </TablixMembers>
@@ -700,11 +688,6 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>MonthlyArchiveStatusData</DataSetName>
-            <SortExpressions>
-              <SortExpression>
-                <Value>=Fields!ArchiveReportOrder.Value</Value>
-              </SortExpression>
-            </SortExpressions>
             <Top>15.37589mm</Top>
             <Left>86.06925mm</Left>
             <Height>18mm</Height>
@@ -847,7 +830,7 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!OffersActivityReportOrder.Value</Value>
+                      <Value>=Fields!StatusName.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
