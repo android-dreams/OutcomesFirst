@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<OutcomesFirst.Models.ArchiveReferral>
 
+
+
 @{
     ViewData["Title"] = "Archive";
 }
@@ -7,55 +9,67 @@
 <p>
     <h1>Archived Referrals</h1>
 </p>
-
 <table class="table">
     <thead>
-        <tr>         
+        <tr>
             <th>
                 Gender
             </th>
             <th>
-               Local Authority
+                Local Authority
             </th>
-         
+
             <th>
-              
+
                 Age
             </th>
-           
+
             <th>
-               
+
                 Archive Reason
             </th>
             <th>
                 Comments
             </th>
-     
+
         </tr>
     </thead>
+
     <tbody>
-        @foreach (var item in Model) {
-            <tr>
-           
-                <td>
-                    @Html.DisplayFor(modelItem => item.ArchiveReferralGender.GenderName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ArchiveReferralLocalAuthority.LocalAuthorityName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ArchiveReferralAge)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ArchiveReferralArchiveReason.ArchiveReasonName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ArchiveReferralNotSuitableComments)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.ArchiveReferralId">Details</a>
-                </td>
-            </tr>
+        @if (Model.Count() > 0)
+        {
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArchiveReferralGender.GenderName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArchiveReferralLocalAuthority.LocalAuthorityName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArchiveReferralAge)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArchiveReferralArchiveReason.ArchiveReasonName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArchiveReferralNotSuitableComments)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.ArchiveReferralId">Details</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+
         }
     </tbody>
 </table>
+<div>
+    "Nothing to Display"
+</div>
