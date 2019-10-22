@@ -572,33 +572,34 @@ namespace OutcomesFirst.Controllers
                         throw;
                     }
 
-                    // Update the referral with the highest status (actually the lowest)
-                    var allsubmissions = _context.Submission.Where(s => s.SubmissionReferralId == referral.ReferralId);
+                   
 
-                    int? highest = 99;
-                    //int subid = 6;
-
-                    foreach (Submission s in allsubmissions)
-                    {
-
-                        //var substat = _context.Status.Where(r => r.StatusId == s.SubmissionStatusId);
-
-                        if (s.SubmissionStatusId < highest)
-                        {
-
-                            highest = s.SubmissionStatusId;
-                            //subid = s.SubmissionStatus.StatusId;
-
-                        }
-                    }
-
-
-                    referral.ReferralStatusId = (int)highest;
-                    _context.Update(referral);
-                    _context.SaveChanges();
+                    
 
                 }
+                // Update the referral with the highest status (actually the lowest)
+                var allsubmissions = _context.Submission.Where(s => s.SubmissionReferralId == referral.ReferralId);
 
+                int? highest = 99;
+                //int subid = 6;
+
+                foreach (Submission s in allsubmissions)
+                {
+
+                    //var substat = _context.Status.Where(r => r.StatusId == s.SubmissionStatusId);
+
+                    if (s.SubmissionStatusId < highest)
+                    {
+
+                        highest = s.SubmissionStatusId;
+                        //subid = s.SubmissionStatus.StatusId;
+
+                    }
+                }
+
+                referral.ReferralStatusId = (int)highest;
+                _context.Update(referral);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             return View(submission);
