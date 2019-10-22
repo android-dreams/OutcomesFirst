@@ -30,7 +30,15 @@ namespace OutcomesFirst.Controllers
                 .Include(r => r.ArchiveReferralGender)
                 .Include(r => r.ArchiveReferralLocalAuthority)
                 .Include(r => r.ArchiveReferralArchiveReason);
-            return View(await archive.ToListAsync());
+            if (archive.Any())
+            {
+                return View(await archive.ToListAsync());
+
+            }
+            else
+            {
+                return View("No Records");
+            }
         }
 
         // GET: ArchiveReferrals/Details/5

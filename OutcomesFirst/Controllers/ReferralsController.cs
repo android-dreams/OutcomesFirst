@@ -32,7 +32,7 @@ namespace OutcomesFirst.Controllers
         {
             
           
-            int pageSize = 10;
+            int pageSize = 2000;
             int searchType = 0;
 
 
@@ -416,6 +416,397 @@ namespace OutcomesFirst.Controllers
             }
 
         }
+
+        // for Awaiting Response from Service
+        public async Task<IActionResult> StatusIndex(int? pageNumber, string IDSearch, string genderSearch, string laSearch, string statusSearch, string currentFilter, string sortOrder)
+        {
+
+
+            int pageSize = 1000;
+            int searchType = 0;
+
+
+            var genderQry = _context.Gender
+             .OrderBy(x => x.GenderName)
+            .Select(x => x.GenderName).ToList();
+
+            var laQry = _context.LocalAuthority
+             .OrderBy(x => x.LocalAuthorityName)
+            .Select(x => x.LocalAuthorityName).ToList();
+
+            var statusQry = _context.Status
+             .Where(x => x.StatusId != 1)
+             .Where(x => x.StatusId != 2)
+            .OrderBy(x => x.StatusPriority)
+            .Select(x => x.StatusName).ToList();
+
+            var outcomesFirstContext = _context.Referral
+              .Include(s => s.Submissions)
+              .Include(r => r.ReferralGender)
+              .Include(r => r.ReferralLocalAuthority)
+              .Include(r => r.ReferralStatus)
+              .Include(r => r.ReferralArchiveReason)
+  .Where(r => r.ReferralStatusId == 8 )
+              .OrderBy(o => o.ReferralStatus.StatusId);
+
+
+
+            //if (laSearch != null)
+            //    ViewBag.laSearch = new SelectList(laSearch).ToList();
+            //            else
+            ViewBag.laSearch = new SelectList(laQry);
+
+
+
+
+            ViewBag.genderSearch = new SelectList(genderQry);
+
+            ViewBag.statusSearch = new SelectList(statusQry);
+
+
+            if (!String.IsNullOrEmpty(IDSearch))                         /*  if service entered */
+            {
+                if (!String.IsNullOrEmpty(genderSearch))                /* then if  Name entered */
+                {
+                    if (!String.IsNullOrEmpty(laSearch))                /*  then if status entered*/
+                    {
+                        if (!String.IsNullOrEmpty(statusSearch))        /*  then if status entered*/
+                        {
+                            searchType = 1;                             /*filter on ID, Gender,LA and status*/
+
+                        }
+                        else
+                        {
+                            searchType = 2;                             /*Filter on ID, Gender,LA  */
+                            statusSearch = currentFilter;
+                        }
+                    }
+                    else
+                    {
+                        if (!String.IsNullOrEmpty(statusSearch))        /*  then if status entered*/
+                        {
+                            searchType = 3;                             /*filter on ID, Gender,and status*/
+                        }
+                        else
+                        {
+                            searchType = 4;                             /*Filter on ID, Gender  */
+                            statusSearch = currentFilter;
+                        }
+                    }
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(laSearch))                /*  then if status entered*/
+                    {
+                        if (!String.IsNullOrEmpty(statusSearch))        /*  then if status entered*/
+                        {
+                            searchType = 5;                             /*filter on  Id ,LA and status*/
+                        }
+                        else
+                        {
+                            searchType = 6;                             /*Filter on ID and LA  */
+                            statusSearch = currentFilter;
+                        }
+                    }
+                    else
+                    {
+                        if (!String.IsNullOrEmpty(statusSearch))        /*  then if status entered*/
+                        {
+                            searchType = 7;                             /*filter on  ID and status*/
+                        }
+                        else
+                        {
+                            searchType = 8;                             /*Filter on ID   */
+                            statusSearch = currentFilter;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(genderSearch))               /* then if  gender entered */
+                {
+                    if (!String.IsNullOrEmpty(laSearch))                    /*  then if la  entered*/
+                    {
+                        if (!String.IsNullOrEmpty(statusSearch))            /*  then if status entered*/
+                        {
+                            searchType = 9;                                  /*filter on Gender,LA and status*/
+                        }
+                        else
+                        {
+                            searchType = 10;                                /*Filter on  Gender,LA  */
+                            statusSearch = currentFilter;
+                        }
+                    }
+                    else
+                    {
+                        if (!String.IsNullOrEmpty(statusSearch))            /*  then if status entered*/
+                        {
+                            searchType = 11;                                /*filter on  Genderand status*/
+                        }
+                        else
+                        {
+                            searchType = 12;                                /*Filter on  Gender */
+                            statusSearch = currentFilter;
+                        }
+                    }
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(laSearch))                /*  then if LA entered*/
+                    {
+                        if (!String.IsNullOrEmpty(statusSearch))        /*  then if status entered*/
+                        {
+                            searchType = 13;                            /*filter on  ,LA and status*/
+                        }
+                        else
+                        {
+                            searchType = 14;                            /*Filter on  LA  */
+
+                        }
+                    }
+                    else
+                    {
+                        if (!String.IsNullOrEmpty(statusSearch))        /*  then if status entered*/
+                        {
+                            searchType = 15;                            /*filter on  Gender,LA and status*/
+                        }
+                        else
+                        {
+                            searchType = 16;                            /*no filter */
+                        }
+                    }
+                }
+            }
+
+            switch (searchType)
+            {
+                /*filter on ID, Gender,LA and status*/
+                case 1:
+                    var refdata1 = _context.Referral
+                        .Include(s => s.Submissions)
+                       .Include(r => r.ReferralGender)
+                       .Include(r => r.ReferralLocalAuthority)
+                       .Include(r => r.ReferralStatus)
+                       .Where(r => r.ReferralStatusId == 8)
+                       .Where(r => r.ReferralName.Contains(IDSearch))
+                       .Where(r => r.ReferralLocalAuthority.LocalAuthorityName == laSearch)
+                       .Where(r => r.ReferralGender.GenderName == genderSearch)
+                       .Where(r => r.ReferralStatus.StatusName == statusSearch)
+                       .OrderBy(o => o.ReferralStatus.StatusId);
+
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata1.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                /*Filter on ID, Gender,LA  */
+                case 2:
+                    var refdata2 = _context.Referral
+                     .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .Where(r => r.ReferralName.Contains(IDSearch))
+                      .Where(r => r.ReferralLocalAuthority.LocalAuthorityName == laSearch)
+                      .Where(r => r.ReferralGender.GenderName == genderSearch)
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata2.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 3:
+                    /*filter on ID, Gender,and status*/
+                    var refdata3 = _context.Referral.Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .Where(r => r.ReferralName.Contains(IDSearch))
+                      .Where(r => r.ReferralGender.GenderName == genderSearch)
+                      .Where(r => r.ReferralStatus.StatusName == statusSearch)
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata3.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 4:
+                    /*Filter on ID, Gender  */
+
+                    var refdata4 = _context.Referral
+                      .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .Where(r => r.ReferralName.Contains(IDSearch))
+                      .Where(r => r.ReferralGender.GenderName == genderSearch)
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata4.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 5:   /*filter on  Id ,LA and status*/
+                    var refdata5 = _context.Referral
+                       .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .Where(r => r.ReferralName.Contains(IDSearch))
+                      .Where(r => r.ReferralLocalAuthority.LocalAuthorityName == laSearch)
+                      .Where(r => r.ReferralStatus.StatusName == statusSearch)
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata5.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 6:
+                    /*Filter on ID and LA  */
+                    var refdata6 = _context.Referral
+                      .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .Where(r => r.ReferralName.Contains(IDSearch))
+                      .Where(r => r.ReferralLocalAuthority.LocalAuthorityName == laSearch)
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata6.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 7:
+                    /*filter on  ID and status*/
+                    var refdata7 = _context.Referral
+                      .Include(s => s.Submissions)
+                     .Include(r => r.ReferralGender)
+                     .Include(r => r.ReferralLocalAuthority)
+                     .Include(r => r.ReferralStatus)
+                     .Where(r => r.ReferralStatusId == 8)
+                     .Where(r => r.ReferralName.Contains(IDSearch))
+                     .Where(r => r.ReferralStatus.StatusName == statusSearch)
+                     .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata7.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 8:
+                    /*Filter on ID   */
+                    var refdata8 = _context.Referral
+                       .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .Where(r => r.ReferralName.Contains(IDSearch))
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata8.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+
+                case 9:
+                    /*filter on Gender,LA and status*/
+                    var refdata9 = _context.Referral
+                       .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .Where(r => r.ReferralLocalAuthority.LocalAuthorityName == laSearch)
+                      .Where(r => r.ReferralGender.GenderName == genderSearch)
+                      .Where(r => r.ReferralStatus.StatusName == statusSearch)
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata9.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 10:
+                    /*Filter on  Gender,LA  */
+                    var refdata10 = _context.Referral
+                       .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .Where(r => r.ReferralLocalAuthority.LocalAuthorityName == laSearch)
+                      .Where(r => r.ReferralGender.GenderName == genderSearch)
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata10.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 11:
+                    /*filter on  Genderand status*/
+                    var refdata11 = _context.Referral
+                       .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .Where(r => r.ReferralGender.GenderName == genderSearch)
+                      .Where(r => r.ReferralStatus.StatusName == statusSearch)
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata11.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 12:
+                    /*Filter on  Gender */
+                    var refdata12 = _context.Referral
+                       .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .Where(r => r.ReferralGender.GenderName == genderSearch)
+
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata12.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 13:
+                    /*filter on  ,LA and status*/
+                    var refdata13 = _context.Referral
+                       .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .Where(r => r.ReferralLocalAuthority.LocalAuthorityName == laSearch)
+                      .Where(r => r.ReferralStatus.StatusName == statusSearch)
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata13.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 14:
+                    /*Filter on  LA  */
+                    var refdata14 = _context.Referral
+                       .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                     .Where(r => r.ReferralLocalAuthority.LocalAuthorityName == laSearch)
+
+                     .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata14.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+                case 15:
+                    /*filter on  status*/
+                    var refdata15 = _context.Referral
+                       .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .Where(r => r.ReferralStatus.StatusName == statusSearch)
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata15.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+
+                case 16:
+                    /*no filter */
+                    var refdata16 = _context.Referral
+                       .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata16.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+
+                default:
+                    var refdata0 = _context.Referral
+                .Include(s => s.Submissions)
+                      .Include(r => r.ReferralGender)
+                      .Include(r => r.ReferralLocalAuthority)
+                      .Include(r => r.ReferralStatus)
+                      .Where(r => r.ReferralStatusId == 8)
+                      .OrderBy(o => o.ReferralStatus.StatusId);
+                    return View(await PaginatedList<Referral>.CreateAsync(refdata0.AsNoTracking(), pageNumber ?? 1, pageSize));
+            }
+
+        }
+
 
 
         // GET: Referral/Details/5
