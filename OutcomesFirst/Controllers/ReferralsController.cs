@@ -861,7 +861,7 @@ namespace OutcomesFirst.Controllers
 
                 ////set initial status to 'Under Consideration By Service'
                 model.ReferralStatusId = 8;
-                if (model.ReferralSuitableColor == "green")
+                if (model.ReferralSuitable.HasValue && model.ReferralSuitable.Value)
                 {
                     model.ReferralSuitable = true;
                     model.ReferralComments = model.ReferralSuitableComments;

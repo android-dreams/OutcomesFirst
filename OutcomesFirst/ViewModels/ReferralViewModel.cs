@@ -62,9 +62,6 @@ namespace OutcomesFirst.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime? ReferralPlacementStartDate { get; set; }
 
-        
-        public string ReferralSuitableColor { get; set; }
-
         public bool? ReferralSuitable { get; set; }
 
         [Display(Name = "Archive Reason")]
