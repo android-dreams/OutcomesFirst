@@ -482,6 +482,7 @@ namespace OutcomesFirst.Controllers
             .Include(r => r.SubmissionReferral)
             .Include(r => r.SubmissionStatus)
             .Include(r => r.SubmissionService)
+             .Include(r => r.SubmissionArchiveReason)
              .FirstOrDefaultAsync(r => r.SubmissionId == id);
 
             if (submission == null)
@@ -493,7 +494,7 @@ namespace OutcomesFirst.Controllers
             ViewData["SubmissionReferralId"] = new SelectList(_context.Referral, "ReferralId", "ReferralName", submission.SubmissionReferralId);
             ViewData["SubmissionStatusId"] = new SelectList(_context.Status, "StatusId", "StatusName", submission.SubmissionStatusId);
             ViewData["SubmissionServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName", submission.SubmissionServiceId);
-
+            ViewData["SubmissionArchiveReasonId"] = new SelectList(_context.ArchiveReason, "ArchiveReasonId", "ArchiveReasonName", submission.SubmissionArchiveReasonId);
             return View(submission);
         }
 
@@ -504,7 +505,7 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("SubmissionId,SubmissionName,SubmissionServiceId, SubmissionStatusId,SubmissionPlacementStartDate,SubmissionReferralId")] Submission submission)
+        public IActionResult Edit(int id, [Bind("SubmissionId,SubmissionName,SubmissionServiceId, SubmissionStatusId,SubmissionPlacementStartDate,SubmissionReferralId, SubmissionArchiveReasonId")] Submission submission)
         {
             if (id != submission.SubmissionId)
             {
@@ -588,7 +589,7 @@ namespace OutcomesFirst.Controllers
 
                     //var substat = _context.Status.Where(r => r.StatusId == s.SubmissionStatusId);
 
-                    if (s.SubmissionStatusId < highest)
+                    if (s.SubmissionStatusId < highest && s.SubmissionStatusId > 2)
                     {
 
                         highest = s.SubmissionStatusId;
@@ -597,9 +598,14 @@ namespace OutcomesFirst.Controllers
                     }
                 }
 
-                referral.ReferralStatusId = (int)highest;
-                _context.Update(referral);
-                _context.SaveChanges();
+                /* only  update referral if status is not Archived or Placed (this decison made at head office and is made directly on the referral record
+                because if all submissions are rejected by the services, head-office may submit to other services. Does this need to be confirmed with Kerry?*/
+                if (highest > 2)
+                {
+                    referral.ReferralStatusId = (int)highest;
+                    _context.Update(referral);
+                    _context.SaveChanges();
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(submission);

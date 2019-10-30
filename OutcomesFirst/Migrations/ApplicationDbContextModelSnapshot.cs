@@ -192,7 +192,8 @@ namespace OutcomesFirst.Migrations
 
                     b.Property<int>("ArchiveDecisionBy");
 
-                    b.Property<string>("ArchiveReasonName");
+                    b.Property<string>("ArchiveReasonName")
+                        .IsRequired();
 
                     b.HasKey("ArchiveReasonId");
 
@@ -486,6 +487,10 @@ namespace OutcomesFirst.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("SubmissionArchiveReasonArchiveReasonId");
+
+                    b.Property<DateTime?>("SubmissionArchiveReasonId");
+
                     b.Property<DateTime?>("SubmissionPlacementStartDate");
 
                     b.Property<int>("SubmissionReferralId");
@@ -495,6 +500,8 @@ namespace OutcomesFirst.Migrations
                     b.Property<int?>("SubmissionStatusId");
 
                     b.HasKey("SubmissionId");
+
+                    b.HasIndex("SubmissionArchiveReasonArchiveReasonId");
 
                     b.HasIndex("SubmissionReferralId");
 
@@ -638,6 +645,10 @@ namespace OutcomesFirst.Migrations
 
             modelBuilder.Entity("OutcomesFirst.Models.Submission", b =>
                 {
+                    b.HasOne("OutcomesFirst.Models.ArchiveReason", "SubmissionArchiveReason")
+                        .WithMany()
+                        .HasForeignKey("SubmissionArchiveReasonArchiveReasonId");
+
                     b.HasOne("OutcomesFirst.Models.Referral", "SubmissionReferral")
                         .WithMany("Submissions")
                         .HasForeignKey("SubmissionReferralId")
