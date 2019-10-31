@@ -16,6 +16,7 @@ namespace OutcomesFirst.ViewModels
 
         [Display(Name = "Decision By ")]
         [Range(1, 99, ErrorMessage = "The Decision By field is required")]
+        [Required]
         public int ArchiveDecisionBy { get; set; }
         
     }

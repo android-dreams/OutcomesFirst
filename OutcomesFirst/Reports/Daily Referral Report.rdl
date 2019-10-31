@@ -22,64 +22,18 @@
             <Value>=Parameters!Day.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>SELECT r.ReferralId
-      ,ReferralName
-	  ,ReferralAge
-,ReferralReceivedDate
-      ,g.GenderName
-	  ,ReferralType
-	  ,l.LocalAuthorityName
-	  ,ReferralComments
-	 
-	  ,stat.StatusName
-
+        <CommandText>SELECT count(DISTINCT r.ReferralId) as Total
   FROM OutcomesFirst.dbo.Referral r
   left outer join Gender g on g.GenderId = r.ReferralGenderId
   left outer join LocalAuthority l on l.LocalAuthorityId = r.ReferralLocalAuthorityId
- 
-  left outer join Status stat on stat.StatusId = r.ReferralStatusId
-where r.ReferralReceivedDate = @Day</CommandText>
+   left outer join Status stat on stat.StatusId = r.ReferralStatusId
+where cast(r.ReferralReceivedDate as date) = @Day</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
-        <Field Name="ReferralId">
-          <DataField>ReferralId</DataField>
+        <Field Name="Total">
+          <DataField>Total</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="ReferralName">
-          <DataField>ReferralName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ReferralAge">
-          <DataField>ReferralAge</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="ReferralReceivedDate">
-          <DataField>ReferralReceivedDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="GenderName">
-          <DataField>GenderName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ReferralType">
-          <DataField>ReferralType</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="LocalAuthorityName">
-          <DataField>LocalAuthorityName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ReferralComments">
-          <DataField>ReferralComments</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="StatusName">
-          <DataField>StatusName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="UniqueReferral">
-          <Value>=Fields!ReferralName.Value + CStr(Fields!ReferralReceivedDate.Value)</Value>
         </Field>
       </Fields>
     </DataSet>
@@ -91,65 +45,27 @@ where r.ReferralReceivedDate = @Day</CommandText>
             <Value>=Parameters!Day.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>SELECT r.ReferralId
-      ,ReferralName
-,ReferralReceivedDate
-	  ,ReferralAge
-      ,g.GenderName
-	  ,ReferralType
-	  ,l.LocalAuthorityName
-	  ,ReferralComments
-	  ,s.ServiceName
-	  ,stat.StatusName
+        <CommandText>SELECT COUNT(distinct r.ReferralId) as UniqueTotal,
+count(r.ReferralId) as Total
+     
   FROM OutcomesFirst.dbo.Referral r
   left outer join Gender g on g.GenderId = r.ReferralGenderId
   left outer join LocalAuthority l on l.LocalAuthorityId = r.ReferralLocalAuthorityId
   left outer join Submission sub on sub.SubmissionReferralId = r.ReferralId
   left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
   left outer join Status stat on stat.StatusId = r.ReferralStatusId
-  Where StatusName = 'Offered' and r.ReferralReceivedDate = @Day</CommandText>
+  Where StatusName = 'Offered' and r.ReferralReceivedDate = @Day
+group by r.ReferralId</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
-        <Field Name="ReferralId">
-          <DataField>ReferralId</DataField>
+        <Field Name="UniqueTotal">
+          <DataField>UniqueTotal</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="ReferralName">
-          <DataField>ReferralName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ReferralReceivedDate">
-          <DataField>ReferralReceivedDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="ReferralAge">
-          <DataField>ReferralAge</DataField>
+        <Field Name="Total">
+          <DataField>Total</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="GenderName">
-          <DataField>GenderName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ReferralType">
-          <DataField>ReferralType</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="LocalAuthorityName">
-          <DataField>LocalAuthorityName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ReferralComments">
-          <DataField>ReferralComments</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ServiceName">
-          <DataField>ServiceName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="StatusName">
-          <DataField>StatusName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -162,23 +78,24 @@ where r.ReferralReceivedDate = @Day</CommandText>
           </QueryParameter>
         </QueryParameters>
         <CommandText>/****** Script for SelectTopNRows command from SSMS  ******/
-SELECT ArchiveReferralId
+SELECT a.ArchiveReferralId
       ,a.ArchiveReferralName
 ,ArchiveReferralReceivedDate
-	  ArchiveReferralAge
+	  ,a.ArchiveReferralAge
       ,g.GenderName
-	  ,'ReferralType' as Type
+	 ,a.ArchiveReferralType
 	  ,l.LocalAuthorityName
 	  ,archiveReferralComments
 	  ,s.ServiceName
 	  ,stat.StatusName
+,stat.StatusId
   FROM [OutcomesFirst].[dbo].[ArchiveReferral] a
-  left outer join Gender g on g.GenderId = a.ArchiveReferralId
+  left outer join Gender g on g.GenderId = a.ArchiveReferralGenderId
   left outer join LocalAuthority l on l.LocalAuthorityId = a.ArchiveReferralLocalAuthorityId
   left outer join Submission sub on sub.SubmissionReferralId = a.ArchiveReferralId
   left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
   left outer join Status stat on stat.StatusId = a.ArchiveReferralStatusId
-where a.ArchiveReferralReceivedDate = @Day</CommandText>
+where cast(a.ArchiveReferralReceivedDate as date) = @Day</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -190,17 +107,21 @@ where a.ArchiveReferralReceivedDate = @Day</CommandText>
           <DataField>ArchiveReferralName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ArchiveReferralReceivedDate">
+          <DataField>ArchiveReferralReceivedDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
         <Field Name="ArchiveReferralAge">
           <DataField>ArchiveReferralAge</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="GenderName">
           <DataField>GenderName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Type">
-          <DataField>Type</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+        <Field Name="ArchiveReferralType">
+          <DataField>ArchiveReferralType</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="LocalAuthorityName">
           <DataField>LocalAuthorityName</DataField>
@@ -218,11 +139,20 @@ where a.ArchiveReferralReceivedDate = @Day</CommandText>
           <DataField>StatusName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="StatusId">
+          <DataField>StatusId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
     <DataSet Name="OngoingReferrals">
       <Query>
         <DataSourceName>DataSource1</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Day">
+            <Value>=Parameters!Day.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>SELECT r.ReferralId
       ,ReferralName
 ,ReferralReceivedDate
@@ -240,7 +170,7 @@ where a.ArchiveReferralReceivedDate = @Day</CommandText>
   left outer join Submission sub on sub.SubmissionReferralId = r.ReferralId
   left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
   left outer join Status stat on stat.StatusId = r.ReferralStatusId
---where r.ReferralStatusId&gt; 2 and r.ReferralReceivedDate = @Day</CommandText>
+where r.ReferralStatusId&gt; 2 and cast(r.ReferralReceivedDate as date) = @Day</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -290,7 +220,7 @@ where a.ArchiveReferralReceivedDate = @Day</CommandText>
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="DataSet5">
+    <DataSet Name="TotalReferralsSentToHomes">
       <Query>
         <DataSourceName>DataSource1</DataSourceName>
         <QueryParameters>
@@ -298,7 +228,7 @@ where a.ArchiveReferralReceivedDate = @Day</CommandText>
             <Value>=Parameters!Day.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>SELECT distinct r.ReferralId
+        <CommandText>SELECT count(distinct r.ReferralId) as Total
 
   FROM OutcomesFirst.dbo.Referral r
   left outer join Gender g on g.GenderId = r.ReferralGenderId
@@ -306,14 +236,12 @@ where a.ArchiveReferralReceivedDate = @Day</CommandText>
   inner join Submission sub on sub.SubmissionReferralId = r.ReferralId
   left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
   left outer join Status stat on stat.StatusId = r.ReferralStatusId
-where r.ReferralReceivedDate = @Day
-
-  order by ReferralId</CommandText>
+where cast(r.ReferralReceivedDate as date) = @Day</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
-        <Field Name="ReferralId">
-          <DataField>ReferralId</DataField>
+        <Field Name="Total">
+          <DataField>Total</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
@@ -340,10 +268,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>11.34533mm</Top>
-            <Left>5.5245mm</Left>
+            <Top>11.5mm</Top>
+            <Left>4.5mm</Left>
             <Height>6mm</Height>
-            <Width>62.57083mm</Width>
+            <Width>62.7mm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -371,10 +299,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>17.34533mm</Top>
-            <Left>5.5245mm</Left>
+            <Top>17.5mm</Top>
+            <Left>4.5mm</Left>
             <Height>6mm</Height>
-            <Width>62.57083mm</Width>
+            <Width>62.7mm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -403,10 +331,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>23.34533mm</Top>
-            <Left>5.5245mm</Left>
+            <Top>23.5mm</Top>
+            <Left>4.5mm</Left>
             <Height>6mm</Height>
-            <Width>62.57083mm</Width>
+            <Width>62.7mm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -435,10 +363,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>29.34533mm</Top>
-            <Left>5.5245mm</Left>
+            <Top>29.5mm</Top>
+            <Left>4.5mm</Left>
             <Height>6mm</Height>
-            <Width>62.57083mm</Width>
+            <Width>62.7mm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -468,10 +396,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox28</rd:DefaultName>
-            <Top>5.34533mm</Top>
-            <Left>5.52451mm</Left>
+            <Top>5.6mm</Top>
+            <Left>4.3077mm</Left>
             <Height>6mm</Height>
-            <Width>62.57083mm</Width>
+            <Width>62.7mm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -501,10 +429,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox35</rd:DefaultName>
-            <Top>5.34533mm</Top>
-            <Left>68.09534mm</Left>
+            <Top>5.6mm</Top>
+            <Left>67.2mm</Left>
             <Height>6mm</Height>
-            <Width>12.56458mm</Width>
+            <Width>12.5mm</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
@@ -524,7 +452,7 @@ where r.ReferralReceivedDate = @Day
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Count(Fields!ReferralId.Value, "ReferralsWithOffers")</Value>
+                    <Value>=IIf(IsNothing(Sum(Fields!Total.Value, "ReferralsWithOffers")),0,Sum(Fields!Total.Value, "TotalReferralsSentToHomes"))</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -534,10 +462,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox35</rd:DefaultName>
-            <Top>23.34533mm</Top>
-            <Left>68.09533mm</Left>
-            <Height>6mm</Height>
-            <Width>12.56458mm</Width>
+            <Top>23.5mm</Top>
+            <Left>67.2mm</Left>
+            <Height>5.9987mm</Height>
+            <Width>12.5mm</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -556,7 +484,7 @@ where r.ReferralReceivedDate = @Day
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=CountDistinct(Fields!ReferralId.Value, "DataSet5")</Value>
+                    <Value>=IIf(IsNothing(Sum(Fields!Total.Value, "TotalReferralsSentToHomes")),0,Sum(Fields!Total.Value, "TotalReferralsSentToHomes"))</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -566,10 +494,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox35</rd:DefaultName>
-            <Top>16.99255mm</Top>
-            <Left>68.09533mm</Left>
+            <Top>17.5mm</Top>
+            <Left>67.2mm</Left>
             <Height>6mm</Height>
-            <Width>12.56458mm</Width>
+            <Width>12.5mm</Width>
             <ZIndex>7</ZIndex>
             <Style>
               <Border>
@@ -588,7 +516,7 @@ where r.ReferralReceivedDate = @Day
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Count(Fields!ReferralId.Value, "AllReferrals")</Value>
+                    <Value>=IIf(IsNothing(Sum(Fields!Total.Value, "AllReferrals")),0,Sum(Fields!Total.Value, "AllReferrals"))</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -598,10 +526,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox35</rd:DefaultName>
-            <Top>11.34533mm</Top>
-            <Left>68.09533mm</Left>
+            <Top>11.5mm</Top>
+            <Left>67.2mm</Left>
             <Height>6mm</Height>
-            <Width>12.56458mm</Width>
+            <Width>12.5mm</Width>
             <ZIndex>8</ZIndex>
             <Style>
               <Border>
@@ -614,13 +542,12 @@ where r.ReferralReceivedDate = @Day
             </Style>
           </Textbox>
           <Textbox Name="Textbox39">
-            <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=CountDistinct(Fields!ReferralId.Value, "ReferralsWithOffers")</Value>
+                    <Value>=IIf(IsNothing(Sum(Fields!UniqueTotal.Value, "ReferralsWithOffers")),0,Sum(Fields!UniqueTotal.Value, "ReferralsWithOffers"))</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -630,10 +557,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox35</rd:DefaultName>
-            <Top>29.34533mm</Top>
-            <Left>67.83075mm</Left>
+            <Top>29.5mm</Top>
+            <Left>67.2mm</Left>
             <Height>6mm</Height>
-            <Width>12.56458mm</Width>
+            <Width>12.5mm</Width>
             <ZIndex>9</ZIndex>
             <Style>
               <Border>
@@ -662,10 +589,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox40</rd:DefaultName>
-            <Top>5.34533mm</Top>
-            <Left>80.65992mm</Left>
+            <Top>5.69533mm</Top>
+            <Left>79.7mm</Left>
             <Height>6mm</Height>
-            <Width>18.38542mm</Width>
+            <Width>18.3mm</Width>
             <ZIndex>10</ZIndex>
             <Style>
               <Border>
@@ -685,7 +612,7 @@ where r.ReferralReceivedDate = @Day
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Count(Fields!ReferralId.Value, "ReferralsWithOffers")/CountDistinct(Fields!ReferralId.Value, "AllReferrals")</Value>
+                    <Value>=IIf(Sum(Fields!Total.Value, "AllReferrals")=0,0,Sum(Fields!Total.Value, "ReferralsWithOffers")/Sum(Fields!Total.Value, "AllReferrals"))</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                       <Format>0%</Format>
@@ -696,10 +623,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox40</rd:DefaultName>
-            <Top>23.69811mm</Top>
-            <Left>80.39533mm</Left>
-            <Height>6mm</Height>
-            <Width>18.38542mm</Width>
+            <Top>23.5mm</Top>
+            <Left>79.7mm</Left>
+            <Height>6.19403mm</Height>
+            <Width>18.3mm</Width>
             <ZIndex>11</ZIndex>
             <Style>
               <Border>
@@ -718,7 +645,7 @@ where r.ReferralReceivedDate = @Day
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Count(Fields!ReferralId.Value, "DataSet5")/Count(Fields!ReferralId.Value, "AllReferrals")</Value>
+                    <Value>=IIf(Sum(Fields!Total.Value, "AllReferrals")=0,0,Sum(Fields!Total.Value, "TotalReferralsSentToHomes")/Sum(Fields!Total.Value, "AllReferrals"))</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                       <Format>0%</Format>
@@ -729,10 +656,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox40</rd:DefaultName>
-            <Top>17.69811mm</Top>
-            <Left>80.65991mm</Left>
+            <Top>17.5mm</Top>
+            <Left>79.7mm</Left>
             <Height>6mm</Height>
-            <Width>18.38542mm</Width>
+            <Width>18.3mm</Width>
             <ZIndex>12</ZIndex>
             <Style>
               <Border>
@@ -761,10 +688,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox40</rd:DefaultName>
-            <Top>11.34533mm</Top>
-            <Left>80.65991mm</Left>
+            <Top>11.5mm</Top>
+            <Left>79.7mm</Left>
             <Height>6mm</Height>
-            <Width>18.38542mm</Width>
+            <Width>18.3mm</Width>
             <ZIndex>13</ZIndex>
             <Style>
               <Border>
@@ -784,7 +711,7 @@ where r.ReferralReceivedDate = @Day
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=CountDistinct(Fields!ReferralId.Value, "ReferralsWithOffers")/CountDistinct(Fields!ReferralId.Value, "AllReferrals")</Value>
+                    <Value>=IIf(Sum(Fields!Total.Value, "AllReferrals")=0,0,Sum(Fields!UniqueTotal.Value, "ReferralsWithOffers")/Sum(Fields!Total.Value, "AllReferrals"))</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                       <Format>0%</Format>
@@ -795,10 +722,10 @@ where r.ReferralReceivedDate = @Day
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox40</rd:DefaultName>
-            <Top>29.34533mm</Top>
-            <Left>80.39533mm</Left>
+            <Top>29.5mm</Top>
+            <Left>79.7mm</Left>
             <Height>6mm</Height>
-            <Width>18.38542mm</Width>
+            <Width>18.3mm</Width>
             <ZIndex>14</ZIndex>
             <Style>
               <Border>
@@ -814,22 +741,22 @@ where r.ReferralReceivedDate = @Day
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>20.80468mm</Width>
+                  <Width>14.71926mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>12.8354mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>19.70833mm</Width>
+                  <Width>16.00416mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>12.56458mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>40.34583mm</Width>
+                  <Width>25.79374mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>67.86249mm</Width>
+                  <Width>62.45415mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>32.67291mm</Width>
@@ -838,7 +765,7 @@ where r.ReferralReceivedDate = @Day
                   <Width>25mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>30.55627mm</Width>
+                  <Width>51.98752mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1198,7 +1125,7 @@ where r.ReferralReceivedDate = @Day
                                 <TextRun>
                                   <Value>=Fields!ReferralAge.Value</Value>
                                   <Style>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                     <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
                                   </Style>
                                 </TextRun>
@@ -1263,7 +1190,7 @@ where r.ReferralReceivedDate = @Day
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ReferralType.Value</Value>
+                                  <Value>=Switch(Fields!ReferralType.Value=1,"Edu &amp; Res",Fields!ReferralType.Value=2, "Edu",Fields!ReferralType.Value=3,"Res",true,"No data")</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
@@ -1490,7 +1417,7 @@ where r.ReferralReceivedDate = @Day
             <Top>53.1495mm</Top>
             <Left>5.25993mm</Left>
             <Height>12mm</Height>
-            <Width>262.35049mm</Width>
+            <Width>254.03172mm</Width>
             <ZIndex>15</ZIndex>
             <Style>
               <Border>
@@ -1502,22 +1429,22 @@ where r.ReferralReceivedDate = @Day
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>20.80467mm</Width>
+                  <Width>14.71925mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>12.8354mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>19.70833mm</Width>
+                  <Width>16.00417mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>12.56458mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>40.34584mm</Width>
+                  <Width>25.79375mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>67.86248mm</Width>
+                  <Width>62.45414mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>32.67292mm</Width>
@@ -1526,7 +1453,7 @@ where r.ReferralReceivedDate = @Day
                   <Width>25mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>30.55627mm</Width>
+                  <Width>51.98751mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1887,7 +1814,7 @@ where r.ReferralReceivedDate = @Day
                                 <TextRun>
                                   <Value>=Fields!ArchiveReferralAge.Value</Value>
                                   <Style>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1947,7 +1874,7 @@ where r.ReferralReceivedDate = @Day
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Type.Value</Value>
+                                  <Value>=Switch(Fields!ArchiveReferralType.Value=1,"Edu &amp; Res",Fields!ArchiveReferralType.Value=2, "Edu",Fields!ArchiveReferralType.Value=3,"Res",true,"No data")</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                   </Style>
@@ -2083,7 +2010,9 @@ where r.ReferralReceivedDate = @Day
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox10</rd:DefaultName>
@@ -2167,7 +2096,7 @@ where r.ReferralReceivedDate = @Day
             <Top>74.31617mm</Top>
             <Left>5.25993mm</Left>
             <Height>12mm</Height>
-            <Width>262.35049mm</Width>
+            <Width>254.03172mm</Width>
             <ZIndex>16</ZIndex>
             <Style>
               <Border>
@@ -2249,10 +2178,10 @@ where r.ReferralReceivedDate = @Day
           </Border>
         </Style>
       </Body>
-      <Width>272.76667mm</Width>
+      <Width>261.91875mm</Width>
       <Page>
         <PageHeader>
-          <Height>22.225mm</Height>
+          <Height>15.34583mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2263,9 +2192,15 @@ where r.ReferralReceivedDate = @Day
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Outcomes First - Daily Referral Report</Value>
+                      <Value>Outcomes First - JDaily Referral Report </Value>
                       <Style>
-                        <FontSize>16pt</FontSize>
+                        <FontSize>18pt</FontSize>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=FormatDateTime(Parameters!Day.Value,DateFormat.ShortDate)</Value>
+                      <Style>
+                        <FontSize>18pt</FontSize>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -2275,38 +2210,8 @@ where r.ReferralReceivedDate = @Day
               <rd:DefaultName>Textbox3</rd:DefaultName>
               <Top>0mm</Top>
               <Left>69.85mm</Left>
-              <Height>8.99583mm</Height>
-              <Width>117.075mm</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox4">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>="Date :    " + Parameters!Day.Value</Value>
-                      <Style />
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox4</rd:DefaultName>
-              <Top>12.66825mm</Top>
-              <Left>0mm</Left>
-              <Height>6mm</Height>
-              <Width>55.69167mm</Width>
-              <ZIndex>1</ZIndex>
+              <Height>10.9044mm</Height>
+              <Width>192.06875mm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2324,7 +2229,7 @@ where r.ReferralReceivedDate = @Day
               <Left>0.26141cm</Left>
               <Height>1.09044cm</Height>
               <Width>6.52167cm</Width>
-              <ZIndex>2</ZIndex>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2336,6 +2241,11 @@ where r.ReferralReceivedDate = @Day
             <Border>
               <Style>None</Style>
             </Border>
+            <BottomBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </BottomBorder>
           </Style>
         </PageHeader>
         <PageFooter>
@@ -2363,7 +2273,7 @@ where r.ReferralReceivedDate = @Day
               <Top>1.55576mm</Top>
               <Left>193.93958mm</Left>
               <Height>6.35mm</Height>
-              <Width>50.8mm</Width>
+              <Width>65.35207mm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2397,10 +2307,10 @@ where r.ReferralReceivedDate = @Day
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>PageNumber</rd:DefaultName>
-              <Top>0.15558cm</Top>
-              <Left>6.34683cm</Left>
+              <Top>0.14111cm</Top>
+              <Left>9.20433cm</Left>
               <Height>0.6cm</Height>
-              <Width>6.83917cm</Width>
+              <Width>5.43688cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -2430,7 +2340,7 @@ where r.ReferralReceivedDate = @Day
               <Top>0.15558cm</Top>
               <Left>0.26141cm</Left>
               <Height>0.6cm</Height>
-              <Width>2.5cm</Width>
+              <Width>4.62046cm</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>
@@ -2447,12 +2357,15 @@ where r.ReferralReceivedDate = @Day
             <Border>
               <Style>None</Style>
             </Border>
+            <TopBorder>
+              <Style>Solid</Style>
+            </TopBorder>
           </Style>
         </PageFooter>
         <PageHeight>21cm</PageHeight>
         <PageWidth>29.7cm</PageWidth>
-        <LeftMargin>2cm</LeftMargin>
-        <RightMargin>2cm</RightMargin>
+        <LeftMargin>1cm</LeftMargin>
+        <RightMargin>1cm</RightMargin>
         <TopMargin>2cm</TopMargin>
         <BottomMargin>2cm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
