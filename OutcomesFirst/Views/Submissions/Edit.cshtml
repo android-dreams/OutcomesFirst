@@ -66,7 +66,7 @@
 
                                 @*<input asp-for="SubmissionReferral.ReferralName" class="form-control" />
 
-                                    <span asp-validation-for="SubmissionReferral.ReferralName" class="text-danger"></span>*@
+                    <span asp-validation-for="SubmissionReferral.ReferralName" class="text-danger"></span>*@
 
                             </div>
 
@@ -98,7 +98,7 @@
 
                                 @*<select asp-for="SubmissionServiceId" class="form-control" asp-items="ViewBag.SubmissionServiceId" disabled="disabled"></select>
 
-                                    <span asp-validation-for="SubmissionServiceId" class="text-danger"></span>*@
+                    <span asp-validation-for="SubmissionServiceId" class="text-danger"></span>*@
 
                             </div>
 
@@ -168,6 +168,35 @@
 
                     </div>
 
+
+                    <div class="row">
+
+                        <div class="col-md-2">
+
+                            <div class="form-group">
+
+                                <label asp-for="SubmissionArchiveReasonId" id="ArchiveReasonTitle" class="control-label"></label>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+
+                                <select asp-for="SubmissionArchiveReasonId" class="form-control" id="ArchiveReasonControl" asp-items="ViewBag.SubmissionArchiveReasonId"></select>
+
+                                <span asp-validation-for="SubmissionArchiveReasonId" class="text-danger"></span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6"></div>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -203,26 +232,32 @@
 <script>
 
     window.onload = function () {
-
-
-
-        if (('#PlacementStatus').value == '1') {
-
+    
+        if (('#PlacementStatus').value == '1')
+        {
             $("#PlacementStartTitle").show();
-
             $("#PlacementStartControl").show();
-
+            $("#ArchiveReasonTitle").hide();
+            $("#ArchiveReasonControl").hide();
         }
 
-        else {
-
+        if (('#PlacementStatus').value == '2')
+        {
             $("#PlacementStartTitle").hide();
-
             $("#PlacementStartControl").hide();
-
+            $("#ArchiveReasonTitle").show();
+            $("#ArchiveReasonControl").show();
         }
 
-    }
+        if ((('#PlacementStatus').value != '1')  && (('#PlacementStatus').value != '2'))
+        {
+            $("#PlacementStartTitle").hide();
+            $("#PlacementStartControl").hide();
+            $("#ArchiveReasonTitle").hide();
+            $("#ArchiveReasonControl").hide();
+        }
+
+    };
 
 
 
@@ -233,28 +268,28 @@
         $('#PlacementStatus').on('change', function () {
 
             if (this.value == '1') {
-
                 $("#PlacementStartTitle").show();
-
                 $("#PlacementStartControl").show();
-
-
-
-
-
+                $("#ArchiveReasonTitle").hide();
+                $("#ArchiveReasonControl").hide();
             }
 
-            else {
-
+            if (this.value == '2') {
                 $("#PlacementStartTitle").hide();
-
                 $("#PlacementStartControl").hide();
-
+                $("#ArchiveReasonTitle").show();
+                $("#ArchiveReasonControl").show();
             }
 
+            if ((this.value != '1') && ((this.value != '2'))) {
+                $("#PlacementStartTitle").hide();
+                $("#PlacementStartControl").hide();
+                $("#ArchiveReasonTitle").hide();
+                $("#ArchiveReasonControl").hide();
+            }
         })
-
-    });
+    }
+    );
 
 
 
