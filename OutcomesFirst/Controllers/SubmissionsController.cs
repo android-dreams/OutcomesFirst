@@ -548,7 +548,7 @@ namespace OutcomesFirst.Controllers
                     // no of submissions to archive
                     foreach (Submission s in SubmisssionsToArchive)
                     {
-                        s.SubmissionStatusId = 2;
+                       
                         try
                         {
                             _context.Submission.Update(s);
@@ -581,7 +581,7 @@ namespace OutcomesFirst.Controllers
                 // Update the referral with the highest status (actually the lowest)
                 var allsubmissions = _context.Submission.Where(s => s.SubmissionReferralId == referral.ReferralId);
 
-                int? highest = 99;
+                int? highest = 8;
                 //int subid = 6;
 
                 foreach (Submission s in allsubmissions)
