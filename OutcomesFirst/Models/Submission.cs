@@ -25,22 +25,23 @@ namespace OutcomesFirst.Models
         public DateTime?  SubmissionPlacementStartDate { get; set; }
 
 
-        [DataType(DataType.Date)]
+   
         [Display(Name = "Archive Reason")]
-        public DateTime? SubmissionArchiveReasonId { get; set; }
+      
+        public int? SubmissionArchiveReasonId { get; set; }
 
         [NotMapped]
         public List<string> IsChecked { get; set; }
-       
- 
+
+     
         public virtual Referral SubmissionReferral { get; set; }
-      
-      
+
+     
         public virtual Service SubmissionService { get; set; }
 
-      
+    
         public virtual Status SubmissionStatus { get; set; }
-
+    
         public virtual ArchiveReason SubmissionArchiveReason { get; set; }
 
 
