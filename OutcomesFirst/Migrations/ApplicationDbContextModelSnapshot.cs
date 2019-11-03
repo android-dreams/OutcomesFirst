@@ -487,9 +487,7 @@ namespace OutcomesFirst.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("SubmissionArchiveReasonArchiveReasonId");
-
-                    b.Property<DateTime?>("SubmissionArchiveReasonId");
+                    b.Property<int?>("SubmissionArchiveReasonId");
 
                     b.Property<DateTime?>("SubmissionPlacementStartDate");
 
@@ -501,7 +499,7 @@ namespace OutcomesFirst.Migrations
 
                     b.HasKey("SubmissionId");
 
-                    b.HasIndex("SubmissionArchiveReasonArchiveReasonId");
+                    b.HasIndex("SubmissionArchiveReasonId");
 
                     b.HasIndex("SubmissionReferralId");
 
@@ -647,7 +645,7 @@ namespace OutcomesFirst.Migrations
                 {
                     b.HasOne("OutcomesFirst.Models.ArchiveReason", "SubmissionArchiveReason")
                         .WithMany()
-                        .HasForeignKey("SubmissionArchiveReasonArchiveReasonId");
+                        .HasForeignKey("SubmissionArchiveReasonId");
 
                     b.HasOne("OutcomesFirst.Models.Referral", "SubmissionReferral")
                         .WithMany("Submissions")
