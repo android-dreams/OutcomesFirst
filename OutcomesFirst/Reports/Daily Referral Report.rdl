@@ -169,7 +169,7 @@ where cast(a.ArchiveReferralReceivedDate as date) = @Day</CommandText>
   left outer join LocalAuthority l on l.LocalAuthorityId = r.ReferralLocalAuthorityId
   left outer join Submission sub on sub.SubmissionReferralId = r.ReferralId
   left outer join Service s on s.ServiceId = sub.SubmissionServiceId 
-  left outer join Status stat on stat.StatusId = r.ReferralStatusId
+  left outer join Status stat on stat.StatusId = sub.SubmissionStatusId
 where r.ReferralStatusId&gt; 2 and cast(r.ReferralReceivedDate as date) = @Day</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
@@ -1052,7 +1052,7 @@ where cast(r.ReferralReceivedDate as date) = @Day</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Referal Status</Value>
+                                  <Value>SubmissionStatus</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1093,7 +1093,7 @@ where cast(r.ReferralReceivedDate as date) = @Day</CommandText>
                                 <TextRun>
                                   <Value>=Fields!ReferralName.Value</Value>
                                   <Style>
-                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
+                                    <Color>=IIf(IsNothing(Fields!StatusId.Value) OR Fields!StatusId.Value &gt;4,"Red","Green")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1126,7 +1126,7 @@ where cast(r.ReferralReceivedDate as date) = @Day</CommandText>
                                   <Value>=Fields!ReferralAge.Value</Value>
                                   <Style>
                                     <Format>n0</Format>
-                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
+                                    <Color>=IIf(IsNothing(Fields!StatusId.Value) OR Fields!StatusId.Value &gt;4,"Red","Green")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1160,7 +1160,7 @@ where cast(r.ReferralReceivedDate as date) = @Day</CommandText>
                                 <TextRun>
                                   <Value>=Fields!GenderName.Value</Value>
                                   <Style>
-                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
+                                    <Color>=IIf(IsNothing(Fields!StatusId.Value) OR Fields!StatusId.Value &gt;4,"Red","Green")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1193,7 +1193,7 @@ where cast(r.ReferralReceivedDate as date) = @Day</CommandText>
                                   <Value>=Switch(Fields!ReferralType.Value=1,"Edu &amp; Res",Fields!ReferralType.Value=2, "Edu",Fields!ReferralType.Value=3,"Res",true,"No data")</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
-                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
+                                    <Color>=IIf(IsNothing(Fields!StatusId.Value) OR Fields!StatusId.Value &gt;4,"Red","Green")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1228,7 +1228,7 @@ where cast(r.ReferralReceivedDate as date) = @Day</CommandText>
                                   <Value>=Fields!LocalAuthorityName.Value</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
-                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
+                                    <Color>=IIf(IsNothing(Fields!StatusId.Value) OR Fields!StatusId.Value &gt;4,"Red","Green")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1261,7 +1261,7 @@ where cast(r.ReferralReceivedDate as date) = @Day</CommandText>
                                   <Value>=Fields!ReferralComments.Value</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
-                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
+                                    <Color>=IIf(IsNothing(Fields!StatusId.Value) OR Fields!StatusId.Value &gt;4,"Red","Green")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1294,7 +1294,7 @@ where cast(r.ReferralReceivedDate as date) = @Day</CommandText>
                                   <Value>=Fields!ServiceName.Value</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
-                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
+                                    <Color>=IIf(IsNothing(Fields!StatusId.Value) OR Fields!StatusId.Value &gt;4,"Red","Green")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1324,10 +1324,10 @@ where cast(r.ReferralReceivedDate as date) = @Day</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIf((Fields!StatusId.Value=3 or Fields!StatusId.Value=4),"Y","In Progress")</Value>
+                                  <Value>=Switch((Fields!StatusId.Value=3 or Fields!StatusId.Value=4),"Y", Fields!StatusId.Value=2,"N",True,"In Progress")</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
-                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
+                                    <Color>=IIf(IsNothing(Fields!StatusId.Value) OR Fields!StatusId.Value &gt;4,"Red","Green")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1357,10 +1357,10 @@ where cast(r.ReferralReceivedDate as date) = @Day</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!StatusName.Value</Value>
+                                  <Value>=IIf(IsNothing(Fields!StatusName.Value),"*NOT SUBMITTED TO ANY SERVICE*",Fields!StatusName.Value)</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
-                                    <Color>=IIf(Fields!StatusId.Value&lt;5,"Green","Red")</Color>
+                                    <Color>=IIf(IsNothing(Fields!StatusId.Value) OR Fields!StatusId.Value &gt;4,"Red","Green")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1415,7 +1415,7 @@ where cast(r.ReferralReceivedDate as date) = @Day</CommandText>
               </SortExpression>
             </SortExpressions>
             <Top>53.1495mm</Top>
-            <Left>5.25993mm</Left>
+            <Left>5.25994mm</Left>
             <Height>12mm</Height>
             <Width>254.03172mm</Width>
             <ZIndex>15</ZIndex>
