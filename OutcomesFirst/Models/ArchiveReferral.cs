@@ -45,8 +45,6 @@ namespace OutcomesFirst.Models
    
         public int ArchiveReferralStatusId { get; set; }
 
-        public string ArchiveReferralSuitableColor { get; set; }
-
         public bool? ArchiveReferralSuitable { get; set; }
 
         [Display(Name = "Archive Reason")]

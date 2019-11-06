@@ -60,7 +60,7 @@
             @Html.HiddenFor(m => m.ReferralId)
             @Html.HiddenFor(m => m.ReferralName)
             @Html.HiddenFor(m => m.ReferralStatusId)
-            @Html.HiddenFor(m => m.ReferralSuitableColor)
+          
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
@@ -179,17 +179,17 @@
                     <div class="form-group">
 
                     </div>
-                    <div class="green">
+                  
 
                         <div class="col-md-2">
-                            <label asp-for="ReferralSuitableComments" class="control-label"></label>
+                            <label asp-for="ReferralComments" class="control-label"></label>
                         </div>
                         <div class="col-md-9">
-                            <textarea asp-for="ReferralSuitableComments" class="form-control rows=10"></textarea>
-                            <span asp-validation-for="ReferralSuitableComments" class="text-danger small"></span>
+                            <textarea asp-for="ReferralComments" class="form-control rows=10"></textarea>
+                            <span asp-validation-for="ReferralComments" class="text-danger small"></span>
                         </div>
                     </div>
-                </div>
+              
 
             </div>
             <p></p>
