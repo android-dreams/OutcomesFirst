@@ -1,14 +1,8 @@
 ﻿@model OutcomesFirst.Models.Submission
 
-
-
 @{
-
     ViewData["Title"] = "Edit";
-
 }
-
-
 
 <h3>Submission</h3>
 
@@ -79,21 +73,13 @@
                     </div>
 
                     <div class="row">
-
                         <div class="col-md-2">
-
                             <div class="form-group">
-
                                 <label asp-for="SubmissionServiceId" class="control-label"></label>
-
                             </div>
-
                         </div>
-
                         <div class="col-md-8">
-
                             <div class="form-group">
-
                                 @Model.SubmissionService.ServiceName
 
                                 @*<select asp-for="SubmissionServiceId" class="form-control" asp-items="ViewBag.SubmissionServiceId" disabled="disabled"></select>
@@ -109,59 +95,30 @@
                     </div>
 
                     <div class="row">
-
                         <div class="col-md-2">
-
                             <div class="form-group">
-
                                 <label asp-for="SubmissionStatusId" class="control-label"></label>
-
                             </div>
-
                         </div>
-
-
-
                         <div class="col-md-10">
-
                             <div class="form-group">
-
                                 <select asp-for="SubmissionStatusId" class="form-control" id="PlacementStatus" asp-items="ViewBag.SubmissionStatusId"></select>
-
                                 <span asp-validation-for="SubmissionStatusId" class="text-danger"></span>
-
                             </div>
-
                         </div>
-
-
-
                     </div>
 
-
-
                     <div class="row">
-
                         <div class="col-md-2">
-
                             <div class="form-group">
-
                                 <label asp-for="SubmissionPlacementStartDate" id="PlacementStartTitle" class="control-label"></label>
-
                             </div>
-
                         </div>
-
                         <div class="col-md-4">
-
                             <div class="form-group">
-
                                 <input asp-for="SubmissionPlacementStartDate" id="PlacementStartControl" class="form-control form-horizontal" />
-
                                 <span asp-validation-for="SubmissionPlacementStartDate" class="text-danger"></span>
-
                             </div>
-
                         </div>
 
                         <div class="col-md-6"></div>

@@ -849,6 +849,11 @@ namespace OutcomesFirst.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ReferralViewModel viewModel)
         {
+            if (viewModel.ReferralSuitable.HasValue && viewModel.ReferralSuitable == false && viewModel.ReferralArchiveReasonId == 0)
+            {
+                ModelState.AddModelError(string.Empty, "You must enter an archive reason for 'Not Suitable referrals");
+            }
+
             if (ModelState.IsValid)
             {
                 Referral model = new Referral();
@@ -921,7 +926,9 @@ namespace OutcomesFirst.Controllers
                 }
                 return RedirectToAction("Index", "Referrals");
             }
-            return RedirectToAction("Index", "Referrals");
+
+            PopulateDropDowns(viewModel);
+            return View(viewModel);
         }
 
 
@@ -956,7 +963,10 @@ namespace OutcomesFirst.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string submit, int id, ReferralViewModel viewModel)
         {
-            string frombutton = submit;
+            if (submit == "Submit to Another Service")
+            {
+                return RedirectToAction("AddNew", "Submissions", new { @id = viewModel.ReferralId });
+            }
 
             if (id != viewModel.ReferralId)
             {
@@ -989,12 +999,7 @@ namespace OutcomesFirst.Controllers
                 }
 
 
-                if (submit == "Submit to Another Service")
-                {
-                    return RedirectToAction("AddNew", "Submissions", new { @id = viewModel.ReferralId });
-
-                }
-
+               
 
 
                 return RedirectToAction("Index", "Referrals");
