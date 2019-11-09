@@ -861,18 +861,18 @@ namespace OutcomesFirst.Controllers
 
                 ////set initial status to 'Under Consideration By Service'
                 model.ReferralStatusId = 8;
-                if (model.ReferralSuitableColor == "green")
-                {
-                    model.ReferralSuitable = true;
-                    model.ReferralComments = model.ReferralSuitableComments;
+                //if (model.ReferralSuitable == true)
+                //{
+                //    model.ReferralSuitable = true;
+                  
 
-                }
-                else
-                {
-                    model.ReferralSuitable = false;
-                    model.ReferralComments = model.ReferralNotSuitableComments;
+                //}
+                //else
+                //{
+                //    model.ReferralSuitable = false;
+                   
 
-                }
+                //}
 
                 _context.Add(model);
                 await _context.SaveChangesAsync();
@@ -898,9 +898,9 @@ namespace OutcomesFirst.Controllers
                                 ArchiveReferralComments = model.ReferralComments,
                                 ArchiveReferralStatusId = model.ReferralStatusId,
                                 ArchiveReferralSuitable = model.ReferralSuitable,
-                                ArchiveReferralArchiveReasonId = model.ReferralArchiveReasonId,
-                                ArchiveReferralSuitableComments = model.ReferralSuitableComments,
-                                ArchiveReferralNotSuitableComments = model.ReferralNotSuitableComments}
+                                ArchiveReferralArchiveReasonId = model.ReferralArchiveReasonId
+                                }
+                               
                     };
 
 
@@ -1066,10 +1066,9 @@ namespace OutcomesFirst.Controllers
                                 ArchiveReferralComments = viewModel.ReferralComments,
                                 ArchiveReferralStatusId = viewModel.ReferralStatusId,
                                 ArchiveReferralSuitable = viewModel.ReferralSuitable,
-                                ArchiveReferralArchiveReasonId = viewModel.ReferralArchiveReasonId,
-                                ArchiveReferralSuitableComments = viewModel.ReferralSuitableComments,
-                                ArchiveReferralNotSuitableComments = viewModel.ReferralNotSuitableComments,
-                                ArchiveReferralType = viewModel.ReferralType}
+                                ArchiveReferralArchiveReasonId = viewModel.ReferralArchiveReasonId
+                                //ArchiveReferralSuitableComments = viewModel.ReferralSuitableComments
+                               }
                 };
 
 

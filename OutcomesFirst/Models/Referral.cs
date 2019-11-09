@@ -48,20 +48,11 @@ namespace OutcomesFirst.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime? ReferralPlacementStartDate { get; set; }
 
-  
-        public string ReferralSuitableColor { get; set; }
-
-     
         public bool? ReferralSuitable { get; set; }
 
         [Display(Name = "Archive Reason")]
       
         public int? ReferralArchiveReasonId { get; set; }
-
-        [Display(Name = "Comments")]
-        public string ReferralSuitableComments { get; set; }
-        [Display(Name = "Comments")]
-        public string ReferralNotSuitableComments { get; set; }
 
         [Display(Name = "Referral Type")]
         public int ReferralType { get; set; }

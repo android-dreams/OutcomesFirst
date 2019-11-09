@@ -370,8 +370,6 @@ namespace OutcomesFirst.Migrations
                     b.Property<string>("ReferralName")
                         .IsRequired();
 
-                    b.Property<string>("ReferralNotSuitableComments");
-
                     b.Property<DateTime?>("ReferralPlacementStartDate");
 
                     b.Property<DateTime>("ReferralReceivedDate");
@@ -379,10 +377,6 @@ namespace OutcomesFirst.Migrations
                     b.Property<int>("ReferralStatusId");
 
                     b.Property<bool?>("ReferralSuitable");
-
-                    b.Property<string>("ReferralSuitableColor");
-
-                    b.Property<string>("ReferralSuitableComments");
 
                     b.Property<int>("ReferralType");
 

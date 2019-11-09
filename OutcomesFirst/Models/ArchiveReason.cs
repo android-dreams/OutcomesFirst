@@ -10,6 +10,7 @@ namespace OutcomesFirst.Models
 {
     public class ArchiveReason
     {
+        [Display(Name = "Select Archive Reason")]
         public int ArchiveReasonId { get; set; }
 
         [Display(Name = "Archive Reason")]
