@@ -9,7 +9,7 @@ using OutcomesFirst.Data;
 using OutcomesFirst.ViewModels;
 using System;
 using AutoMapper;
-
+using OutcomesFirst.Enum;
 namespace OutcomesFirst.Controllers
 {
     public class SubmissionsController : Controller
@@ -22,7 +22,6 @@ namespace OutcomesFirst.Controllers
             _context = context;
             _mapper = mapper;
         }
-
 
         // GET: Submissions
         public async Task<IActionResult> Index(int? pageNumber, string searchString, string svcSearch, string statusSearch)
@@ -41,7 +40,6 @@ namespace OutcomesFirst.Controllers
                  .Where(x => x.StatusId != 2)
                 .OrderBy(x => x.StatusPriority)
                 .Select(x => x.StatusName).ToList();
-
 
             ViewBag.svcSearch = new SelectList(svcQry);
             ViewBag.statusSearch = new SelectList(statusQry);
@@ -96,9 +94,10 @@ namespace OutcomesFirst.Controllers
                         searchType = 8; /* no filter */
                     }
                 }
-
-
             }
+
+            var exclusions = _context.Submission
+                            .Where(s => (StatusEnum)s.SubmissionStatusId == StatusEnum.Placed);
 
             switch (searchType)
             {
@@ -109,6 +108,7 @@ namespace OutcomesFirst.Controllers
                    .Include(s => s.SubmissionReferral)
                    .Include(s => s.SubmissionService)
                    .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
                    .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                    .Where(s => s.SubmissionReferral.ReferralName.Contains(searchString))
                    .Where(s => s.SubmissionService.ServiceName == svcSearch)
@@ -123,6 +123,8 @@ namespace OutcomesFirst.Controllers
                   .Include(s => s.SubmissionReferral)
                   .Include(s => s.SubmissionService)
                   .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                   .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                    .Where(s => s.SubmissionReferral.ReferralName.Contains(searchString))
                   .Where(s => s.SubmissionService.ServiceName == svcSearch)
@@ -137,6 +139,8 @@ namespace OutcomesFirst.Controllers
                   .Include(s => s.SubmissionReferral)
                   .Include(s => s.SubmissionService)
                   .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                   .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                   .Where(s => s.SubmissionStatus.StatusName == statusSearch)
                   .Where(s => s.SubmissionService.ServiceName == svcSearch)
@@ -151,6 +155,8 @@ namespace OutcomesFirst.Controllers
                    .Include(s => s.SubmissionReferral)
                    .Include(s => s.SubmissionService)
                    .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                    .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                     .Where(s => s.SubmissionService.ServiceName == svcSearch)
                     .OrderBy(o => o.SubmissionStatus.StatusName);
@@ -162,6 +168,8 @@ namespace OutcomesFirst.Controllers
                    .Include(s => s.SubmissionReferral)
                    .Include(s => s.SubmissionService)
                    .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                    .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                    .Where(s => s.SubmissionReferral.ReferralName.Contains(searchString))
                    .Where(s => s.SubmissionStatus.StatusName == statusSearch)
@@ -175,6 +183,8 @@ namespace OutcomesFirst.Controllers
                    .Include(s => s.SubmissionReferral)
                    .Include(s => s.SubmissionService)
                    .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                    .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                    .Where(s => s.SubmissionReferral.ReferralName.Contains(searchString))
                    .OrderBy(o => o.SubmissionStatus.StatusName);
@@ -188,6 +198,8 @@ namespace OutcomesFirst.Controllers
                    .Include(s => s.SubmissionReferral)
                    .Include(s => s.SubmissionService)
                    .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                    .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                    .Where(s => s.SubmissionStatus.StatusName == statusSearch)
                    .OrderBy(o => o.SubmissionStatus.StatusName);
@@ -200,6 +212,8 @@ namespace OutcomesFirst.Controllers
                     .Include(s => s.SubmissionReferral)
                     .Include(s => s.SubmissionService)
                     .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                     .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                     .OrderBy(o => o.SubmissionStatus.StatusName);
                     return View(await PaginatedList<Submission>.CreateAsync(servicedata0.AsNoTracking(), pageNumber ?? 1, pageSize));
