@@ -166,24 +166,24 @@ input[type=radio] {
     }
 /*** custom radio buttons END ***/
 .auction-dashboard-item {
-  width: 150px;
-  display: inline-block;
-  margin-right: 10px;
-  -webkit-transition: transform 0.5s, box-shadow 0.5s;
-  /* For Safari 3.1 to 6.0 */
-  transition: transform 0.5s, box-shadow 0.5s;
-  box-shadow: 0 0 0 #666;
+    width: 150px;
+    display: inline-block;
+    margin-right: 10px;
+    -webkit-transition: transform 0.5s, box-shadow 0.5s;
+    /* For Safari 3.1 to 6.0 */
+    /*transition: transform 0.5s, box-shadow 0.5s;*/
+    transition: transform 0.5s;
+    /*box-shadow: 0 0 0 #666;*/
 }
     .auction-dashboard-item .auction-headline {
         position: relative;
         height: 125px;
         border: 1px solid #999;
         /*background-color: hsl(36, 100%, 80%);*/
-
         background-color: #b9e488;
-
         color: hsl(213.5,81.7%,50.4%);
         text-align: center;
+        border-radius: 10px;
     }
 .auction-dashboard-item .auction-headline h1 {
   padding-top: 0.5em;
@@ -191,7 +191,7 @@ input[type=radio] {
 }
 .auction-dashboard-item .auction-headline .subtitle {
   position: absolute;
-  bottom: 0.5em;
+  bottom: 2em;
   left: 0.5em;
   right: 0.5em;
   font-size: 0.85em;
@@ -199,15 +199,16 @@ input[type=radio] {
 .auction-dashboard-item .panel {
   margin-bottom: 0;
 }
-.auction-dashboard-item:hover {
-  cursor: pointer;
-  -ms-transform: scale(1.15);
-  /* IE 9 */
-  -webkit-transform: scale(1.15);
-  /* Safari 3-8 */
-  transform: scale(1.15);
-  box-shadow: 0 0 10px #666;
-}
+    .auction-dashboard-item:hover {
+        cursor: pointer;
+        -ms-transform: scale(1.15);
+        /* IE 9 */
+        -webkit-transform: scale(1.15);
+        /* Safari 3-8 */
+        transform: scale(1.15);
+        box-shadow: 0 0 10px #666;
+        border-radius: 10px;
+    }
 .auction-progress-week {
   width: 12.5%;
   display: inline-block;

@@ -36,7 +36,6 @@
                  Text = t.ArchiveReasonName
              })); ;
 
-
 }
 
 <head>
@@ -190,7 +189,7 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="row col-md-12">
+                        <div class="row">
                             <div class="col-md-3">
                                 <div id="arBoxTitle">
                                     <strong>Select Not Suitable Reason </strong>
@@ -201,19 +200,14 @@
                                 <select asp-for="ReferralArchiveReasonId" class="form-control" id="arBox" asp-items="archivereasons"></select>
                                 <span asp-validation-for="ReferralArchiveReasonId" class="text-danger small"></span>
                             </div>
-                            <div class="col-md-6"></div>
                         </div>
                     </div>
 
                     <div id="commentsBox">
                         <div class="form-group">
                             <div class="row">
-                                <div class="row col-md-12">
-                                    <div class="col-md-6">
-                                        Referral Comments
-                                    </div>
-                                    <div class="col-md-6">
-                                    </div>
+                                <div class="col-md-12">                                  
+                                        Referral Comments                                   
                                 </div>
                             </div>
                         </div>
