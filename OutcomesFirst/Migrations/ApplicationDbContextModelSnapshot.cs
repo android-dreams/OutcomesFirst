@@ -218,21 +218,15 @@ namespace OutcomesFirst.Migrations
 
                     b.Property<string>("ArchiveReferralName");
 
-                    b.Property<string>("ArchiveReferralNotSuitableComments");
-
                     b.Property<DateTime>("ArchiveReferralReceivedDate");
 
                     b.Property<int>("ArchiveReferralStatusId");
 
                     b.Property<bool?>("ArchiveReferralSuitable");
 
-                    b.Property<string>("ArchiveReferralSuitableColor");
-
-                    b.Property<string>("ArchiveReferralSuitableComments");
-
                     b.Property<int>("ArchiveReferralType");
 
-                    b.Property<int>("OriginalReferralId");
+                    b.Property<int?>("OriginalReferralId");
 
                     b.HasKey("ArchiveReferralId");
 
