@@ -514,6 +514,7 @@ namespace OutcomesFirst.Controllers
 
             if (ModelState.IsValid)
             {
+                _context.Update(submission);
                 // get referral
                 var referral = _context.Referral
                      .Where(r => r.ReferralId == submission.SubmissionReferralId).FirstOrDefault();
@@ -541,43 +542,13 @@ namespace OutcomesFirst.Controllers
 
                     _context.Update(model);
 
-                    //archive all submissions for refid which has been placed.
-                    var SubmisssionsToArchive = _context.Submission
-                        .Where(s => s.SubmissionReferralId == subrefid && s.SubmissionStatusId != 1);
-
-                    // no of submissions to archive
-                    foreach (Submission s in SubmisssionsToArchive)
-                    {
-                       
-                        try
-                        {
-                            _context.Submission.Update(s);
-                        }
-                        catch (Exception)
-                        {
-                            throw;
-                        }
-
-                    }
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    try
-                    {
-                        _context.Update(submission);
-                        _context.SaveChanges();
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-
-                   
-
                     
+                  
 
                 }
+   
+
+              
                 // Update the referral with the highest status (actually the lowest)
                 var allsubmissions = _context.Submission.Where(s => s.SubmissionReferralId == referral.ReferralId);
 
@@ -596,10 +567,23 @@ namespace OutcomesFirst.Controllers
                         //subid = s.SubmissionStatus.StatusId;
 
                     }
+                    else
+                    {
+                        //If a submission has been set to 'Placed', update the referral to placed.
+
+                        if (s.SubmissionStatusId == 1)
+                        {
+                            referral.ReferralStatusId = 1;
+                        }
+
+                    }                   
                 }
 
                 /* only  update referral if status is not Archived or Placed (this decison made at head office and is made directly on the referral record
                 because if all submissions are rejected by the services, head-office may submit to other services. Does this need to be confirmed with Kerry?*/
+              
+
+
                 if (highest > 2)
                 {
                     referral.ReferralStatusId = (int)highest;
