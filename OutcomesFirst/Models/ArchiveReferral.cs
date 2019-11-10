@@ -14,7 +14,7 @@ namespace OutcomesFirst.Models
         public int ArchiveReferralId { get; set; }
 
         [Display(Name="ReferralId")]
-        public int OriginalReferralId { get; set; }
+        public int? OriginalReferralId { get; set; }
 
         [Display(Name = "ID")]
         public string ArchiveReferralName { get; set; }
@@ -29,7 +29,7 @@ namespace OutcomesFirst.Models
 
         [Display(Name = "Local Authority")]
         public int? ArchiveReferralLocalAuthorityId { get; set; }
-
+        
         [DataType(DataType.Date)]
         [Display(Name = "Received Date")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
@@ -52,12 +52,7 @@ namespace OutcomesFirst.Models
         public int? ArchiveReferralArchiveReasonId { get; set; }
 
         [Display(Name = "Comments")]
-        public string ArchiveReferralSuitableComments { get; set; }
-
-        [Display(Name = "Comments")]
-        public string ArchiveReferralNotSuitableComments { get; set; }
-
-
+    
 
         public LocalAuthority ArchiveReferralLocalAuthority { get; set; }
         public Gender ArchiveReferralGender { get; set; }
