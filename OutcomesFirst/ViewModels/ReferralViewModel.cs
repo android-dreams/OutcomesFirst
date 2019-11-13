@@ -65,6 +65,9 @@ namespace OutcomesFirst.ViewModels
        
         public bool? ReferralSuitable { get; set; }
 
+        public bool? Archive { get; set; }
+
+
         [Display(Name = "Archive Reason")]
         public int? ReferralArchiveReasonId { get; set; }
 
