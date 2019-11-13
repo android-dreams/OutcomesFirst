@@ -46,14 +46,6 @@ namespace OutcomesFirst.ViewModels
 
         public int? ArchiveReferralArchiveReasonId { get; set; }
 
-        [Display(Name = "Suitable Comments")]
-        public string ArchiveReferralSuitableComments { get; set; }
-
-        [Display(Name = "Not Suitable Comments")]
-        public string ArchiveReferralNotSuitableComments { get; set; }
-
-
-
         public List<LocalAuthority> localAuthorities { get; set; }
         public List<Gender> genders { get; set; }
         public List<Status> statuses { get; set; }
