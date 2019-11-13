@@ -52,21 +52,24 @@
 
     <link href="~/css/site.min.css" rel="stylesheet" />
     <script src="~/js/site.js"></script>
-  
+
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 </head>
 <p>
     <h3>Edit Referral</h3>
+
 </p>
 
 <body>
+
     <div class="container">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @Html.HiddenFor(m => m.ReferralId)
             @Html.HiddenFor(m => m.ReferralName)
-
+            @Html.HiddenFor(m => m.Archive)
+            @Html.HiddenFor(m => m.ReferralStatusId)
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
@@ -75,7 +78,7 @@
                                 <span style="font-size: 1em; color:#1a75e8;">
                                     <i class="fas fa-user small"></i>
                                 </span>
-                                Personal Details
+                                <b>Personal Details</b>
                             </div>
                         </div>
                         <div class="card-body">
@@ -125,7 +128,7 @@
                                 <span style="font-size: 1em; color:#1a75e8;">
                                     <i class="fas fa-home small"></i>
                                 </span>
-                                Placement Details
+                                <b>Placement Details</b>
                             </div>
                         </div>
                         <div class="card-body">
@@ -172,14 +175,14 @@
 
             <p></p>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header" style="background-color:#b9e488">
                             <div class="card-title">
                                 <span style="font-size: 1em; color:#1a75e8;">
                                     <i class="fas fa-thumbs-up small"></i>
                                 </span>
-                                Suitable
+                                <b>Suitable</b>
                             </div>
                         </div>
                         <div class="card-body">
@@ -195,42 +198,49 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header" style="background-color:#b9e488">
-                            <div class="card-title">
-                                <span style="font-size: 1em; color:#1a75e8;">
-                                    <i class="fas fa-stream small"></i>
-                                </span>
-                                Referral Status
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label asp-for="ReferralStatusId" class="control-label"></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <select asp-for="ReferralStatusId" class="form-control" asp-items="statuses"></select>
-                                    <span asp-validation-for="ReferralStatusId" class="text-danger small"></span>
-                                </div>
-                            </div>
 
-                        </div>
-                    </div>
-                </div>
+
+
             </div>
             <p></p>
             <p></p>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-md-1">
                     <input type="submit" name="submit" value="Update" class="btn btn-success" />
                 </div>
-                <div class="col-sm-4">
+                <div class="col-md-3">
                     <input type="submit" name="submit" value="Submit to Another Service" class="btn btn-success" />
                 </div>
-            </div>
 
+
+
+                @if (Model.Archive == true)
+                {
+
+
+                    <div class="col-md-1">
+                        <input type="button" name="submit" value="Archive" class="btn btn-success" id="submitArchive" />
+                    </div>
+
+
+                    <div class="col-md-3"></div>
+                    <div class="col-md-1">
+
+                        <div class="form-group">
+
+                            <label asp-for="ReferralArchiveReasonId" id="ArchiveReasonTitle" class="control-label"></label>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <select asp-for="ReferralArchiveReasonId" class="form-control" id="ArchiveReasonControl" asp-items="archivereasons"></select>
+                            <span asp-validation-for="ReferralArchiveReasonId" class="text-danger"></span>
+                        </div>
+                    </div>
+                }
+            </div>
         </form>
     </div>
 </body>
@@ -243,7 +253,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
- <script type="text/javascript">
+@*<script type="text/javascript">
         $(document).ready(function () {
             $('input[type="radio"]').click(function () {
                 var inputValue = $(this).attr("value");
@@ -252,4 +262,38 @@
                 $(targetBox).show();
             });
         });
-    </script>
+    </script>*@
+
+<script>
+    window.onload = function () {
+        $("#ArchiveReasonTitle").hide();
+        $("#ArchiveReasonControl").hide();
+
+
+        document.getElementById('submitArchive').onclick = (function () {
+            $("#ArchiveReasonTitle").show();
+            $("#ArchiveReasonControl").show();
+        })
+    };
+
+</script>
+
+<script>
+
+
+
+    $(document).ready(function () {
+
+        $("#ArchiveReasonControl").hide();
+        $("#ArchiveReasonControl").hide();
+        $('#submitArchive').onclick(function () {
+
+            $("#ArchiveReasonTitle").hide();
+            $("#ArchiveReasonControl").hide();
+
+        })
+
+    });
+
+
+</script>

@@ -952,6 +952,13 @@ namespace OutcomesFirst.Controllers
 
             PopulateDropDowns(viewModel);
 
+
+            CheckForLiveSubmissions(viewModel);
+
+           
+
+           // CheckForLiveSubmissions(id, Archive);
+
             return View(viewModel);
         }
 
@@ -967,6 +974,8 @@ namespace OutcomesFirst.Controllers
             {
                 return RedirectToAction("AddNew", "Submissions", new { @id = viewModel.ReferralId });
             }
+
+           
 
             if (id != viewModel.ReferralId)
             {
@@ -1056,7 +1065,7 @@ namespace OutcomesFirst.Controllers
 
 
             //If Referal is archived///
-            if (viewModel.ReferralStatusId == 2)
+            if ((viewModel.ReferralStatusId == 2) ||(viewModel.Archive == true))
             {
 
 
@@ -1072,7 +1081,7 @@ namespace OutcomesFirst.Controllers
                                 ArchiveReferralStatusId = viewModel.ReferralStatusId,
                                 ArchiveReferralSuitable = viewModel.ReferralSuitable,
                                 ArchiveReferralArchiveReasonId = viewModel.ReferralArchiveReasonId
-                                //ArchiveReferralSuitableComments = viewModel.ReferralSuitableComments
+                                
                                }
                 };
 
@@ -1173,6 +1182,34 @@ namespace OutcomesFirst.Controllers
             viewModel.Statuses = _context.Status.ToList();
             viewModel.ArchiveReasons = _context.ArchiveReason.ToList();
         }
+
+        //Check if Live Submissions exist, and if not, set variable to allow Archive Button to active
+
+        private void CheckForLiveSubmissions(ReferralViewModel viewModel)
+        {
+            var livesubs = _context.Submission
+                .Where(r => r.SubmissionReferralId == viewModel.ReferralId)
+                .Where(r => r.SubmissionStatusId > 2).ToList();
+
+            if (livesubs.Count > 0)
+            {
+                viewModel.Archive = false;
+            }
+            else
+            {
+                viewModel.Archive = true;
+            }
+
+
+
+        }
+
+        public IActionResult DisplayDropDown()
+        {
+            return View();
+        }
+
+
 
 
         internal class DBEntities

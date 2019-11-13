@@ -338,12 +338,21 @@ namespace OutcomesFirst.Controllers
                          };
                         foreach (Submission s in submissions)
                         {
-                            //set initial status of submission to 'Under Consideration by Service //
-                            s.SubmissionStatusId = 8;
-                            _context.Submission.Add(s);
+                            try
+                            {
+                                //set initial status of submission to 'Under Consideration by Service //
+                                s.SubmissionStatusId = 8;
+                                _context.Submission.Add(s);
+                            }
+                            catch(Exception)
+                            {
+                                throw;
+                            }
                         }
 
+
                     }
+
                     _context.SaveChanges();
                 }
                 return RedirectToAction("Index", "Referrals");
@@ -462,9 +471,16 @@ namespace OutcomesFirst.Controllers
                          };
                         foreach (Submission s in submissions)
                         {
-                            //set initial status of submission to 'Under Consideration by Service //
-                            s.SubmissionStatusId = 8;
-                            _context.Submission.Add(s);
+                            try
+                            {
+                                //set initial status of submission to 'Under Consideration by Service //
+                                s.SubmissionStatusId = 8;
+                                _context.Submission.Add(s);
+                            }
+                            catch
+                            {
+                                throw;
+                            }
                         }
 
                     }
@@ -554,15 +570,31 @@ namespace OutcomesFirst.Controllers
                     model.PlacementGenderId = referral.ReferralGenderId;
                     model.PlacementLocalAuthorityId = referral.ReferralLocalAuthorityId;
 
-                    _context.Update(model);
+                    try
+                    {
+                        _context.Update(model);
+                    }
+                    catch(Exception)
+                    {
+                        throw;
+                    }
 
-                    
-                  
+                    //If a submission has been set to 'Placed', update the referral to placed.
 
+                    try
+                    {
+                        referral.ReferralStatusId = 1;
+                        _context.SaveChanges();
+                    }
+                    catch(Exception)
+                    {
+                        throw;
+
+                    }
                 }
-   
 
-              
+
+
                 // Update the referral with the highest status (actually the lowest)
                 var allsubmissions = _context.Submission.Where(s => s.SubmissionReferralId == referral.ReferralId);
 
@@ -581,28 +613,28 @@ namespace OutcomesFirst.Controllers
                         //subid = s.SubmissionStatus.StatusId;
 
                     }
-                    else
-                    {
-                        //If a submission has been set to 'Placed', update the referral to placed.
-
-                        if (s.SubmissionStatusId == 1)
-                        {
-                            referral.ReferralStatusId = 1;
-                        }
-
-                    }                   
+                   
+                    
+                      
+                                     
                 }
 
-                /* only  update referral if status is not Archived or Placed (this decison made at head office and is made directly on the referral record
+                /* only  update referral if status is not Archived  or Placed (the Archive  decison made at head office and is made directly on the referral record
                 because if all submissions are rejected by the services, head-office may submit to other services. Does this need to be confirmed with Kerry?*/
               
 
 
-                if (highest > 2)
-                {
+                if (highest > 2 & referral.ReferralStatusId >2)
+                { 
                     referral.ReferralStatusId = (int)highest;
-                    _context.Update(referral);
-                    _context.SaveChanges();
+                    try
+                    {
+                        _context.Update(referral);
+                        _context.SaveChanges();
+                    }
+                    catch(Exception)
+                    { throw;
+                    }
                 }
                 return RedirectToAction(nameof(Index));
             }
