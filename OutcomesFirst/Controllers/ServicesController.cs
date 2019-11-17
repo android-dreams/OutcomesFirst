@@ -96,7 +96,7 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ServiceId,ServiceName,ServiceAddress1,ServiceAddress2,ServiceAddress3,ServiceAddress4,ServicePostcode,RegionId,ServiceContact,ServiceContactNumber,ServicePlaces")] Service service)
+        public async Task<IActionResult> Edit(int id, [Bind("ServiceId,ServiceName,ServiceAddress1,ServiceAddress2,ServiceAddress3,ServiceAddress4,ServicePostcode,RegionId,ServiceContact,ServiceContactNumber,ServicePlaces,ServiceRegionId")] Service service)
         {
             if (id != service.ServiceId)
             {
