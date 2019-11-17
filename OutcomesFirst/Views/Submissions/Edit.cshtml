@@ -138,8 +138,18 @@
 
                         </div>
 
-                       
-                        <div class="col-md-6"></div>
+
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+
+                                <select asp-for="SubmissionArchiveReasonId" class="form-control" id="ArchiveReasonControl" asp-items="ViewBag.SubmissionArchiveReasonId"></select>
+
+                                <span asp-validation-for="SubmissionArchiveReasonId" class="text-danger"></span>
+
+                            </div>
+
+                        </div>
 
                     </div>
 
