@@ -15,37 +15,34 @@ namespace OutcomesFirst.ViewModels
         public int SubmissionReferralId { get; set; }
 
         [Display(Name = "Service")]
-
+       
         public int SubmissionServiceId { get; set; }
 
         [Display(Name = "Status")]
         public int? SubmissionStatusId { get; set; }
 
         [DataType(DataType.Date)]
-        [Display(Name = "Start Date")]
-        public DateTime? SubmissionPlacementStartDate { get; set; }
+        [Display(Name="Start Date")]
+        public DateTime?  SubmissionPlacementStartDate { get; set; }
 
 
-        [DataType(DataType.Date)]
+   
         [Display(Name = "Archive Reason")]
-        public DateTime? SubmissionArchiveReasonId { get; set; }
+      
+        public int? SubmissionArchiveReasonId { get; set; }
 
         [NotMapped]
         public List<string> IsChecked { get; set; }
 
 
         public virtual Referral SubmissionReferral { get; set; }
-
-
         public virtual Service SubmissionService { get; set; }
 
 
-        public virtual Status SubmissionStatus { get; set; }
-
-        public virtual ArchiveReason SubmissionArchiveReason { get; set; }
-
-
-
+        public List<Status> Statuses { get; set; }
+        public List<string> ReferralTypes { get; set; }
+        public List<ArchiveReason> ArchiveReasons { get; set; }
+        public List<Service> Services { get; set; }
 
     }
 }
