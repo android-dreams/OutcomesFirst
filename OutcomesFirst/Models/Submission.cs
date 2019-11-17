@@ -13,8 +13,7 @@ namespace OutcomesFirst.Models
         [Display(Name = "ID")]
         public int SubmissionReferralId { get; set; }
 
-        [Display(Name = "Service")]
-       
+        [Display(Name = "Service")]     
         public int SubmissionServiceId { get; set; }
 
         [Display(Name = "Status")]

@@ -1,7 +1,36 @@
-﻿@model OutcomesFirst.Models.Submission
+﻿@model OutcomesFirst.ViewModels.SubmissionViewModel
 
 @{
     ViewData["Title"] = "Edit";
+
+     IEnumerable<SelectListItem> archivereasons = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
+             .Concat(Model.ArchiveReasons
+             .OrderBy(x => x.ArchiveReasonName)
+             .Select(t => new SelectListItem
+             {
+                 Value = t.ArchiveReasonId.ToString(),
+                 Text = t.ArchiveReasonName
+             })); ;
+
+    IEnumerable<SelectListItem> statuses = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
+             .Concat(Model.Statuses
+             .OrderBy(x => x.StatusName)
+             .Select(t => new SelectListItem
+             {
+                 Value = t.StatusId.ToString(),
+                 Text = t.StatusName
+             })); ;
+
+        IEnumerable<SelectListItem> services = new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Select...", Selected = true } }
+             .Concat(Model.Services
+             .OrderBy(x => x.ServiceName)
+             .Select(t => new SelectListItem
+             {
+                 Value = t.ServiceId.ToString(),
+                 Text = t.ServiceName
+             })); ;
+
+
 }
 
 <h3>Submission</h3>
@@ -15,6 +44,10 @@
     <input type="hidden" asp-for="SubmissionReferralId" />
 
     <input type="hidden" asp-for="SubmissionServiceId" />
+
+    <input type="hidden" asp-for="SubmissionService.ServiceName" />
+
+    <input type="hidden" asp-for="SubmissionReferral.ReferralName" />
 
     <div class="col-md-8">
 
@@ -60,7 +93,7 @@
 
                                 @*<input asp-for="SubmissionReferral.ReferralName" class="form-control" />
 
-                    <span asp-validation-for="SubmissionReferral.ReferralName" class="text-danger"></span>*@
+                                    <span asp-validation-for="SubmissionReferral.ReferralName" class="text-danger"></span>*@
 
                             </div>
 
@@ -84,7 +117,7 @@
 
                                 @*<select asp-for="SubmissionServiceId" class="form-control" asp-items="ViewBag.SubmissionServiceId" disabled="disabled"></select>
 
-                    <span asp-validation-for="SubmissionServiceId" class="text-danger"></span>*@
+                                    <span asp-validation-for="SubmissionServiceId" class="text-danger"></span>*@
 
                             </div>
 
@@ -102,7 +135,7 @@
                         </div>
                         <div class="col-md-10">
                             <div class="form-group">
-                                <select asp-for="SubmissionStatusId" class="form-control" id="PlacementStatus" asp-items="ViewBag.SubmissionStatusId"></select>
+                                <select asp-for="SubmissionStatusId" class="form-control" id="PlacementStatus" asp-items="statuses"></select>
                                 <span asp-validation-for="SubmissionStatusId" class="text-danger"></span>
                             </div>
                         </div>
@@ -143,7 +176,7 @@
 
                             <div class="form-group">
 
-                                <select asp-for="SubmissionArchiveReasonId" class="form-control" id="ArchiveReasonControl" asp-items="ViewBag.SubmissionArchiveReasonId"></select>
+                                <select asp-for="SubmissionArchiveReasonId" class="form-control" id="ArchiveReasonControl" asp-items="archivereasons"></select>
 
                                 <span asp-validation-for="SubmissionArchiveReasonId" class="text-danger"></span>
 
@@ -167,7 +200,7 @@
 
     <div class="form-group">
 
-        <input type="submit" value="Save"  class="btn btn-success" />
+        <input type="submit" value="Save" class="btn btn-success" />
 
     </div>
 
@@ -188,30 +221,55 @@
 <script>
 
     window.onload = function () {
-    
-        if (('#PlacementStatus').value == '1')
+
+        submissionStatus = @Html.Raw(Json.Serialize(Model.SubmissionStatusId));
+
+        if (submissionStatus == 1)
         {
             $("#PlacementStartTitle").show();
             $("#PlacementStartControl").show();
             $("#ArchiveReasonTitle").hide();
             $("#ArchiveReasonControl").hide();
         }
-
-        if (('#PlacementStatus').value == '2')
+        else if (submissionStatus == 2)
         {
             $("#PlacementStartTitle").hide();
             $("#PlacementStartControl").hide();
             $("#ArchiveReasonTitle").show();
             $("#ArchiveReasonControl").show();
         }
-
-        if ((('#PlacementStatus').value != '1')  && (('#PlacementStatus').value != '2'))
+        else
         {
             $("#PlacementStartTitle").hide();
             $("#PlacementStartControl").hide();
             $("#ArchiveReasonTitle").hide();
             $("#ArchiveReasonControl").hide();
         }
+
+
+        //if (('#PlacementStatus').value == '1')
+        //{
+        //    $("#PlacementStartTitle").show();
+        //    $("#PlacementStartControl").show();
+        //    $("#ArchiveReasonTitle").hide();
+        //    $("#ArchiveReasonControl").hide();
+        //}
+
+        //if (('#PlacementStatus').value == '2')
+        //{
+        //    $("#PlacementStartTitle").hide();
+        //    $("#PlacementStartControl").hide();
+        //    $("#ArchiveReasonTitle").show();
+        //    $("#ArchiveReasonControl").show();
+        //}
+
+        //if ((('#PlacementStatus').value != '1')  && (('#PlacementStatus').value != '2'))
+        //{
+        //    $("#PlacementStartTitle").hide();
+        //    $("#PlacementStartControl").hide();
+        //    $("#ArchiveReasonTitle").hide();
+        //    $("#ArchiveReasonControl").hide();
+        //}
 
     };
 
