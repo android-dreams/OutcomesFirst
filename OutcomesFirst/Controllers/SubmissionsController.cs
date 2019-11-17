@@ -565,9 +565,9 @@ namespace OutcomesFirst.Controllers
             {
                 //Update Submission
                 Submission submissionModel = await _context.Submission.FindAsync(id);
-                
+
                 submissionModel.SubmissionStatusId = viewModel.SubmissionStatusId;
-              
+
                 _context.Update(submissionModel);
                 _context.SaveChanges();
 
@@ -608,7 +608,7 @@ namespace OutcomesFirst.Controllers
                         referral.ReferralStatusId = 1;
                         _context.SaveChanges();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         throw;
                     }
@@ -627,26 +627,28 @@ namespace OutcomesFirst.Controllers
                     {
                         highest = s.SubmissionStatusId;
                         //subid = s.SubmissionStatus.StatusId;
-                    }                                   
+                    }
                 }
 
                 /* only  update referral if status is not Archived  or Placed (the Archive  decison made at head office and is made directly on the referral record
                 because if all submissions are rejected by the services, head-office may submit to other services. Does this need to be confirmed with Kerry?*/
-                if (highest > 2 & referral.ReferralStatusId >2)
-                { 
+                if (highest > 2 & referral.ReferralStatusId > 2)
+                {
                     referral.ReferralStatusId = (int)highest;
                     try
                     {
                         _context.Update(referral);
                         _context.SaveChanges();
                     }
-                    catch(Exception)
-                    { throw;
+                    catch (Exception)
+                    {
+                        throw;
                     }
                 }
-                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            return View(viewModel);
+            else
+                return View(viewModel);
         }
 
 
