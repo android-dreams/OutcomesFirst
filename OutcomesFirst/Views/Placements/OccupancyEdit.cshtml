@@ -80,18 +80,16 @@
 
         <div class="card">
             <div class="card-header" style="background-color:#b9e488">
-                <h4 class="card-title">
+                <div class="card-title">
                     <span style="font-size: 1em; color:#1a75e8;">
                         <i class="fas fa-user small"></i>
                     </span>
                     Personal Details
-                </h4>
+                </div>
             </div>
             <div class="card-body">
                 <div class="col-md-12">
                     <div class="row">
-
-
                         <div class="form-group">
                             <label asp-for="PlacementFirstName" class="control-label"></label>
                             <input asp-for="PlacementFirstName" class="form-control" />
@@ -128,12 +126,12 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header" style="background-color:#b9e488">
-                        <h4 class="card-title">
+                        <div class="card-title">
                             <span style="font-size: 1em; color:#1a75e8;">
                                 <i class="fas fa-home small"></i>
                             </span>
                             Placement Details
-                        </h4>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -148,112 +146,102 @@
 
                             </div>
                         </div>
-                    </div>
 
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementServiceTransition" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <select asp-for="PlacementType" class="form-control font-size:2em" asp-items="servicetransition"></select>
+                                    <span asp-validation-for="PlacementType" class="text-danger"></span>
+                                </div>
 
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <label asp-for="PlacementServiceTransition" class="control-label"></label>
                             </div>
-                            <div class="col-md-7">
-                                <select asp-for="PlacementType" class="form-control font-size:2em" asp-items="servicetransition"></select>
-                                <span asp-validation-for="PlacementType" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementDateStartedWithGroup" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="PlacementDateStartedWithGroup" class="form-control" />
+                                    <span asp-validation-for="PlacementDateStartedWithGroup" class="text-danger"></span>
+                                </div>
                             </div>
-
                         </div>
-                    </div>
-                </div>
-
-
-
-
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label asp-for="PlacementDateStartedWithGroup" class="control-label"></label>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementPlacementStartDate" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="PlacementPlacementStartDate" class="form-control" />
+                                    <span asp-validation-for="PlacementPlacementStartDate" class="text-danger"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-7">
-                            <input asp-for="PlacementDateStartedWithGroup" class="form-control" />
-                            <span asp-validation-for="PlacementDateStartedWithGroup" class="text-danger"></span>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementLocalAuthorityId" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <select asp-for="PlacementLocalAuthorityId" class="form-control font-size:2em" asp-items="localAuthorities"></select>
+                                    <span asp-validation-for="PlacementLocalAuthorityId" class="text-danger"></span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label asp-for="PlacementPlacementStartDate" class="control-label"></label>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementFramework" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="PlacementFramework" class="form-control" />
+                                    <span asp-validation-for="PlacementFramework" class="text-danger"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-7">
-                            <input asp-for="PlacementPlacementStartDate" class="form-control" />
-                            <span asp-validation-for="PlacementPlacementStartDate" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label asp-for="PlacementLocalAuthorityId" class="control-label"></label>
-                        </div>
-                        <div class="col-md-7">
-                            <select asp-for="PlacementLocalAuthorityId" class="form-control font-size:2em" asp-items="localAuthorities"></select>
-                            <span asp-validation-for="PlacementLocalAuthorityId" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label asp-for="PlacementFramework" class="control-label"></label>
-                        </div>
-                        <div class="col-md-7">
-                            <input asp-for="PlacementFramework" class="form-control" />
-                            <span asp-validation-for="PlacementFramework" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label asp-for="PlacementWeeklyFee" class="control-label"></label>
-                        </div>
-                        <div class="col-md-7">
-                            <input asp-for="PlacementWeeklyFee" class="form-control" />
-                            <span asp-validation-for="PlacementWeeklyFee" class="text-danger"></span>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementWeeklyFee" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="PlacementWeeklyFee" class="form-control" />
+                                    <span asp-validation-for="PlacementWeeklyFee" class="text-danger"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header" style="background-color:#b9e488">
-                        <h4 class="card-title">
+                        <div class="card-title">
                             <span style="font-size: 1em; color:#1a75e8;">
                                 <i class="fas fa-walking small"></i>
                             </span>
                             Leaver Details
-                        </h4>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <label asp-for="PlacementLeaveDate" class="control-label"></label>
-                            </div>
-                            <div class="col-md-7">
-                                <input asp-for="PlacementLeaveDate" id="LeaveDate" class="form-control" />
-
-                                <span asp-validation-for="PlacementLeaveDate" class="text-danger"></span>
-                            </div>
                         </div>
                     </div>
-
                     <div class="card-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="PlacementLeaveDate" class="control-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="PlacementLeaveDate" id="LeaveDate" class="form-control" />
+
+                                    <span asp-validation-for="PlacementLeaveDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-5">
@@ -265,7 +253,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-5">
@@ -322,29 +309,33 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header" style="background-color:#b9e488">
-                    <h4 class="card-title">
-                        <span style="font-size: 1em; color:#1a75e8;">
-                            <i class="fas fa-comment-dots"></i>
-                        </span>
-                        Notes
-                    </h4>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <textarea asp-for="PlacementNotes" class="form-control rows=10"></textarea>
-                            <span asp-validation-for="PlacementNotes" class="text-danger"></span>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background-color:#b9e488">
+                        <div class="card-title">
+                            <span style="font-size: 1em; color:#1a75e8;">
+                                <i class="fas fa-comment-dots"></i>
+                            </span>
+                            Notes
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <textarea asp-for="PlacementNotes" class="form-control rows=10"></textarea>
+                                <span asp-validation-for="PlacementNotes" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <br />
         <div class="row">
             <div class="form-group">
-                <input type="submit" value="Save" style="background-color:#0987b9" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </div>
     </form>
@@ -354,40 +345,22 @@
 
 </div>
 
-
-
-
 <script>
 
     $(document).ready(function () {
 
-        alert("hello");
-
         $("#LeaveDate").change(function () {
-
-            alert("in jquery");
-
             var birthdate = $('#BirthDate').val();
             var leavingdate = $('#LeaveDate').val();
-
-            //alert($(input[name=]))
-
-            alert("leave date = " + leavingdate + "Birthdate = " + birthdate);
-
+          
             //CalcAgeOnLeaving(birthdate,leavingdate);
 
                    myFunction(birthdate,leavingdate);
-
-            alert("end of  jquery");
 
         });
 
     });
 
-</script>
-
-
-<script>
     function ageCalculation() {
 
         var lre = /^\s*/;
@@ -405,16 +378,9 @@
             //Now find the Age based on the Birth Date
             getAge(new Date(inputDate));
         }
-
     }
-</script>
-
-
-
-<script>
 
     function isValidDate(dateStr) {
-
 
         var msg = "";
         // Checks for the following valid date formats:
@@ -468,20 +434,5 @@
         return msg;  // date is valid
     }
 
-
-
-
-// --> </script>
-
-<scripts>
-    function myFunction() {
-
-   msg "In myFunction";
-
-
-
-    // alert(birthdate + "dates" + leavingdate);
-    }
-
-</scripts>
+</script>
 

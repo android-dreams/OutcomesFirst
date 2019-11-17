@@ -14,80 +14,111 @@
 </head>
 <p></p>
 <div class="container">
-    <div class="row" style="margin-top:100px">
-        <div class="col-sm-12">
-            @if (SignInManager.IsSignedIn(User))
-            {<div class="row">
-                    <a href="@(Url.Action("Create", "Referrals"))">
-                        <div title="Click to view details" class="auction-dashboard-item">
-                            <div class="auction-headline">
-                               
-                                <div class="subtitle">
-                                    <h5>New Referral</h5>
-                                </div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="row" style="margin-top:100px">
+            <div class="col-sm-3">
+                <a href="@(Url.Action("Create", "Referrals"))">
+                    <div title="Click to view details" class="auction-dashboard-item">
+                        <div class="auction-headline">
+
+                            <div class="subtitle">
+                                <h5>New Referral</h5>
                             </div>
                         </div>
-                    </a>
-                    <a href="@(Url.Action("Status", "Referrals"))">
-                        <div title="Click to view details" class="auction-dashboard-item">
-                            <div class="auction-headline">
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-3">
+                <a href="@(Url.Action("Index", "Submissions"))">
+                    <div title="Click to view details" class="auction-dashboard-item">
+                        <div class="auction-headline">
 
-                                <div class="subtitle">
-                                    <h5>
-                                        Awaiting Response From Service
-                                    </h5>
-
-                                </div>
+                            <div class="subtitle">
+                                <h5>Submissions</h5>
                             </div>
                         </div>
-                    </a>
-                    <a href="@(Url.Action("Index", "Referrals"))">
-                        <div title="Click to view details" class="auction-dashboard-item">
-                            <div class="auction-headline subtitle">
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-3">
+                <a href="@(Url.Action("StatusIndex", "Referrals"))">
+                    <div title="Click to view details" class="auction-dashboard-item">
+                        <div class="auction-headline">
 
-                                <div class="subtitle">
-                                    <h5>
-                                        Live Referrals
-                                    </h5>
-                                </div>
-
+                            <div class="subtitle">
+                                <h5>
+                                    Awaiting Response From Service
+                                </h5>
 
                             </div>
                         </div>
-                    </a>
-
-
-                    <a href="@(Url.Action("OccupancyIndex", "Placements"))">
-                        <div title="Click to view details" class="auction-dashboard-item">
-                            <div class="auction-headline">
-
-                                <div class="subtitle">
-                                    <h5>
-                                        Occupancy
-
-                                    </h5>
-                                </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-3">
+                <a href="@(Url.Action("Index", "Referrals"))">
+                    <div title="Click to view details" class="auction-dashboard-item">
+                        <div class="auction-headline subtitle">
+                            <div class="subtitle">
+                                <h5>
+                                    Live Referrals
+                                </h5>
                             </div>
+
+
                         </div>
-                    </a>
-                    <a href="@(Url.Action("Index", "ArchiveReferrals"))">
-                        <div title="Click to view details" class="auction-dashboard-item">
-                            <div class="auction-headline">
+                    </div>
+                </a>
 
-                                <div class="subtitle">
-                                    <h5>Archive</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-
-
-                </div>
-            }
-            else
-            {
-                <img src="~/images/OutcomesFirstBig.jpg" />
-            }
+            </div>
         </div>
-    </div>
+        <div class="row" style="margin-top:100px">
+            <div class="col-sm-4">
+                <a href="@(Url.Action("OccupancyIndex", "Placements"))">
+                    <div title="Click to view details" class="auction-dashboard-item">
+                        <div class="auction-headline">
+                            <div class="subtitle">
+                                <h5>
+                                    Occupancy
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a href="@(Url.Action("Index", "Leavers"))">
+                    <div title="Click to view details" class="auction-dashboard-item">
+                        <div class="auction-headline">
+                            <div class="subtitle">
+                                <h5>
+                                    Leavers
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a href="@(Url.Action("Index", "ArchiveReferrals"))">
+                    <div title="Click to view details" class="auction-dashboard-item">
+                        <div class="auction-headline">
+                            <div class="subtitle">
+                                <h5>Archive</h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <img src="~/images/OutcomesFirstBig.jpg" />
+    }
+
+
+
 </div>

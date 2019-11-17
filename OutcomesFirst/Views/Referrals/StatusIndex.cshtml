@@ -1,11 +1,11 @@
 ﻿@model PaginatedList<OutcomesFirst.Models.Referral>
 
 @{
-    ViewData["Title"] = "Referrals";
+    ViewData["Title"] = "Referrals Under Consideration By Service";
 }
 
 <p>
-    <h3>Referrals</h3>
+    <h3>Referrals Under Consideration By Service</h3>
 </p>
 <p>
 
@@ -28,10 +28,7 @@
                         Local Authority  @Html.DropDownList("laSearch", "All")
                     </div>
 
-                    <div class="col-md-1"></div>
-                    <div class="col-md-2">
-                        Status  @Html.DropDownList("statusSearch", "All")
-                    </div>
+                    
 
                 </div>
             </div>
@@ -119,7 +116,8 @@
 
 
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a>
+                            <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.ReferralId">Details</a> 
                         </td>
                     </tr>
                 }
@@ -161,7 +159,6 @@
                                 }
                                 @Html.DisplayFor(modelItem => count)
                             </td>
-
 
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a>
@@ -205,9 +202,10 @@
                                 @Html.DisplayFor(modelItem => count)
                             </td>
 
+
+
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a>
-
                             </td>
                         </tr>
 
@@ -240,8 +238,8 @@
        class="btn btn-default @nextDisabled">
         Next
     </a>
-*@
 
+*@
 
 
 

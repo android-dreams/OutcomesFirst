@@ -30,7 +30,15 @@ namespace OutcomesFirst.Controllers
                 .Include(r => r.ArchiveReferralGender)
                 .Include(r => r.ArchiveReferralLocalAuthority)
                 .Include(r => r.ArchiveReferralArchiveReason);
-            return View(await archive.ToListAsync());
+            if (archive.Any())
+            {
+                return View(await archive.ToListAsync());
+
+            }
+            else
+            {
+                return View("No Records");
+            }
         }
 
         // GET: ArchiveReferrals/Details/5
@@ -65,7 +73,7 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ArchiveReferralId,ArchiveReferralName,ArchiveReferralGenderId,ArchiveReferralLocalAuthorityId,ArchiveReferralReceivedDate,ArchiveReferralAge,ArchiveReferralComments,ArchiveReferralStatusId,ArchiveReferralSuitable,ArchiveReferralArchiveReasonId,ArchiveReferralSuitableComments,ArchiveReferralNotSuitableComments")] ArchiveReferral archiveReferral)
+        public async Task<IActionResult> Create([Bind("ArchiveReferralId,ArchiveReferralName,ArchiveReferralGenderId,ArchiveReferralLocalAuthorityId,ArchiveReferralReceivedDate,ArchiveReferralAge,ArchiveReferralComments,ArchiveReferralStatusId,ArchiveReferralSuitable,ArchiveReferralArchiveReasonId")] ArchiveReferral archiveReferral)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +105,7 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ArchiveReferralId,ArchiveReferralName,ArchiveReferralGenderId,ArchiveReferralLocalAuthorityId,ArchiveReferralReceivedDate,ArchiveReferralAge,ArchiveReferralComments,ArchiveReferralStatusId,ArchiveReferralSuitable,ArchiveReferralArchiveReasonId,ArchiveReferralSuitableComments,ArchiveReferralNotSuitableComments")] ArchiveReferral archiveReferral)
+        public async Task<IActionResult> Edit(int id, [Bind("ArchiveReferralId,ArchiveReferralName,ArchiveReferralGenderId,ArchiveReferralLocalAuthorityId,ArchiveReferralReceivedDate,ArchiveReferralAge,ArchiveReferralComments,ArchiveReferralStatusId,ArchiveReferralSuitable,ArchiveReferralArchiveReasonId")] ArchiveReferral archiveReferral)
         {
             if (id != archiveReferral.ArchiveReferralId)
             {

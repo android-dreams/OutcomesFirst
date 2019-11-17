@@ -192,7 +192,8 @@ namespace OutcomesFirst.Migrations
 
                     b.Property<int>("ArchiveDecisionBy");
 
-                    b.Property<string>("ArchiveReasonName");
+                    b.Property<string>("ArchiveReasonName")
+                        .IsRequired();
 
                     b.HasKey("ArchiveReasonId");
 
@@ -217,21 +218,15 @@ namespace OutcomesFirst.Migrations
 
                     b.Property<string>("ArchiveReferralName");
 
-                    b.Property<string>("ArchiveReferralNotSuitableComments");
-
                     b.Property<DateTime>("ArchiveReferralReceivedDate");
 
                     b.Property<int>("ArchiveReferralStatusId");
 
                     b.Property<bool?>("ArchiveReferralSuitable");
 
-                    b.Property<string>("ArchiveReferralSuitableColor");
-
-                    b.Property<string>("ArchiveReferralSuitableComments");
-
                     b.Property<int>("ArchiveReferralType");
 
-                    b.Property<int>("OriginalReferralId");
+                    b.Property<int?>("OriginalReferralId");
 
                     b.HasKey("ArchiveReferralId");
 
@@ -369,8 +364,6 @@ namespace OutcomesFirst.Migrations
                     b.Property<string>("ReferralName")
                         .IsRequired();
 
-                    b.Property<string>("ReferralNotSuitableComments");
-
                     b.Property<DateTime?>("ReferralPlacementStartDate");
 
                     b.Property<DateTime>("ReferralReceivedDate");
@@ -378,10 +371,6 @@ namespace OutcomesFirst.Migrations
                     b.Property<int>("ReferralStatusId");
 
                     b.Property<bool?>("ReferralSuitable");
-
-                    b.Property<string>("ReferralSuitableColor");
-
-                    b.Property<string>("ReferralSuitableComments");
 
                     b.Property<int>("ReferralType");
 
@@ -486,6 +475,8 @@ namespace OutcomesFirst.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("SubmissionArchiveReasonId");
+
                     b.Property<DateTime?>("SubmissionPlacementStartDate");
 
                     b.Property<int>("SubmissionReferralId");
@@ -495,6 +486,8 @@ namespace OutcomesFirst.Migrations
                     b.Property<int?>("SubmissionStatusId");
 
                     b.HasKey("SubmissionId");
+
+                    b.HasIndex("SubmissionArchiveReasonId");
 
                     b.HasIndex("SubmissionReferralId");
 
@@ -638,6 +631,10 @@ namespace OutcomesFirst.Migrations
 
             modelBuilder.Entity("OutcomesFirst.Models.Submission", b =>
                 {
+                    b.HasOne("OutcomesFirst.Models.ArchiveReason", "SubmissionArchiveReason")
+                        .WithMany()
+                        .HasForeignKey("SubmissionArchiveReasonId");
+
                     b.HasOne("OutcomesFirst.Models.Referral", "SubmissionReferral")
                         .WithMany("Submissions")
                         .HasForeignKey("SubmissionReferralId")

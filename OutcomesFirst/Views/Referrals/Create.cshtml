@@ -36,7 +36,6 @@
                  Text = t.ArchiveReasonName
              })); ;
 
-
 }
 
 <head>
@@ -45,12 +44,12 @@
 
     <link href="~/css/site.min.css" rel="stylesheet" />
     <script src="~/js/site.js"></script>
-  
+
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 </head>
 <p>
-    <h3>Create New Referral</h3>
+    <h3>Create Referral</h3>
 </p>
 
 <body>
@@ -61,12 +60,12 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header" style="background-color:#b9e488">
-                            <h5 class="card-title">
+                            <div class="card-title">
                                 <span style="font-size: 1em; color:#1a75e8;">
                                     <i class="fas fa-user small"></i>
                                 </span>
                                 Personal Details
-                            </h5>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
@@ -106,21 +105,21 @@
                                 </div>
                             </div>
                         </div>
-                 
+
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header" style="background-color:#b9e488">
-                            <h5 class="card-title">
+                            <div class="card-title">
                                 <span style="font-size: 1em; color:#1a75e8;">
                                     <i class="fas fa-map-pin small"></i>
                                 </span>
                                 Placement Details
-                            </h5>
+                            </div>
                         </div>
                         <div class="card-body">
-                            
+
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -158,75 +157,84 @@
                     </div>
                 </div>
             </div>
-               
-            <p></p>              
+
+            <p></p>
             <div class="card">
                 <div class="card-header" style="background-color:#b9e488">
-                    <h5 class="card-title">
+                    <div class="card-title">
                         <span style="font-size: 1em; color:#1a75e8;">
                             <i class="fas fa-question small"></i>
                         </span>
                         Decision
-                    </h5>
+                    </div>
                 </div>
                 <div class="card-body">
-                    
+
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">
-                                <input type="radio" class="with-font" name="ReferralSuitableColor" id="rbNotSuitable" value="red" required> Not Suitable
+                                <input type="radio" class="with-font" name="ReferralSuitable" value="false" id="rbNotSuitable"> Not Suitable
                                 <label for="rbNotSuitable"></label>
                             </div>
+
                             <div class="col-md-3">
-                                <input type="radio" class="with-font"name="ReferralSuitableColor" id="rbSuitable" value="green">  Suitable
-                               <label for="rbSuitable"></label>
+                                <input type="radio" class="with-font" name="ReferralSuitable" value="true" id="rbSuitable">  Suitable
+                                <label for="rbSuitable"></label>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <span asp-validation-for="ReferralSuitableColor" class="text-danger small"></span>
+
+                            <div class="col-md-6">
+                                <span asp-validation-for="ReferralSuitable" class="text-danger small"></span>
+                            </div>
                         </div>
                     </div>
-                    <div class="red box">
+
+                    <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">
-                                <strong>Enter Not Suitable Reason</strong>
+                                <div id="arBoxTitle">
+                                    <strong>Select Not Suitable Reason </strong>
+                                </div>
                             </div>
                             <div class="col-md-3">
-                                <select asp-for="ReferralArchiveReasonId" class="form-control" asp-items="archivereasons"></select>
+
+                                <select asp-for="ReferralArchiveReasonId" class="form-control" id="arBox" asp-items="archivereasons"></select>
                                 <span asp-validation-for="ReferralArchiveReasonId" class="text-danger small"></span>
                             </div>
                         </div>
-                        <div class="row">
-                            Comments
+                    </div>
+
+                    <div id="commentsBox">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">                                  
+                                        Referral Comments                                   
+                                </div>
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-10">
-                                <textarea asp-for="ReferralNotSuitableComments" class="form-control rows=10"></textarea>
-                                <span asp-validation-for="ReferralNotSuitableComments" class="text-danger small"></span>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <textarea asp-for="ReferralComments" class="form-control rows=10"></textarea>
+                                    <span asp-validation-for="ReferralComments" class="text-danger small"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="green box">
-                        Enter <strong>Suitable</strong> comments
-                        <div class="col-md-2">
-                            <label asp-for="ReferralSuitableComments" class="control-label"></label>
-                        </div>
-                        <div class="col-md-9">
-                            <textarea asp-for="ReferralSuitableComments" class="form-control rows=10"></textarea>
-                            <span asp-validation-for="ReferralSuitableComments" class="text-danger small"></span>
-                        </div>
-                    </div>
                 </div>
+
             </div>
+
+
             <p>
-                
+
             </p>
             <p></p>
             <div class="form=group">
                 <div class="row">
                     <div class="col-md-6">
                         <p>
-                            <input type="submit" value="Create" style="background-color:#0987b9"  class="btn btn-success" />
+                            <input type="submit" value="Create" id="createButton" class="btn btn-success" />
                         </p>
                     </div>
                 </div>
@@ -244,36 +252,71 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
- <script type="text/javascript">
-     $(document).ready(function () {
-         $('input[type="radio"]').click(function () {
-             var inputValue = $(this).attr("value");
-             var targetBox = $("." + inputValue);
-             $(".box").not(targetBox).hide();
-             $(targetBox).show(); 
-             if (document.getElementById("rbNotSuitable").checked == true) {
+<script type="text/javascript">
+    $(document).ready(function () {
 
-                 $('#submittoservice').removeClass('hidden');
-             }
-             else {
-                 $('#submittoservice').addClass('hidden');
-             }
-             $("rbSuitable").click(function () {
+        $('input[type="radio"]').click(function () {
+            if (document.getElementById("rbNotSuitable").checked == true) {
 
-                 if (document.getElementById("rbSuitable").checked == true) {
+                $("#arBoxTitle").show();
+                $("#arBox").show();
+                $("#commentsBoxTitle").show();
+                $("#commentsBox").show();
+            }
 
-                     $('#submittoservice').removeClass('hidden');
-                 }
-                 else {
-                     $('#submittoservice').addClass('hidden');
-                 }
-             });
-         });
-    
-     
+            else if (document.getElementById("rbSuitable").checked == true) {
+                $("#arBoxTitle").hide();
+                $("#arBox").hide();
+                $("#commentsBoxTitle").show();
+                $("#commentsBox").show();
+            }
+            else {
+                $("#arBoxTitle").hide();
+                $("#arBox").hide();
+                $("#commentsBoxTitle").hide();
+                $("#commentsBox").hide();
+            }
+        });
+
+    });
+
+</script>
 
 
 
-     });
 
-    </script>
+<script>
+
+    window.onload = function () {
+
+        if (('#rbNotSuitable').value == true) {
+
+            $("#arBoxTitle").show();
+            $("#arBox").show();
+            $("#commentsBoxTitle").show();
+            $("#commentsBox").show();
+        }
+
+
+        else if (('#rbSuitable').value == true) {
+
+            $("#arBoxTitle").hide();
+            $("#arBox").hide();
+            $("#commentsBoxTitle").show();
+            $("#commentsBox").show();
+        }
+        else {
+
+            $("#arBoxTitle").hide();
+            $("#arBox").hide();
+            $("#commentsBoxTitle").hide();
+            $("#commentsBox").hide();
+        }
+
+
+
+    };
+
+
+
+</script>

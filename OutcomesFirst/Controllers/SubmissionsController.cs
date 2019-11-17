@@ -9,7 +9,7 @@ using OutcomesFirst.Data;
 using OutcomesFirst.ViewModels;
 using System;
 using AutoMapper;
-
+using OutcomesFirst.Enum;
 namespace OutcomesFirst.Controllers
 {
     public class SubmissionsController : Controller
@@ -22,7 +22,6 @@ namespace OutcomesFirst.Controllers
             _context = context;
             _mapper = mapper;
         }
-
 
         // GET: Submissions
         public async Task<IActionResult> Index(int? pageNumber, string searchString, string svcSearch, string statusSearch)
@@ -41,7 +40,6 @@ namespace OutcomesFirst.Controllers
                  .Where(x => x.StatusId != 2)
                 .OrderBy(x => x.StatusPriority)
                 .Select(x => x.StatusName).ToList();
-
 
             ViewBag.svcSearch = new SelectList(svcQry);
             ViewBag.statusSearch = new SelectList(statusQry);
@@ -96,9 +94,10 @@ namespace OutcomesFirst.Controllers
                         searchType = 8; /* no filter */
                     }
                 }
-
-
             }
+
+            var exclusions = _context.Submission
+                            .Where(s => (StatusEnum)s.SubmissionStatusId == StatusEnum.Placed);
 
             switch (searchType)
             {
@@ -109,6 +108,7 @@ namespace OutcomesFirst.Controllers
                    .Include(s => s.SubmissionReferral)
                    .Include(s => s.SubmissionService)
                    .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
                    .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                    .Where(s => s.SubmissionReferral.ReferralName.Contains(searchString))
                    .Where(s => s.SubmissionService.ServiceName == svcSearch)
@@ -123,6 +123,8 @@ namespace OutcomesFirst.Controllers
                   .Include(s => s.SubmissionReferral)
                   .Include(s => s.SubmissionService)
                   .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                   .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                    .Where(s => s.SubmissionReferral.ReferralName.Contains(searchString))
                   .Where(s => s.SubmissionService.ServiceName == svcSearch)
@@ -137,6 +139,8 @@ namespace OutcomesFirst.Controllers
                   .Include(s => s.SubmissionReferral)
                   .Include(s => s.SubmissionService)
                   .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                   .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                   .Where(s => s.SubmissionStatus.StatusName == statusSearch)
                   .Where(s => s.SubmissionService.ServiceName == svcSearch)
@@ -151,6 +155,8 @@ namespace OutcomesFirst.Controllers
                    .Include(s => s.SubmissionReferral)
                    .Include(s => s.SubmissionService)
                    .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                    .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                     .Where(s => s.SubmissionService.ServiceName == svcSearch)
                     .OrderBy(o => o.SubmissionStatus.StatusName);
@@ -162,6 +168,8 @@ namespace OutcomesFirst.Controllers
                    .Include(s => s.SubmissionReferral)
                    .Include(s => s.SubmissionService)
                    .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                    .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                    .Where(s => s.SubmissionReferral.ReferralName.Contains(searchString))
                    .Where(s => s.SubmissionStatus.StatusName == statusSearch)
@@ -175,6 +183,8 @@ namespace OutcomesFirst.Controllers
                    .Include(s => s.SubmissionReferral)
                    .Include(s => s.SubmissionService)
                    .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                    .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                    .Where(s => s.SubmissionReferral.ReferralName.Contains(searchString))
                    .OrderBy(o => o.SubmissionStatus.StatusName);
@@ -188,6 +198,8 @@ namespace OutcomesFirst.Controllers
                    .Include(s => s.SubmissionReferral)
                    .Include(s => s.SubmissionService)
                    .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                    .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                    .Where(s => s.SubmissionStatus.StatusName == statusSearch)
                    .OrderBy(o => o.SubmissionStatus.StatusName);
@@ -200,6 +212,8 @@ namespace OutcomesFirst.Controllers
                     .Include(s => s.SubmissionReferral)
                     .Include(s => s.SubmissionService)
                     .Include(s => s.SubmissionStatus)
+                    .Where(s => !exclusions.Any(i => i.SubmissionReferralId == s.SubmissionReferralId))
+
                     .Where(s => s.SubmissionStatusId != 1 && s.SubmissionStatusId != 2)
                     .OrderBy(o => o.SubmissionStatus.StatusName);
                     return View(await PaginatedList<Submission>.CreateAsync(servicedata0.AsNoTracking(), pageNumber ?? 1, pageSize));
@@ -324,12 +338,21 @@ namespace OutcomesFirst.Controllers
                          };
                         foreach (Submission s in submissions)
                         {
-                            //set initial status of submission to 'Under Consideration by Service //
-                            s.SubmissionStatusId = 8;
-                            _context.Submission.Add(s);
+                            try
+                            {
+                                //set initial status of submission to 'Under Consideration by Service //
+                                s.SubmissionStatusId = 8;
+                                _context.Submission.Add(s);
+                            }
+                            catch(Exception)
+                            {
+                                throw;
+                            }
                         }
 
+
                     }
+
                     _context.SaveChanges();
                 }
                 return RedirectToAction("Index", "Referrals");
@@ -448,9 +471,16 @@ namespace OutcomesFirst.Controllers
                          };
                         foreach (Submission s in submissions)
                         {
-                            //set initial status of submission to 'Under Consideration by Service //
-                            s.SubmissionStatusId = 8;
-                            _context.Submission.Add(s);
+                            try
+                            {
+                                //set initial status of submission to 'Under Consideration by Service //
+                                s.SubmissionStatusId = 8;
+                                _context.Submission.Add(s);
+                            }
+                            catch
+                            {
+                                throw;
+                            }
                         }
 
                     }
@@ -482,6 +512,7 @@ namespace OutcomesFirst.Controllers
             .Include(r => r.SubmissionReferral)
             .Include(r => r.SubmissionStatus)
             .Include(r => r.SubmissionService)
+             .Include(r => r.SubmissionArchiveReason)
              .FirstOrDefaultAsync(r => r.SubmissionId == id);
 
             if (submission == null)
@@ -493,7 +524,7 @@ namespace OutcomesFirst.Controllers
             ViewData["SubmissionReferralId"] = new SelectList(_context.Referral, "ReferralId", "ReferralName", submission.SubmissionReferralId);
             ViewData["SubmissionStatusId"] = new SelectList(_context.Status, "StatusId", "StatusName", submission.SubmissionStatusId);
             ViewData["SubmissionServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName", submission.SubmissionServiceId);
-
+            ViewData["SubmissionArchiveReasonId"] = new SelectList(_context.ArchiveReason, "ArchiveReasonId", "ArchiveReasonName", submission.SubmissionArchiveReasonId);
             return View(submission);
         }
 
@@ -504,7 +535,7 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("SubmissionId,SubmissionName,SubmissionServiceId, SubmissionStatusId,SubmissionPlacementStartDate,SubmissionReferralId")] Submission submission)
+        public IActionResult Edit(int id, [Bind("SubmissionId,SubmissionName,SubmissionServiceId, SubmissionStatusId,SubmissionPlacementStartDate,SubmissionReferralId, SubmissionArchiveReasonId")] Submission submission)
         {
             if (id != submission.SubmissionId)
             {
@@ -513,6 +544,7 @@ namespace OutcomesFirst.Controllers
 
             if (ModelState.IsValid)
             {
+                _context.Update(submission);
                 // get referral
                 var referral = _context.Referral
                      .Where(r => r.ReferralId == submission.SubmissionReferralId).FirstOrDefault();
@@ -538,67 +570,72 @@ namespace OutcomesFirst.Controllers
                     model.PlacementGenderId = referral.ReferralGenderId;
                     model.PlacementLocalAuthorityId = referral.ReferralLocalAuthorityId;
 
-                    _context.Update(model);
-
-                    //archive all submissions for refid which has been placed.
-                    var SubmisssionsToArchive = _context.Submission
-                        .Where(s => s.SubmissionReferralId == subrefid && s.SubmissionStatusId != 1);
-
-                    // no of submissions to archive
-                    foreach (Submission s in SubmisssionsToArchive)
-                    {
-                        s.SubmissionStatusId = 2;
-                        try
-                        {
-                            _context.Submission.Update(s);
-                        }
-                        catch (Exception)
-                        {
-                            throw;
-                        }
-
-                    }
-                    _context.SaveChanges();
-                }
-                else
-                {
                     try
                     {
-                        _context.Update(submission);
-                        _context.SaveChanges();
+                        _context.Update(model);
                     }
-                    catch (Exception)
+                    catch(Exception)
                     {
                         throw;
                     }
 
-                    // Update the referral with the highest status (actually the lowest)
-                    var allsubmissions = _context.Submission.Where(s => s.SubmissionReferralId == referral.ReferralId);
+                    //If a submission has been set to 'Placed', update the referral to placed.
 
-                    int? highest = 99;
-                    //int subid = 6;
-
-                    foreach (Submission s in allsubmissions)
+                    try
                     {
-
-                        //var substat = _context.Status.Where(r => r.StatusId == s.SubmissionStatusId);
-
-                        if (s.SubmissionStatusId < highest)
-                        {
-
-                            highest = s.SubmissionStatusId;
-                            //subid = s.SubmissionStatus.StatusId;
-
-                        }
+                        referral.ReferralStatusId = 1;
+                        _context.SaveChanges();
                     }
+                    catch(Exception)
+                    {
+                        throw;
 
-
-                    referral.ReferralStatusId = (int)highest;
-                    _context.Update(referral);
-                    _context.SaveChanges();
-
+                    }
                 }
 
+
+
+                // Update the referral with the highest status (actually the lowest)
+                var allsubmissions = _context.Submission.Where(s => s.SubmissionReferralId == referral.ReferralId);
+
+                int? highest = 8;
+                //int subid = 6;
+
+                foreach (Submission s in allsubmissions)
+                {
+
+                    //var substat = _context.Status.Where(r => r.StatusId == s.SubmissionStatusId);
+
+                    if (s.SubmissionStatusId < highest && s.SubmissionStatusId > 2)
+                    {
+
+                        highest = s.SubmissionStatusId;
+                        //subid = s.SubmissionStatus.StatusId;
+
+                    }
+                   
+                    
+                      
+                                     
+                }
+
+                /* only  update referral if status is not Archived  or Placed (the Archive  decison made at head office and is made directly on the referral record
+                because if all submissions are rejected by the services, head-office may submit to other services. Does this need to be confirmed with Kerry?*/
+              
+
+
+                if (highest > 2 & referral.ReferralStatusId >2)
+                { 
+                    referral.ReferralStatusId = (int)highest;
+                    try
+                    {
+                        _context.Update(referral);
+                        _context.SaveChanges();
+                    }
+                    catch(Exception)
+                    { throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(submission);

@@ -40,21 +40,11 @@ namespace OutcomesFirst.ViewModels
 
         public int ArchiveReferralStatusId { get; set; }
 
-        public string ArchiveReferralSuitableColor { get; set; }
-
         public bool? ArchiveReferralSuitable { get; set; }
 
         [Display(Name = "Archive Reason")]
 
         public int? ArchiveReferralArchiveReasonId { get; set; }
-
-        [Display(Name = "Suitable Comments")]
-        public string ArchiveReferralSuitableComments { get; set; }
-
-        [Display(Name = "Not Suitable Comments")]
-        public string ArchiveReferralNotSuitableComments { get; set; }
-
-
 
         public List<LocalAuthority> localAuthorities { get; set; }
         public List<Gender> genders { get; set; }
