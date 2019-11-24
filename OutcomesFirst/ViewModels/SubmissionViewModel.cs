@@ -26,9 +26,9 @@ namespace OutcomesFirst.ViewModels
         public DateTime? SubmissionPlacementStartDate { get; set; }
 
 
-        [DataType(DataType.Date)]
+       
         [Display(Name = "Archive Reason")]
-        public DateTime? SubmissionArchiveReasonId { get; set; }
+        public int? SubmissionArchiveReasonId { get; set; }
 
         [NotMapped]
         public List<string> IsChecked { get; set; }

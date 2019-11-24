@@ -27,7 +27,7 @@ namespace OutcomesFirst.Controllers
         public async Task<IActionResult> Index(int? pageNumber, string searchString, string svcSearch, string statusSearch)
         {
             int searchType = 0;
-            int pageSize = 10;
+            int pageSize = 1000;
 
             var svcList = new List<string>();
 
@@ -502,6 +502,14 @@ namespace OutcomesFirst.Controllers
         // GET: Submissions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            Submission model = await _context.Submission.FindAsync(id);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+
             if (id == null)
             {
                 return NotFound();
@@ -520,12 +528,16 @@ namespace OutcomesFirst.Controllers
                 return NotFound();
             }
 
+            SubmissionViewModel viewModel = new SubmissionViewModel();
+
+            _mapper.Map(model, viewModel);
+
 
             ViewData["SubmissionReferralId"] = new SelectList(_context.Referral, "ReferralId", "ReferralName", submission.SubmissionReferralId);
             ViewData["SubmissionStatusId"] = new SelectList(_context.Status, "StatusId", "StatusName", submission.SubmissionStatusId);
             ViewData["SubmissionServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName", submission.SubmissionServiceId);
             ViewData["SubmissionArchiveReasonId"] = new SelectList(_context.ArchiveReason, "ArchiveReasonId", "ArchiveReasonName", submission.SubmissionArchiveReasonId);
-            return View(submission);
+            return View(viewModel);
         }
 
 
@@ -535,44 +547,58 @@ namespace OutcomesFirst.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("SubmissionId,SubmissionName,SubmissionServiceId, SubmissionStatusId,SubmissionPlacementStartDate,SubmissionReferralId, SubmissionArchiveReasonId")] Submission submission)
+        public async Task<IActionResult> Edit(int id, SubmissionViewModel viewModel)
         {
-            if (id != submission.SubmissionId)
-            {
-                return NotFound();
-            }
+            //if (id != submission.SubmissionId)
+            //{
+            //    return NotFound();
+            //}
 
             if (ModelState.IsValid)
             {
-                _context.Update(submission);
+            
+                Submission model = await _context.Submission.FindAsync(id);
+                _mapper.Map(viewModel, model);
+
+                _context.Update(model);
+
+                await _context.SaveChangesAsync();
+
+                // _context.Update(submission);
                 // get referral
                 var referral = _context.Referral
-                     .Where(r => r.ReferralId == submission.SubmissionReferralId).FirstOrDefault();
+                    .Where(r => r.ReferralId == model.SubmissionReferralId).FirstOrDefault();
+                   
 
-                submission.SubmissionReferral = referral;
+               // submission.SubmissionReferral = referral;
 
                 var service = _context.Service
-                     .Where(r => r.ServiceId == submission.SubmissionServiceId).FirstOrDefault();
+                     .Where(r => r.ServiceId == model.SubmissionServiceId).FirstOrDefault();
 
-                submission.SubmissionService = service;
+                model.SubmissionService = service;
 
-                var subrefid = submission.SubmissionReferralId;
+                var subrefid = model.SubmissionReferralId;
 
                 // Submission model = await _context.Submission.FindAsync(id);
 
-                if (submission.SubmissionStatusId == 1)
+              
+
+
+                if (model.SubmissionStatusId == 1)
                 {
 
-                    Placement model = new Placement();
-                    model.PlacementRefId = referral.ReferralName;
-                    model.PlacementServiceId = submission.SubmissionServiceId;
-                    model.PlacementType = referral.ReferralType;
-                    model.PlacementGenderId = referral.ReferralGenderId;
-                    model.PlacementLocalAuthorityId = referral.ReferralLocalAuthorityId;
+                    Placement placementmodel = new Placement();
+                    placementmodel.PlacementRefId = referral.ReferralName;
+                    placementmodel.PlacementServiceId = model.SubmissionServiceId;
+                    placementmodel.PlacementDateStartedWithGroup = viewModel.SubmissionPlacementStartDate;
+                    placementmodel.PlacementPlacementStartDate = viewModel.SubmissionPlacementStartDate;
+                    placementmodel.PlacementType = referral.ReferralType;
+                    placementmodel.PlacementGenderId = referral.ReferralGenderId;
+                    placementmodel.PlacementLocalAuthorityId = referral.ReferralLocalAuthorityId;
 
                     try
                     {
-                        _context.Update(model);
+                        _context.Update(placementmodel);
                     }
                     catch(Exception)
                     {
@@ -603,20 +629,13 @@ namespace OutcomesFirst.Controllers
 
                 foreach (Submission s in allsubmissions)
                 {
-
                     //var substat = _context.Status.Where(r => r.StatusId == s.SubmissionStatusId);
-
                     if (s.SubmissionStatusId < highest && s.SubmissionStatusId > 2)
                     {
-
                         highest = s.SubmissionStatusId;
                         //subid = s.SubmissionStatus.StatusId;
-
                     }
-                   
-                    
-                      
-                                     
+                           
                 }
 
                 /* only  update referral if status is not Archived  or Placed (the Archive  decison made at head office and is made directly on the referral record
@@ -638,7 +657,7 @@ namespace OutcomesFirst.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(submission);
+            return RedirectToAction(nameof(Index));
         }
         // GET: Submissions/Delete/5
         public async Task<IActionResult> Delete(int? id)

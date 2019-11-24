@@ -1,4 +1,4 @@
-﻿@model OutcomesFirst.Models.Submission
+﻿@model OutcomesFirst.ViewModels.SubmissionViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -42,7 +42,7 @@
 
                     <div class="row">
 
-                        <div class="col-md-2">
+                        <div class="col-md-3">
 
                             <div class="form-group">
 
@@ -52,7 +52,7 @@
 
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-9">
 
                             <div class="form-group">
 
@@ -60,104 +60,99 @@
 
                                 @*<input asp-for="SubmissionReferral.ReferralName" class="form-control" />
 
-                    <span asp-validation-for="SubmissionReferral.ReferralName" class="text-danger"></span>*@
+                                    <span asp-validation-for="SubmissionReferral.ReferralName" class="text-danger"></span>*@
 
                             </div>
 
                         </div>
 
-                        <div class="col-md-8">
-
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label asp-for="SubmissionServiceId" class="control-label"></label>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                @Model.SubmissionService.ServiceName
-
-                                @*<select asp-for="SubmissionServiceId" class="form-control" asp-items="ViewBag.SubmissionServiceId" disabled="disabled"></select>
-
-                    <span asp-validation-for="SubmissionServiceId" class="text-danger"></span>*@
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-2"></div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label asp-for="SubmissionStatusId" class="control-label"></label>
-                            </div>
-                        </div>
-                        <div class="col-md-10">
-                            <div class="form-group">
-                                <select asp-for="SubmissionStatusId" class="form-control" id="PlacementStatus" asp-items="ViewBag.SubmissionStatusId"></select>
-                                <span asp-validation-for="SubmissionStatusId" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label asp-for="SubmissionPlacementStartDate" id="PlacementStartTitle" class="control-label"></label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <input asp-for="SubmissionPlacementStartDate" id="PlacementStartControl" class="form-control form-horizontal" />
-                                <span asp-validation-for="SubmissionPlacementStartDate" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6"></div>
-
-                    </div>
-
-
-                    <div class="row">
-
-                        <div class="col-md-2">
-
-                            <div class="form-group">
-
-                                <label asp-for="SubmissionArchiveReasonId" id="ArchiveReasonTitle" class="control-label"></label>
-
-                            </div>
-
-                        </div>
-
-                       
-                        <div class="col-md-6"></div>
+                        @*<div class="col-md-8">*@
 
                     </div>
 
                 </div>
 
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label asp-for="SubmissionServiceId" class="control-label"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            @Model.SubmissionService.ServiceName
+
+                            @*<select asp-for="SubmissionServiceId" class="form-control" asp-items="ViewBag.SubmissionServiceId" disabled="disabled"></select>
+
+                                <span asp-validation-for="SubmissionServiceId" class="text-danger"></span>*@
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label asp-for="SubmissionStatusId" class="control-label"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select asp-for="SubmissionStatusId" class="form-control" id="PlacementStatus" asp-items="ViewBag.SubmissionStatusId"></select>
+                            <span asp-validation-for="SubmissionStatusId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label asp-for="SubmissionPlacementStartDate" id="PlacementStartTitle" class="control-label"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input asp-for="SubmissionPlacementStartDate" id="PlacementStartControl" class="form-control form-horizontal" />
+                            <span asp-validation-for="SubmissionPlacementStartDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3"></div>
+
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label asp-for="SubmissionArchiveReasonId" id="ArchiveReasonTitle" class="control-label"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select asp-for="SubmissionArchiveReasonId" class="form-control form-horizontal" id="ArchiveReasonControl" asp-items="ViewBag.SubmissionArchiveReasonId"></select>
+                            <span asp-validation-for="SubmissionArchiveReasonId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3"></div>
+                    </div>
+                </div>
             </div>
-
         </div>
-
     </div>
-
 
 
     <br />
 
     <div class="form-group">
 
-        <input type="submit" value="Save"  class="btn btn-success" />
+        <input type="submit" value="Save" class="btn btn-success" />
 
     </div>
 
@@ -178,25 +173,22 @@
 <script>
 
     window.onload = function () {
-    
-        if (('#PlacementStatus').value == '1')
-        {
+
+        if (('#PlacementStatus').value == '1') {
             $("#PlacementStartTitle").show();
             $("#PlacementStartControl").show();
             $("#ArchiveReasonTitle").hide();
             $("#ArchiveReasonControl").hide();
         }
 
-        if (('#PlacementStatus').value == '2')
-        {
+        if (('#PlacementStatus').value == '2') {
             $("#PlacementStartTitle").hide();
             $("#PlacementStartControl").hide();
             $("#ArchiveReasonTitle").show();
             $("#ArchiveReasonControl").show();
         }
 
-        if ((('#PlacementStatus').value != '1')  && (('#PlacementStatus').value != '2'))
-        {
+        if ((('#PlacementStatus').value != '1') && (('#PlacementStatus').value != '2')) {
             $("#PlacementStartTitle").hide();
             $("#PlacementStartControl").hide();
             $("#ArchiveReasonTitle").hide();

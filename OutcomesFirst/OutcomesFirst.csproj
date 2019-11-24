@@ -24,6 +24,14 @@
 
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
+    <Content Remove="Views\Placements\Deletex.cshtml" />
+    <Content Remove="Views\Placements\Detailsx.cshtml" />
+    <Content Remove="Views\Placements\Edix.cshtml" />
+    <Content Remove="Views\Placements\Indexx.cshtml" />
+    <Content Remove="Views\Placements\OccupancyDelete.cshtml" />
+    <Content Remove="Views\Placements\OccupancyDetails.cshtml" />
+    <Content Remove="Views\Placements\OccupancyEdit.cshtml" />
+    <Content Remove="Views\Placements\OccupancyIndex.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +54,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Utils" Version="3.0.0-preview6-19319-03" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGenerators.Mvc" Version="2.2.3" />
     <PackageReference Include="MVCHtml5Toolkit" Version="1.8.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="PagedList" Version="1.17.0" />
     <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
   </ItemGroup>

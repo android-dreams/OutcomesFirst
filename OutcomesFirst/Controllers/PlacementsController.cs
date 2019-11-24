@@ -25,28 +25,28 @@ namespace OutcomesFirst
         }
 
         // GET: Placements
-        public async Task<IActionResult> Index(int? pageNumber, string serviceSearch, string laSearch)
-        {
-            int pageSize = 10;
+        //public async Task<IActionResult> Index(int? pageNumber, string serviceSearch, string laSearch)
+        //{
+        //    int pageSize = 10;
            
 
-            var placement0 = _context.Placement
-                         .Include(s => s.PlacementLocalAuthority)
-                         .Include(s => s.PlacementGender)
-                         .Include(s => s.PlacementService)
+        //    var placement0 = _context.Placement
+        //                 .Include(s => s.PlacementLocalAuthority)
+        //                 .Include(s => s.PlacementGender)
+        //                 .Include(s => s.PlacementService)
 
-                         .OrderBy(o => o.PlacementService.ServiceName);
+        //                 .OrderBy(o => o.PlacementService.ServiceName);
 
+         
 
-
-            return View(await PaginatedList<Placement>.CreateAsync(placement0.AsNoTracking(), pageNumber ?? 1, pageSize));
-        }
+        //    return View(await PaginatedList<Placement>.CreateAsync(placement0.AsNoTracking(), pageNumber ?? 1, pageSize));
+        //}
 
 
         // GET: Placement Details - Placement shows Placements By Service so the main table is Placements
-        public async Task<IActionResult> OccupancyIndex(int? pageNumber, string serviceSearch, string laSearch, string IDSearch)
+        public async Task<IActionResult> Index(int? pageNumber, string serviceSearch, string laSearch, string IDSearch)
         {
-            int pageSize = 10;
+            int pageSize = 10000;
             int searchType = 0;
 
             //var laQry = _context.LocalAuthority
@@ -227,6 +227,16 @@ namespace OutcomesFirst
                 return NotFound();
             }
 
+            Placement model = await _context.Placement.FindAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            PlacementViewModel viewModel = new PlacementViewModel();
+
+            _mapper.Map(model, viewModel);
+
 
             var placement = await _context.Placement
                 .Include(p => p.PlacementGender)
@@ -244,7 +254,7 @@ namespace OutcomesFirst
             //ViewData["PlacementServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName");
             //ViewData["PlacementLeavingReasonId"] = new SelectList(_context.LeavingReason, "LeavingReasonId", "LeavingReasonName");
 
-            return View(placement);
+            return View(viewModel);
         }
 
         // GET: Placements/Create
@@ -286,78 +296,78 @@ namespace OutcomesFirst
         }
 
         // GET: Placements/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var model = await _context.Placement.FindAsync(id);
-            if (model == null)
-            {
-                return NotFound();
-            }
+        //    var model = await _context.Placement.FindAsync(id);
+        //    if (model == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            PlacementViewModel viewModel = new PlacementViewModel();
-            
+        //    PlacementViewModel viewModel = new PlacementViewModel();
 
-            _mapper.Map(model, viewModel);
 
-            PopulateDropDowns(viewModel);
+        //    _mapper.Map(model, viewModel);
 
-            return View(viewModel);
-        }
+        //    PopulateDropDowns(viewModel);
+
+        //    return View(viewModel);
+        //}
 
         // POST: Placements/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PlacementId,PlacementRefId,PlacementFirstName,PlacementLastName,PlacementGenderId,PlacementType,PlacementServiceTransition,PlacementServiceId,PlacementDateStartedWithGroup,PlacementPlacementStartDate,PlacementDOB,PlacementAgeAtLeaving,PlacementLocalAuthorityId,PlacementFramework,PlacementWeeklyFee,PlacementLengthOfStayWithGroup,PlacementLengthOfStayWithPlacement,PlacementNotes,PlacementLeaveDate,PlacementLeaverType,PlacementLeavingReasonId")] PlacementViewModel viewModel)
-        {
-            if (id != viewModel.PlacementId)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("PlacementId,PlacementRefId,PlacementFirstName,PlacementLastName,PlacementGenderId,PlacementType,PlacementServiceTransition,PlacementServiceId,PlacementDateStartedWithGroup,PlacementPlacementStartDate,PlacementDOB,PlacementAgeAtLeaving,PlacementLocalAuthorityId,PlacementFramework,PlacementWeeklyFee,PlacementLengthOfStayWithGroup,PlacementLengthOfStayWithPlacement,PlacementNotes,PlacementLeaveDate,PlacementLeaverType,PlacementLeavingReasonId")] PlacementViewModel viewModel)
+        //{
+        //    if (id != viewModel.PlacementId)
+        //    {
+        //        return NotFound();
+        //    }
 
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    Placement model = await _context.Placement.FindAsync(id);
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            Placement model = await _context.Placement.FindAsync(id);
 
-                    _mapper.Map(viewModel, model);
+        //            _mapper.Map(viewModel, model);
 
-                    _context.Update(model);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PlacementExists(viewModel.PlacementId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
+        //            _context.Update(model);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!PlacementExists(viewModel.PlacementId))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
 
-            PopulateDropDowns(viewModel);
+        //    PopulateDropDowns(viewModel);
 
-            return View(viewModel);
-        }
+        //    return View(viewModel);
+        //}
 
 
 
 
 
         // GET: Placements/Edit/5
-        public async Task<IActionResult> OccupancyEdit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
 
             if (id == null)
@@ -386,9 +396,9 @@ namespace OutcomesFirst
             return View(viewModel);
         }
 
-            
 
-           
+
+
 
 
         // POST: Placement/Edit/5
@@ -396,7 +406,7 @@ namespace OutcomesFirst
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> OccupancyEdit(int id, PlacementViewModel viewModel, Placement placement)
+        public async Task<IActionResult> Edit(int id, PlacementViewModel viewModel)
             {
             if (id != viewModel.PlacementId)
             {

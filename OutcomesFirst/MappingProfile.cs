@@ -48,6 +48,11 @@ namespace OutcomesFirst
             CreateMap<Service, ServiceViewModel>();
             CreateMap<ServiceViewModel, Service>();
 
+            CreateMap<Submission, SubmissionViewModel>();
+            CreateMap<SubmissionViewModel, Submission>();
+
+
+
         }
 
     }
