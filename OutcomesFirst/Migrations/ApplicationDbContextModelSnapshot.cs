@@ -294,7 +294,7 @@ namespace OutcomesFirst.Migrations
 
                     b.Property<DateTime>("PlacementDOB");
 
-                    b.Property<DateTime>("PlacementDateStartedWithGroup");
+                    b.Property<DateTime?>("PlacementDateStartedWithGroup");
 
                     b.Property<string>("PlacementFirstName");
 
@@ -476,8 +476,6 @@ namespace OutcomesFirst.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("SubmissionArchiveReasonId");
-
-                    b.Property<DateTime?>("SubmissionPlacementStartDate");
 
                     b.Property<int>("SubmissionReferralId");
 

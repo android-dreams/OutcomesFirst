@@ -1,0 +1,71 @@
+﻿@*@model IEnumerable<OutcomesFirst.ViewModels.PlacementViewModel>*@
+@*@model OutcomesFirst.Models.Placement*@
+@model IEnumerable<OutcomesFirst.Models.Placement>
+@{
+    ViewData["Title"] = "Placement";
+}
+
+<h1>Placement</h1>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Ref Id
+                </th>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Gender
+                </th>
+                <th>
+                    Local Authority
+                </th>
+
+                <th>
+                    Placement Start Date
+                </th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlacementRefId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlacementFirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlacementLastName)
+                    </td>
+
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.PlacementGender.GenderName)*@
+                    </td>
+
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.PlacementLocalAuthority.LocalAuthorityName)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlacementPlacementStartDate)
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.PlacementId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.PlacementId">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -349,7 +349,7 @@ namespace OutcomesFirst.Data
                  new Service{ServiceName="The Meadows",ServiceRegionId=2,ServicePlaces=15},
                  new Service{ServiceName="The Moorlands",ServiceRegionId=3,ServicePlaces=14},
                  new Service{ServiceName="Newlands",ServiceRegionId=4,ServicePlaces=13},
-                 new Service{ServiceName="Oathill Loadge",ServiceRegionId=1,ServicePlaces=12},
+                 new Service{ServiceName="Oathill Lodge",ServiceRegionId=1,ServicePlaces=12},
                  new Service{ServiceName="The Paddocks",ServiceRegionId=2,ServicePlaces=11},
                  new Service{ServiceName="Park Farm",ServiceRegionId=3,ServicePlaces=10},
                  new Service{ServiceName="Poppy Lodge",ServiceRegionId=4,ServicePlaces=9},

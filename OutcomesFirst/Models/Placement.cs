@@ -44,7 +44,7 @@ namespace OutcomesFirst.Models
         [Display(Name = "Date Started With Group")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString ="{0:dd-MM-yyyy}",ApplyFormatInEditMode = false)]
-        public DateTime PlacementDateStartedWithGroup { get; set; }
+        public DateTime? PlacementDateStartedWithGroup { get; set; }
 
 
     

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OutcomesFirst.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
 using AutoMapper;
 
 namespace OutcomesFirst
@@ -69,7 +70,7 @@ namespace OutcomesFirst
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                // The default HSTS value is 30 days.You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

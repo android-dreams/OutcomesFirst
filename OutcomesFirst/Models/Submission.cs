@@ -13,19 +13,22 @@ namespace OutcomesFirst.Models
         [Display(Name = "ID")]
         public int SubmissionReferralId { get; set; }
 
-        [Display(Name = "Service")]     
+        [Display(Name = "Service")]
+
         public int SubmissionServiceId { get; set; }
 
         [Display(Name = "Status")]
         public int? SubmissionStatusId { get; set; }
 
-        [DataType(DataType.Date)]
-        [Display(Name="Start Date")]
-        public DateTime?  SubmissionPlacementStartDate { get; set; }
+
+        //[DataType(DataType.Date)]
+        //[Display(Name = "Start Date")]
+        //public DateTime SubmissionPlacementStartDate { get; set; }
 
 
-   
+
         [Display(Name = "Archive Reason")]
+      
       
         public int? SubmissionArchiveReasonId { get; set; }
 

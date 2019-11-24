@@ -27,7 +27,7 @@ namespace OutcomesFirst.Controllers
         public async Task<IActionResult> Index(int? pageNumber, string searchString, string svcSearch, string statusSearch)
         {
             int searchType = 0;
-            int pageSize = 10;
+            int pageSize = 1000;
 
             var svcList = new List<string>();
 
@@ -502,36 +502,41 @@ namespace OutcomesFirst.Controllers
         // GET: Submissions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            Submission model = await _context.Submission.FindAsync(id);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+
             if (id == null)
             {
                 return NotFound();
             }
 
 
-            var submissionModel = await _context.Submission
+            var submission = await _context.Submission
             .Include(r => r.SubmissionReferral)
             .Include(r => r.SubmissionStatus)
             .Include(r => r.SubmissionService)
              .Include(r => r.SubmissionArchiveReason)
              .FirstOrDefaultAsync(r => r.SubmissionId == id);
 
-            if (submissionModel == null)
+            if (submission == null)
             {
                 return NotFound();
             }
 
             SubmissionViewModel viewModel = new SubmissionViewModel();
 
-            _mapper.Map(submissionModel, viewModel);
-
-            PopulateDropDowns(viewModel);
+            _mapper.Map(model, viewModel);
 
 
-            //ViewData["SubmissionReferralId"] = new SelectList(_context.Referral, "ReferralId", "ReferralName", submission.SubmissionReferralId);
-            //ViewData["SubmissionStatusId"] = new SelectList(_context.Status, "StatusId", "StatusName", submission.SubmissionStatusId);
-            //ViewData["SubmissionServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName", submission.SubmissionServiceId);
-            //ViewData["SubmissionArchiveReasonId"] = new SelectList(_context.ArchiveReason, "ArchiveReasonId", "ArchiveReasonName", submission.SubmissionArchiveReasonId);
-
+            ViewData["SubmissionReferralId"] = new SelectList(_context.Referral, "ReferralId", "ReferralName", submission.SubmissionReferralId);
+            ViewData["SubmissionStatusId"] = new SelectList(_context.Status, "StatusId", "StatusName", submission.SubmissionStatusId);
+            ViewData["SubmissionServiceId"] = new SelectList(_context.Service, "ServiceId", "ServiceName", submission.SubmissionServiceId);
+            ViewData["SubmissionArchiveReasonId"] = new SelectList(_context.ArchiveReason, "ArchiveReasonId", "ArchiveReasonName", submission.SubmissionArchiveReasonId);
             return View(viewModel);
         }
 
@@ -544,75 +549,77 @@ namespace OutcomesFirst.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, SubmissionViewModel viewModel)
         {
-            PopulateDropDowns(viewModel);
-
-            if (id != viewModel.SubmissionId)
-            {
-                return NotFound();
-            }
-
-            if (viewModel.SubmissionStatusId == 1 && viewModel.SubmissionPlacementStartDate == null)
-            {
-                ModelState.AddModelError(string.Empty, "You must enter an Placement Start Date when status is set to 'Placed'");
-            }
-
-            if (viewModel.SubmissionStatusId == 2 && viewModel.SubmissionArchiveReasonId == null)
-            {
-                ModelState.AddModelError(string.Empty, "You must enter an Archive Reason");
-            }
+            //if (id != submission.SubmissionId)
+            //{
+            //    return NotFound();
+            //}
 
             if (ModelState.IsValid)
             {
-                //Update Submission
-                Submission submissionModel = await _context.Submission.FindAsync(id);
+            
+                Submission model = await _context.Submission.FindAsync(id);
+                _mapper.Map(viewModel, model);
 
-                submissionModel.SubmissionStatusId = viewModel.SubmissionStatusId;
+                _context.Update(model);
 
-                _context.Update(submissionModel);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
-                // Referral
+                // _context.Update(submission);
+                // get referral
                 var referral = _context.Referral
-                     .Where(r => r.ReferralId == submissionModel.SubmissionReferralId).FirstOrDefault();
+                    .Where(r => r.ReferralId == model.SubmissionReferralId).FirstOrDefault();
+                   
 
-                submissionModel.SubmissionReferral = referral;
+               // submission.SubmissionReferral = referral;
+
                 var service = _context.Service
-                     .Where(r => r.ServiceId == submissionModel.SubmissionServiceId).FirstOrDefault();
-                submissionModel.SubmissionService = service;
-                var subrefid = submissionModel.SubmissionReferralId;
+                     .Where(r => r.ServiceId == model.SubmissionServiceId).FirstOrDefault();
+
+                model.SubmissionService = service;
+
+                var subrefid = model.SubmissionReferralId;
 
                 // Submission model = await _context.Submission.FindAsync(id);
-                if (submissionModel.SubmissionStatusId == 1)
+
+              
+
+
+                if (model.SubmissionStatusId == 1)
                 {
-                    Placement model = new Placement();
-                    model.PlacementRefId = referral.ReferralName;
-                    model.PlacementServiceId = submissionModel.SubmissionServiceId;
-                    model.PlacementType = referral.ReferralType;
-                    model.PlacementGenderId = referral.ReferralGenderId;
-                    model.PlacementLocalAuthorityId = referral.ReferralLocalAuthorityId;
+
+                    Placement placementmodel = new Placement();
+                    placementmodel.PlacementRefId = referral.ReferralName;
+                    placementmodel.PlacementServiceId = model.SubmissionServiceId;
+                    placementmodel.PlacementDateStartedWithGroup = viewModel.SubmissionPlacementStartDate;
+                    placementmodel.PlacementPlacementStartDate = viewModel.SubmissionPlacementStartDate;
+                    placementmodel.PlacementType = referral.ReferralType;
+                    placementmodel.PlacementGenderId = referral.ReferralGenderId;
+                    placementmodel.PlacementLocalAuthorityId = referral.ReferralLocalAuthorityId;
 
                     try
                     {
-                        _context.Update(model);
-                        _context.SaveChanges();
-
+                        _context.Update(placementmodel);
                     }
-                    catch (Exception)
+                    catch(Exception)
                     {
                         throw;
                     }
 
                     //If a submission has been set to 'Placed', update the referral to placed.
+
                     try
                     {
                         referral.ReferralStatusId = 1;
                         _context.SaveChanges();
                     }
-                    catch (Exception ex)
+                    catch(Exception)
                     {
                         throw;
+
                     }
                 }
+
+
 
                 // Update the referral with the highest status (actually the lowest)
                 var allsubmissions = _context.Submission.Where(s => s.SubmissionReferralId == referral.ReferralId);
@@ -628,30 +635,30 @@ namespace OutcomesFirst.Controllers
                         highest = s.SubmissionStatusId;
                         //subid = s.SubmissionStatus.StatusId;
                     }
+                           
                 }
 
                 /* only  update referral if status is not Archived  or Placed (the Archive  decison made at head office and is made directly on the referral record
                 because if all submissions are rejected by the services, head-office may submit to other services. Does this need to be confirmed with Kerry?*/
-                if (highest > 2 & referral.ReferralStatusId > 2)
-                {
+              
+
+
+                if (highest > 2 & referral.ReferralStatusId >2)
+                { 
                     referral.ReferralStatusId = (int)highest;
                     try
                     {
                         _context.Update(referral);
                         _context.SaveChanges();
                     }
-                    catch (Exception)
-                    {
-                        throw;
+                    catch(Exception)
+                    { throw;
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            else
-                return View(viewModel);
+            return RedirectToAction(nameof(Index));
         }
-
-
         // GET: Submissions/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -685,18 +692,6 @@ namespace OutcomesFirst.Controllers
         private bool SubmissionExists(int id)
         {
             return _context.Submission.Any(e => e.SubmissionId == id);
-        }
-
-        private void PopulateDropDowns(SubmissionViewModel viewModel)
-        {
-            //for (int i=2000; i< 2019; i++)
-            //{
-            //    viewModel.DOBYear = i;
-            //}
-
-            viewModel.Services = _context.Service.ToList();
-            viewModel.Statuses = _context.Status.ToList();
-            viewModel.ArchiveReasons = _context.ArchiveReason.ToList();
         }
     }
 }

@@ -75,7 +75,7 @@
         </div>
         <div class="row" style="margin-top:100px">
             <div class="col-sm-4">
-                <a href="@(Url.Action("OccupancyIndex", "Placements"))">
+                <a href="@(Url.Action("Index", "Placements"))">
                     <div title="Click to view details" class="auction-dashboard-item">
                         <div class="auction-headline">
                             <div class="subtitle">
@@ -87,19 +87,19 @@
                     </div>
                 </a>
             </div>
-            <div class="col-sm-4">
-                <a href="@(Url.Action("Index", "Leavers"))">
-                    <div title="Click to view details" class="auction-dashboard-item">
-                        <div class="auction-headline">
-                            <div class="subtitle">
-                                <h5>
-                                    Leavers
-                                </h5>
+            @*<div class="col-sm-4">
+                    <a href="@(Url.Action("Index", "Leavers"))">
+                        <div title="Click to view details" class="auction-dashboard-item">
+                            <div class="auction-headline">
+                                <div class="subtitle">
+                                    <h5>
+                                        Leavers
+                                    </h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>*@
             <div class="col-sm-4">
                 <a href="@(Url.Action("Index", "ArchiveReferrals"))">
                     <div title="Click to view details" class="auction-dashboard-item">
@@ -110,7 +110,8 @@
                         </div>
                     </div>
                 </a>
-            </div>
+               
+              </div>
         </div>
 
     }
