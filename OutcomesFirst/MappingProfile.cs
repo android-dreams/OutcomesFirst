@@ -18,6 +18,9 @@ namespace OutcomesFirst
             CreateMap<Submission, SubmissionIndexData>();
             CreateMap<SubmissionIndexData, Submission>();
 
+            CreateMap<Submission, SubmissionViewModel>();
+            CreateMap<SubmissionViewModel, Submission>();
+
             CreateMap<ArchiveReferral, ArchiveReferralViewModel>();
             CreateMap<ArchiveReferralViewModel, ArchiveReferral>();
 

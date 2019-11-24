@@ -851,7 +851,7 @@ namespace OutcomesFirst.Controllers
         {
             if (viewModel.ReferralSuitable.HasValue && viewModel.ReferralSuitable == false && viewModel.ReferralArchiveReasonId == 0)
             {
-                ModelState.AddModelError(string.Empty, "You must enter an archive reason for 'Not Suitable referrals");
+                ModelState.AddModelError(string.Empty, "You must enter an archive reason for 'Not Suitable' referrals");
             }
 
             if (ModelState.IsValid)

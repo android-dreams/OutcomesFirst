@@ -9,25 +9,18 @@
     Submissions
 </h3>
 
-
-
-<p>
-
     @using (Html.BeginForm("Index", "Submissions", FormMethod.Get))
     {
-    <p>
-        Service: @Html.DropDownList("svcSearch", "All") &nbsp;
-        ID: @Html.TextBox("SearchString") &nbsp;
-        Status:  @Html.DropDownList("statusSearch", "All")
-        <input type="submit" value="Filter" />
-        @*<button class="buttonload">
-                <i class="fa fa-spinner fa-spin"></i>Loading
-            </button>*@
-    </p>
-}
-    </p>
-
-
+        <p>
+            Service: @Html.DropDownList("svcSearch", "All") &nbsp;
+            ID: @Html.TextBox("SearchString") &nbsp;
+            Status:  @Html.DropDownList("statusSearch", "All")
+            <input type="submit" value="Filter" />
+            @*<button class="buttonload">
+                    <i class="fa fa-spinner fa-spin"></i>Loading
+                </button>*@
+        </p>
+    }
 
     <table class="table">
 

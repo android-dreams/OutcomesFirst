@@ -20,6 +20,7 @@
     <Compile Remove="Controllers\ReferralsControllerx.cs" />
     <Compile Remove="Controllers\SubmitToServiceControllerx.cs" />
     <Compile Remove="Models\SubmitViewModel.cs" />
+    <Compile Remove="ViewModels\SubmissionViewModelOld.cs" />
   </ItemGroup>
 
   <ItemGroup>
