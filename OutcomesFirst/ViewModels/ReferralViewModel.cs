@@ -40,6 +40,7 @@ namespace OutcomesFirst.ViewModels
 
         [Display(Name = "Received Date")]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime ReferralReceivedDate { get; set; }
 
         [Range(0, 19, ErrorMessage = "Age must be between 0 and 19")]
