@@ -558,6 +558,13 @@ namespace OutcomesFirst.Controllers
             {
             
                 Submission model = await _context.Submission.FindAsync(id);
+
+                //This if statement has been addeed to code round the problem where submission.ArchiveReasonID is being set incorrectly
+                //This needs to be fixed properly!!!
+                if(viewModel.SubmissionStatusId != 2)
+                {
+                    viewModel.SubmissionArchiveReasonId = null;
+                }
                 _mapper.Map(viewModel, model);
 
                 _context.Update(model);

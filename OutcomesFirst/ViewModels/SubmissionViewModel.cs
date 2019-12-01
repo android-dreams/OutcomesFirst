@@ -42,7 +42,8 @@ namespace OutcomesFirst.ViewModels
 
         public virtual Status SubmissionStatus { get; set; }
 
-        public virtual ArchiveReason SubmissionArchiveReason { get; set; }
+        public virtual ArchiveReason ArchiveReasons { get; set; }
+       
 
 
 

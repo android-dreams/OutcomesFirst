@@ -41,9 +41,9 @@ namespace OutcomesFirst.Models
      
         public virtual Service SubmissionService { get; set; }
 
-    
+
         public virtual Status SubmissionStatus { get; set; }
-    
+
         public virtual ArchiveReason SubmissionArchiveReason { get; set; }
 
 

@@ -42,16 +42,16 @@ namespace OutcomesFirst.ViewModels
 
         [Display(Name = "Date Started With Group")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime PlacementDateStartedWithGroup { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         [Display(Name = "Placement Start Date")]
         public DateTime? PlacementPlacementStartDate { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         [Display(Name = "Date of Birth")]
         [Required]
         public DateTime PlacementDOB { get; set; }
@@ -83,7 +83,7 @@ namespace OutcomesFirst.ViewModels
         public string PlacementNotes { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         [Display(Name = "Leave Date")]
         public DateTime? PlacementLeaveDate { get; set; }
 
