@@ -16,73 +16,92 @@
 <div class="container">
     @if (SignInManager.IsSignedIn(User))
     {
-        <div class="row" style="margin-top:100px">
-            <div class="col-sm-3">
-                <a href="@(Url.Action("Create", "Referrals"))">
-                    <div title="Click to view details" class="auction-dashboard-item">
-                        <div class="auction-headline">
+        <div class="col-sm-12">
+            <div class="row" style="margin-top:50px">
+                <div class="col-sm-3">
+                    <a href="@(Url.Action("Create", "Referrals"))">
+                        <div title="Click to view details">
 
-                            <div class="subtitle">
-                                <h5>New Referral</h5>
+                            <img src="~/images/Referrals.png" />
+                            <div class="auction-headline">
+
+                                @*<div class="subtitle">
+                                        <h5>New Referral</h5>
+                                    </div>*@
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
+        </div>
+        <br />
+        @*<div class="col-sm-12"></div>*@
+        <div class="row">
+            <div class="col-sm-3"></div>
             <div class="col-sm-3">
                 <a href="@(Url.Action("Index", "Submissions"))">
-                    <div title="Click to view details" class="auction-dashboard-item">
-                        <div class="auction-headline">
+                    <div title="Click to view details">
 
-                            <div class="subtitle">
-                                <h5>Submissions</h5>
-                            </div>
+                        <img src="~/images/Submissions.png" />
+                        <div class="auction-headline">
+                            @*<div class="subtitle">
+                                    <h5>Submissions</h5>
+                                </div>*@
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-sm-3">
                 <a href="@(Url.Action("StatusIndex", "Referrals"))">
-                    <div title="Click to view details" class="auction-dashboard-item">
+                    <div title="Click to view details">
+
+                        <img src="~/images/Awaiting-Response.png" />
                         <div class="auction-headline">
+                            @*<div class="subtitle">
+                                    <h5>
+                                        Awaiting Response From Service
+                                    </h5>
 
-                            <div class="subtitle">
-                                <h5>
-                                    Awaiting Response From Service
-                                </h5>
-
-                            </div>
+                                </div>*@
                         </div>
                     </div>
                 </a>
             </div>
+
+        </div>
+
+        <div class="row">
             <div class="col-sm-3">
                 <a href="@(Url.Action("Index", "Referrals"))">
-                    <div title="Click to view details" class="auction-dashboard-item">
+                    <div title="Click to view details">
+                        <img src="~/images/Live Referrals.png" />
                         <div class="auction-headline subtitle">
-                            <div class="subtitle">
-                                <h5>
-                                    Live Referrals
-                                </h5>
-                            </div>
-
-
+                            @*<div class="subtitle">
+                                    <h5>
+                                        Live Referrals
+                                    </h5>
+                                </div>*@
                         </div>
                     </div>
                 </a>
 
             </div>
         </div>
-        <div class="row" style="margin-top:100px">
-            <div class="col-sm-4">
+
+        <div class="row">
+            <div class="col-sm-3"></div>
+
+            <div class="col-sm-3">
                 <a href="@(Url.Action("Index", "Placements"))">
-                    <div title="Click to view details" class="auction-dashboard-item">
+                    <div title="Click to view details">
+
+                        <img src="~/images/Ocupancy.png" />
                         <div class="auction-headline">
-                            <div class="subtitle">
-                                <h5>
-                                    Occupancy
-                                </h5>
-                            </div>
+                            @*<div class="subtitle">
+                                    <h5>
+                                        Occupancy
+                                    </h5>
+                                </div>*@
                         </div>
                     </div>
                 </a>
@@ -100,18 +119,21 @@
                         </div>
                     </a>
                 </div>*@
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <a href="@(Url.Action("Index", "ArchiveReferrals"))">
-                    <div title="Click to view details" class="auction-dashboard-item">
+                    <div title="Click to view details">
+
+                        <img src="~/images/Archive.png" />
                         <div class="auction-headline">
-                            <div class="subtitle">
-                                <h5>Archive</h5>
-                            </div>
+                            @*<div class="subtitle">
+                                    <img src="~/images/Archive.png" />
+                                    <h5>Archive</h5>
+                                </div*@>
                         </div>
                     </div>
                 </a>
-               
-              </div>
+
+            </div>
         </div>
 
     }

@@ -16,6 +16,10 @@
 
     <input type="hidden" asp-for="SubmissionServiceId" />
 
+    @*<input type="hidden" asp-for="SubmissionArchiveReasonId" />
+
+    <input type="hidden" asp-for="SubmissionPlacementStartDate" />*@
+
     <div class="col-md-8">
 
         <div class="card">
@@ -135,6 +139,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                                                    
                             <select asp-for="SubmissionArchiveReasonId" class="form-control form-horizontal" id="ArchiveReasonControl" asp-items="ViewBag.SubmissionArchiveReasonId"></select>
                             <span asp-validation-for="SubmissionArchiveReasonId" class="text-danger"></span>
                         </div>

@@ -170,6 +170,7 @@ input[type=radio] {
     display: inline-block;
     margin-right: 10px;
     -webkit-transition: transform 0.5s, box-shadow 0.5s;
+    background-image: url('../images/submissions.png');
     /* For Safari 3.1 to 6.0 */
     /*transition: transform 0.5s, box-shadow 0.5s;*/
     transition: transform 0.5s;
