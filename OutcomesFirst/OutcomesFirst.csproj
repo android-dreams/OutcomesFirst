@@ -33,6 +33,8 @@
     <Content Remove="Views\Placements\OccupancyDetails.cshtml" />
     <Content Remove="Views\Placements\OccupancyEdit.cshtml" />
     <Content Remove="Views\Placements\OccupancyIndex.cshtml" />
+    <Content Remove="wwwroot\images\arrowdownsmall.png" />
+    <Content Remove="wwwroot\images\arrowupsmall.png" />
   </ItemGroup>
 
   <ItemGroup>
